@@ -1,0 +1,73 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Data privacy - NEVER commit raw or processed personal chats
+data/raw/
+data/processed/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Databases & vector storage
+*.sqlite
+*.sqlite3
+*.db
+qdrant_storage/
+pyghidra_mcp_projects/
+
+# IDE & Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing & Linting caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# OS-generated files
+.DS_Store
+Thumbs.db

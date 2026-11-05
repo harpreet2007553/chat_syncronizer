@@ -1,0 +1,448 @@
+[
+  {
+    "uuid": "c03",
+    "name": "Docker compose for Qdrant",
+    "created_at": "2026-09-04T10:00:00Z",
+    "updated_at": "2026-09-04T10:08:00Z",
+    "chat_messages": [
+      {
+        "uuid": "eb39c4b8-7f5b-4a03-afcd-5acfa34a7cd0",
+        "text": "Give me a docker-compose.yml to run Qdrant locally with persistent storage.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Give me a docker-compose.yml to run Qdrant locally with persistent storage."
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-04T10:00:00Z",
+        "updated_at": "2026-09-04T10:00:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "22004c46-9759-4ef6-bc90-1f58e1c775d3",
+        "text": "Use image qdrant/qdrant, expose ports 6333 and 6334, and mount a named volume to /qdrant/storage so data survives restarts. Add restart: unless-stopped.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Use image qdrant/qdrant, expose ports 6333 and 6334, and mount a named volume to /qdrant/storage so data survives restarts. Add restart: unless-stopped."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-04T10:02:00Z",
+        "updated_at": "2026-09-04T10:02:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "e481faa1-05bc-40ca-8412-fcea8f691ff4",
+        "text": "How do I check it is running?",
+        "content": [
+          {
+            "type": "text",
+            "text": "How do I check it is running?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-04T10:04:00Z",
+        "updated_at": "2026-09-04T10:04:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "4386c901-befd-4d65-a087-8a53f31b3735",
+        "text": "Open http://localhost:6333/dashboard or curl http://localhost:6333/collections. You should get a JSON response with an empty collections list.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Open http://localhost:6333/dashboard or curl http://localhost:6333/collections. You should get a JSON response with an empty collections list."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-04T10:06:00Z",
+        "updated_at": "2026-09-04T10:06:00Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "c04",
+    "name": "Reciprocal rank fusion explained",
+    "created_at": "2026-09-06T10:00:00Z",
+    "updated_at": "2026-09-06T10:08:00Z",
+    "chat_messages": [
+      {
+        "uuid": "967520d4-3a30-41ff-b73d-9f21fbb5719a",
+        "text": "How does reciprocal rank fusion combine BM25 and vector search results?",
+        "content": [
+          {
+            "type": "text",
+            "text": "How does reciprocal rank fusion combine BM25 and vector search results?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-06T10:00:00Z",
+        "updated_at": "2026-09-06T10:00:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "39616022-4377-44f7-8428-c48437756ef6",
+        "text": "RRF gives each document a score of 1/(k + rank) in every ranked list and sums them. The constant k, commonly 60, dampens the influence of top ranks. It needs only ranks, so you do not have to normalize BM25 and cosine scores.",
+        "content": [
+          {
+            "type": "text",
+            "text": "RRF gives each document a score of 1/(k + rank) in every ranked list and sums them. The constant k, commonly 60, dampens the influence of top ranks. It needs only ranks, so you do not have to normalize BM25 and cosine scores."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-06T10:02:00Z",
+        "updated_at": "2026-09-06T10:02:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "1ae38324-2a50-4e78-b0fa-0b65a24b067f",
+        "text": "Why not just weight and add the normalized scores?",
+        "content": [
+          {
+            "type": "text",
+            "text": "Why not just weight and add the normalized scores?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-06T10:04:00Z",
+        "updated_at": "2026-09-06T10:04:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "8bc83fe4-21fd-4e8f-bcb8-440343ed442b",
+        "text": "You can, but score distributions differ across retrievers and shift per query, so normalization is brittle. RRF is a robust default; tune a weighted sum only if you have eval data to justify it.",
+        "content": [
+          {
+            "type": "text",
+            "text": "You can, but score distributions differ across retrievers and shift per query, so normalization is brittle. RRF is a robust default; tune a weighted sum only if you have eval data to justify it."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-06T10:06:00Z",
+        "updated_at": "2026-09-06T10:06:00Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "c06",
+    "name": "Delhi to Jaipur weekend trip",
+    "created_at": "2026-09-09T10:00:00Z",
+    "updated_at": "2026-09-09T10:08:00Z",
+    "chat_messages": [
+      {
+        "uuid": "b8028bee-b3a7-463d-b184-7e45ee252e70",
+        "text": "Plan a 2 day weekend trip from Delhi to Jaipur on a student budget.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Plan a 2 day weekend trip from Delhi to Jaipur on a student budget."
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-09T10:00:00Z",
+        "updated_at": "2026-09-09T10:00:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "6a840913-e75f-412b-8d37-0989b454f936",
+        "text": "Take an early morning train to Jaipur. Day 1: Amer Fort, Jal Mahal, Hawa Mahal and the old city markets. Day 2: City Palace, Jantar Mantar and Nahargarh sunset. Stay in a hostel near Bani Park.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Take an early morning train to Jaipur. Day 1: Amer Fort, Jal Mahal, Hawa Mahal and the old city markets. Day 2: City Palace, Jantar Mantar and Nahargarh sunset. Stay in a hostel near Bani Park."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-09T10:02:00Z",
+        "updated_at": "2026-09-09T10:02:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "51a68759-6aa6-4919-87bd-0f40af8285cc",
+        "text": "What is the cheapest way back?",
+        "content": [
+          {
+            "type": "text",
+            "text": "What is the cheapest way back?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-09T10:04:00Z",
+        "updated_at": "2026-09-09T10:04:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "2d61fc9b-1017-448a-b212-e3979c8373cf",
+        "text": "A night bus or a sleeper-class train on Sunday evening, booked a few days early.",
+        "content": [
+          {
+            "type": "text",
+            "text": "A night bus or a sleeper-class train on Sunday evening, booked a few days early."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-09T10:06:00Z",
+        "updated_at": "2026-09-09T10:06:00Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "c08",
+    "name": "FastAPI CORS error from Chrome extension",
+    "created_at": "2026-09-13T10:00:00Z",
+    "updated_at": "2026-09-13T10:08:00Z",
+    "chat_messages": [
+      {
+        "uuid": "6da83e2b-16ca-4225-86c8-a266a5d92dc7",
+        "text": "My extension fetch to my FastAPI server fails: Access to fetch at 'http://localhost:8000/ingest' from origin 'chrome-extension://abcd' has been blocked by CORS policy.",
+        "content": [
+          {
+            "type": "text",
+            "text": "My extension fetch to my FastAPI server fails: Access to fetch at 'http://localhost:8000/ingest' from origin 'chrome-extension://abcd' has been blocked by CORS policy."
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-13T10:00:00Z",
+        "updated_at": "2026-09-13T10:00:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "ca40fc8a-a03f-4a8f-a3f8-e138b2e36b9d",
+        "text": "Add CORSMiddleware to FastAPI and allow the extension origin: app.add_middleware(CORSMiddleware, allow_origins=['chrome-extension://<your-id>'], allow_methods=['*'], allow_headers=['*']). Also list localhost:8000 under host_permissions in manifest.json.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Add CORSMiddleware to FastAPI and allow the extension origin: app.add_middleware(CORSMiddleware, allow_origins=['chrome-extension://<your-id>'], allow_methods=['*'], allow_headers=['*']). Also list localhost:8000 under host_permissions in manifest.json."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-13T10:02:00Z",
+        "updated_at": "2026-09-13T10:02:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "1f117c84-bac9-4485-b47c-4a20bbcdf5eb",
+        "text": "It works from the background script but not from the content script.",
+        "content": [
+          {
+            "type": "text",
+            "text": "It works from the background script but not from the content script."
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-13T10:04:00Z",
+        "updated_at": "2026-09-13T10:04:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "da221ada-b0cf-44b7-b01c-e6451fe06bbb",
+        "text": "Content scripts run under the page origin, so route the request through the background service worker with chrome.runtime.sendMessage and fetch from there.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Content scripts run under the page origin, so route the request through the background service worker with chrome.runtime.sendMessage and fetch from there."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-13T10:06:00Z",
+        "updated_at": "2026-09-13T10:06:00Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "c10",
+    "name": "Binary search edge cases",
+    "created_at": "2026-09-16T10:00:00Z",
+    "updated_at": "2026-09-16T10:04:00Z",
+    "chat_messages": [
+      {
+        "uuid": "2e15c6b6-c8f3-4888-90a4-b40f17e7a361",
+        "text": "Why does my binary search loop forever when low=0 and high=1?",
+        "content": [
+          {
+            "type": "text",
+            "text": "Why does my binary search loop forever when low=0 and high=1?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-16T10:00:00Z",
+        "updated_at": "2026-09-16T10:00:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "fb53177d-e2f0-4a00-9391-bc84008f04ed",
+        "text": "If you use while low < high with mid = (low + high) // 2 and set low = mid, mid never advances. Use low = mid + 1 when the target is greater, or use the while low <= high form with mid +/- 1 updates.",
+        "content": [
+          {
+            "type": "text",
+            "text": "If you use while low < high with mid = (low + high) // 2 and set low = mid, mid never advances. Use low = mid + 1 when the target is greater, or use the while low <= high form with mid +/- 1 updates."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-16T10:02:00Z",
+        "updated_at": "2026-09-16T10:02:00Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "c12",
+    "name": "uv versus pip for Python projects",
+    "created_at": "2026-09-20T10:00:00Z",
+    "updated_at": "2026-09-20T10:08:00Z",
+    "chat_messages": [
+      {
+        "uuid": "645ce1e4-cf8b-4a1d-8092-bb0385f86d37",
+        "text": "Should I use uv or pip with venv for a new project?",
+        "content": [
+          {
+            "type": "text",
+            "text": "Should I use uv or pip with venv for a new project?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-20T10:00:00Z",
+        "updated_at": "2026-09-20T10:00:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "09d5a7ee-15cf-4329-8a9b-2468af0870c0",
+        "text": "uv is much faster and manages Python versions, the lockfile and the virtualenv together. Use uv init, uv add and uv run. Commit pyproject.toml and uv.lock, and keep .venv out of git.",
+        "content": [
+          {
+            "type": "text",
+            "text": "uv is much faster and manages Python versions, the lockfile and the virtualenv together. Use uv init, uv add and uv run. Commit pyproject.toml and uv.lock, and keep .venv out of git."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-20T10:02:00Z",
+        "updated_at": "2026-09-20T10:02:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "41a48acb-fb12-4f68-9707-3872e54a2afb",
+        "text": "How do I pin the Python version?",
+        "content": [
+          {
+            "type": "text",
+            "text": "How do I pin the Python version?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-20T10:04:00Z",
+        "updated_at": "2026-09-20T10:04:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "1461188a-f4aa-4bfa-9b55-5a8684f095da",
+        "text": "Run uv python pin 3.12, which writes a .python-version file, then uv venv uses it automatically.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Run uv python pin 3.12, which writes a .python-version file, then uv venv uses it automatically."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-20T10:06:00Z",
+        "updated_at": "2026-09-20T10:06:00Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "c14",
+    "name": "Choosing an embedding model",
+    "created_at": "2026-09-24T10:00:00Z",
+    "updated_at": "2026-09-24T10:08:00Z",
+    "chat_messages": [
+      {
+        "uuid": "963643fa-3dbc-49af-8df3-e1b2bb516e68",
+        "text": "bge-small or e5-base for retrieving my own chat history? I have a modest GPU.",
+        "content": [
+          {
+            "type": "text",
+            "text": "bge-small or e5-base for retrieving my own chat history? I have a modest GPU."
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-24T10:00:00Z",
+        "updated_at": "2026-09-24T10:00:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "6f8ceac3-4c2d-4a22-80f9-e3265dcc3d64",
+        "text": "bge-small is fast and runs well on CPU, so it is a good baseline. e5-base is larger and often slightly better, but you must prefix inputs with 'query: ' and 'passage: '. Decide with your own eval set, measuring recall@5 and latency.",
+        "content": [
+          {
+            "type": "text",
+            "text": "bge-small is fast and runs well on CPU, so it is a good baseline. e5-base is larger and often slightly better, but you must prefix inputs with 'query: ' and 'passage: '. Decide with your own eval set, measuring recall@5 and latency."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-24T10:02:00Z",
+        "updated_at": "2026-09-24T10:02:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "fc9732f5-ad31-4b62-a3ed-c4a3de351686",
+        "text": "Does a reranker make this choice less important?",
+        "content": [
+          {
+            "type": "text",
+            "text": "Does a reranker make this choice less important?"
+          }
+        ],
+        "sender": "human",
+        "created_at": "2026-09-24T10:04:00Z",
+        "updated_at": "2026-09-24T10:04:00Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "601f5e16-b6d2-4f2f-a87e-13fd9f105f31",
+        "text": "Partly. A cross-encoder reranker over the top 30 candidates recovers many first-stage misses, but first-stage recall still caps the final result.",
+        "content": [
+          {
+            "type": "text",
+            "text": "Partly. A cross-encoder reranker over the top 30 candidates recovers many first-stage misses, but first-stage recall still caps the final result."
+          }
+        ],
+        "sender": "assistant",
+        "created_at": "2026-09-24T10:06:00Z",
+        "updated_at": "2026-09-24T10:06:00Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  }
+]

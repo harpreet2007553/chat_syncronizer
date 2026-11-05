@@ -1,0 +1,11 @@
+{"qid": "q01", "query": "why does groupby say KeyError even though the column is there", "relevant": ["c01"], "type": "paraphrase"}
+{"qid": "q02", "query": "CUDA out of memory Tried to allocate 2.00 GiB", "relevant": ["c02"], "type": "exact_string"}
+{"qid": "q03", "query": "how to run a vector database locally with docker and keep the data", "relevant": ["c03"], "type": "paraphrase"}
+{"qid": "q04", "query": "what is the k constant in RRF", "relevant": ["c04"], "type": "keyword"}
+{"qid": "q05", "query": "my extension cannot call localhost because of CORS from the content script", "relevant": ["c08"], "type": "paraphrase"}
+{"qid": "q06", "query": "how should I split long chat answers that contain code", "relevant": ["c09"], "type": "paraphrase"}
+{"qid": "q07", "query": "which embedding model and how do I choose between small and base", "relevant": ["c14"], "type": "paraphrase"}
+{"qid": "q08", "query": "set up python version and virtualenv with uv", "relevant": ["c12"], "type": "keyword"}
+{"qid": "q09", "query": "how to build a retrieval pipeline over my chat history", "relevant": ["c04", "c09", "c14"], "type": "multi_chat"}
+{"qid": "q10", "query": "best way to learn Spanish quickly", "relevant": [], "type": "no_answer"}
+{"qid": "q11", "query": "how do I deploy a kubernetes cluster on AWS", "relevant": [], "type": "no_answer"}
