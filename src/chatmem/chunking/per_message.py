@@ -131,7 +131,7 @@ def parse_claude(conv: dict) -> Conversation:
             conversation_id=cid,
             platform="claude",
             role=ROLE_MAP.get(m["sender"], "unknown"),
-            title=m["name"],
+            title=conv["name"],
             text=text,
             timestamp=m["created_at"],
         ))
@@ -186,7 +186,9 @@ for m in messages:
         platform = m.platform,
         title = m.title,
         text = m.text,
-        message_ids = m.message_id,
+        message_ids = [m.message_id],
         time = m.timestamp 
     )
     chunks.append(chunk)
+
+print(len(chunks))
