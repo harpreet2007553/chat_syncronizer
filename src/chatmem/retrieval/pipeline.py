@@ -8,11 +8,11 @@ from pathlib import Path
 from typing import Any, Literal
 
 import yaml
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 from qdrant_client import QdrantClient
 
 from chatmem.index.dense import get_qdrant_client, search_dense
-from chatmem.index.store import bm25_search, connect, get_chunks
+from chatmem.index.store import DEFAULT_DB_PATH, bm25_search, connect, get_chunks
 from chatmem.retrieval.fusion import reciprocal_rank_fusion
 from chatmem.retrieval.gate import apply_gate
 from chatmem.retrieval.rerank import rerank
@@ -32,6 +32,8 @@ STRATEGY_COLLECTIONS: dict[str, str] = {
 
 class PipelineConfig(BaseModel):
     """Configuration for retrieval experiments and execution pipelines."""
+
+    model_config = ConfigDict(extra="forbid")
 
     name: str = "default"
     strategy: Literal["pm", "qa", "ws"] = "qa"
@@ -54,8 +56,25 @@ class PipelineConfig(BaseModel):
         if not self.use_bm25 and not self.use_dense:
             raise ValueError("At least one of use_bm25 or use_dense must be True.")
         if self.gate_threshold is not None and not self.use_rerank:
-            raise ValueError("gate_threshold cannot be set when use_rerank is False (gate requires cross-encoder scores).")
+            raise ValueError(
+                "gate_threshold cannot be set when use_rerank is False (gate requires cross-encoder scores)."
+            )
+        if self.min_results > self.final_top_k:
+            raise ValueError(
+                f"min_results ({self.min_results}) cannot exceed final_top_k ({self.final_top_k})."
+            )
+        if self.use_rerank and self.rerank_candidates < self.final_top_k:
+            raise ValueError(
+                f"rerank_candidates ({self.rerank_candidates}) must be >= final_top_k ({self.final_top_k}) when use_rerank is True."
+            )
         return self
+
+    @property
+    def score_scale(self) -> str:
+        """'rrf' if no reranker, else 'sigmoid' or 'raw' per rerank_normalize."""
+        if not self.use_rerank:
+            return "rrf"
+        return "sigmoid" if self.rerank_normalize else "raw"
 
     @classmethod
     def from_yaml(cls, path: str | Path) -> PipelineConfig:
@@ -90,21 +109,41 @@ class PipelineResult:
     """The complete result of a retrieval pipeline search run.
 
     Note:
-        top_score is on a different scale depending on the config
-        (RRF score, raw cross-encoder score, or sigmoid score).
-        It must not be directly compared across different pipeline configurations.
+        top_score is on a different scale depending on score_scale ('rrf', 'raw', or 'sigmoid').
+        It is only comparable between results with the same score_scale AND the same rerank_model.
     """
 
     chunks: list[RetrievedChunk]
     injected: bool
     reason: str
     top_score: float | None
+    score_scale: str
     timings_ms: dict[str, float]
 
 
 # ============================================================================
 # 3. Retriever Implementation
 # ============================================================================
+
+def _to_chunk(
+    record: dict[str, Any],
+    chunk_id: str,
+    score: float,
+    ranks: dict[str, int],
+) -> RetrievedChunk:
+    """Build a RetrievedChunk from a SQLite record plus score and ranks."""
+    return RetrievedChunk(
+        chunk_id=chunk_id,
+        score=score,
+        text=record["text"],
+        conversation_id=record["conversation_id"],
+        platform=record["platform"],
+        title=record["title"],
+        time=record["time"],
+        message_ids=record["message_ids"],
+        ranks=ranks,
+    )
+
 
 class Retriever:
     """Retrieval orchestrator executing search, fusion, reranking, and gating."""
@@ -141,14 +180,17 @@ class Retriever:
         """Execute the configured multi-stage retrieval pipeline.
 
         Steps:
-            a. Query validation (reject empty / whitespace)
-            b. First-stage search (BM25 and/or Dense)
-            c. RRF Fusion across enabled sources
-            d. Full record hydration from SQLite
-            e. Early exit if no candidates remain
-            f. Optional Cross-Encoder reranking and relevance gating
-            g. Truncation and packaging with per-stage timings
+            a. Query validation
+            b. First-stage search
+            c. Fusion
+            d. Record hydration
+            e. Early exit if no candidates
+            f. Rerank + optional gate (rerank branch) / no-rerank branch
+            g. Finalize timings, log, and package the result
         """
+        # --------------------------------------------------------------------
+        # Step a: Query validation
+        # --------------------------------------------------------------------
         if not query or not query.strip():
             raise ValueError("Query cannot be empty or whitespace-only.")
 
@@ -204,7 +246,7 @@ class Retriever:
         timings_ms["fusion"] = (time.perf_counter() - t0) * 1000.0
 
         # --------------------------------------------------------------------
-        # Step d: Fetch full records from SQLite
+        # Step d: Record hydration (Fetch full records from SQLite)
         # --------------------------------------------------------------------
         t0 = time.perf_counter()
         fused_chunk_ids = [h.chunk_id for h in fused_hits]
@@ -218,14 +260,15 @@ class Retriever:
         timings_ms["fetch"] = (time.perf_counter() - t0) * 1000.0
 
         # --------------------------------------------------------------------
-        # Step e: If nothing remains, return no_candidates without loading reranker
+        # Step e: Early exit if no candidates
         # --------------------------------------------------------------------
         if not kept_fused_hits:
             timings_ms["total"] = (time.perf_counter() - pipeline_start) * 1000.0
             rounded_timings = {k: round(v, 2) for k, v in timings_ms.items()}
             logger.info(
-                "Retriever [%s]: returned=0, injected=False, reason=no_candidates, total_ms=%.2f",
+                "Retriever [%s]: returned=0, injected=False, reason=no_candidates, score_scale=%s, total_ms=%.2f",
                 self.config.name,
+                self.config.score_scale,
                 rounded_timings["total"],
             )
             return PipelineResult(
@@ -233,6 +276,7 @@ class Retriever:
                 injected=False,
                 reason="no_candidates",
                 top_score=None,
+                score_scale=self.config.score_scale,
                 timings_ms=rounded_timings,
             )
 
@@ -240,7 +284,7 @@ class Retriever:
         retrieved_chunks: list[RetrievedChunk] = []
 
         # --------------------------------------------------------------------
-        # Step f: Rerank and optional relevance gate
+        # Step f: Rerank + optional gate (rerank branch)
         # --------------------------------------------------------------------
         if self.config.use_rerank:
             t0 = time.perf_counter()
@@ -277,21 +321,16 @@ class Retriever:
             for h in final_hits:
                 rec = records[h.chunk_id]
                 retrieved_chunks.append(
-                    RetrievedChunk(
+                    _to_chunk(
+                        record=rec,
                         chunk_id=h.chunk_id,
                         score=h.score,
-                        text=rec["text"],
-                        conversation_id=rec["conversation_id"],
-                        platform=rec["platform"],
-                        title=rec["title"],
-                        time=rec["time"],
-                        message_ids=rec["message_ids"],
                         ranks=fusion_ranks.get(h.chunk_id, {}),
                     )
                 )
 
         # --------------------------------------------------------------------
-        # Step g: No reranker
+        # Step f (no rerank): No reranker branch
         # --------------------------------------------------------------------
         else:
             final_fused = kept_fused_hits[: self.config.final_top_k]
@@ -302,31 +341,27 @@ class Retriever:
             for h in final_fused:
                 rec = records[h.chunk_id]
                 retrieved_chunks.append(
-                    RetrievedChunk(
+                    _to_chunk(
+                        record=rec,
                         chunk_id=h.chunk_id,
                         score=h.score,
-                        text=rec["text"],
-                        conversation_id=rec["conversation_id"],
-                        platform=rec["platform"],
-                        title=rec["title"],
-                        time=rec["time"],
-                        message_ids=rec["message_ids"],
                         ranks=h.ranks,
                     )
                 )
 
         # --------------------------------------------------------------------
-        # Step i: Finalize timings and log
+        # Step g: Finalize timings, log, and package the result
         # --------------------------------------------------------------------
         timings_ms["total"] = (time.perf_counter() - pipeline_start) * 1000.0
         rounded_timings = {k: round(v, 2) for k, v in timings_ms.items()}
 
         logger.info(
-            "Retriever [%s]: returned=%d, injected=%s, reason=%s, total_ms=%.2f",
+            "Retriever [%s]: returned=%d, injected=%s, reason=%s, score_scale=%s, total_ms=%.2f",
             self.config.name,
             len(retrieved_chunks),
             injected,
             reason,
+            self.config.score_scale,
             rounded_timings["total"],
         )
 
@@ -335,6 +370,7 @@ class Retriever:
             injected=injected,
             reason=reason,
             top_score=top_score,
+            score_scale=self.config.score_scale,
             timings_ms=rounded_timings,
         )
 
@@ -352,7 +388,7 @@ def build_retriever(
         config = PipelineConfig.from_yaml(config)
 
     if db_path is None:
-        db_path = Path(__file__).resolve().parents[3] / "data" / "processed" / "chatmem.db"
+        db_path = DEFAULT_DB_PATH
 
     conn = connect(db_path)
     client = get_qdrant_client()

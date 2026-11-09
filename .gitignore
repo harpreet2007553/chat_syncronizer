@@ -67,6 +67,7 @@ htmlcov/
 # Logs
 *.log
 logs/
+eval_results/
 
 # OS-generated files
 .DS_Store

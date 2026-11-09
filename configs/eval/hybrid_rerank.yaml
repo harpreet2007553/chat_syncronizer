@@ -1,0 +1,10 @@
+name: hybrid_rerank
+strategy: qa
+use_bm25: true
+use_dense: true
+search_top_k: 30
+final_top_k: 10
+use_rerank: true
+rerank_candidates: 30
+rerank_normalize: false
+
