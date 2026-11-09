@@ -1,6 +1,8 @@
 import json
 import logging
+import math
 import os
+import re
 import sqlite3
 from datetime import datetime
 from pathlib import Path
@@ -26,7 +28,176 @@ DEFAULT_LOCAL_QDRANT_URL = "http://localhost:6333"
 
 
 # ============================================================================
-# 1. SQLite Metadata Store (Conversations, Messages, Chunks)
+# 1. Connection & Core Query Helpers
+# ============================================================================
+
+def connect(db_path: str | Path) -> sqlite3.Connection:
+    """Connect to SQLite database and configure row_factory."""
+    path_str = str(db_path)
+    if path_str != ":memory:":
+        Path(path_str).parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path_str)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON;")
+    return conn
+
+
+def bm25_search(
+    conn: sqlite3.Connection,
+    strategy: str,
+    query: str,
+    top_k: int = 30,
+) -> list[tuple[str, float]]:
+    """Search chunks via BM25 for the given strategy.
+
+    Returns:
+        List of (chunk_id, score) tuples sorted best-first.
+    """
+    if not query or not query.strip():
+        return []
+
+    cursor = conn.cursor()
+
+    # 1. Check for FTS5 tables first
+    fts_table = None
+    for candidate in [f"chunks_{strategy}_fts", "chunks_fts"]:
+        row = cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?", (candidate,)
+        ).fetchone()
+        if row:
+            fts_table = candidate
+            break
+
+    if fts_table:
+        tokens = re.findall(r"\w+", query)
+        if tokens:
+            fts_query = " OR ".join(tokens)
+            try:
+                table_cols = [c["name"] for c in cursor.execute(f"PRAGMA table_info({fts_table});").fetchall()]
+                if "strategy" in table_cols:
+                    rows = cursor.execute(
+                        f"SELECT chunk_id, -bm25({fts_table}) AS score FROM {fts_table} "
+                        f"WHERE {fts_table} MATCH ? AND (strategy = ? OR strategy IS NULL) "
+                        f"ORDER BY score DESC LIMIT ?",
+                        (fts_query, strategy, top_k),
+                    ).fetchall()
+                else:
+                    rows = cursor.execute(
+                        f"SELECT chunk_id, -bm25({fts_table}) AS score FROM {fts_table} "
+                        f"WHERE {fts_table} MATCH ? "
+                        f"ORDER BY score DESC LIMIT ?",
+                        (fts_query, top_k),
+                    ).fetchall()
+                return [(str(r["chunk_id"]), float(r["score"])) for r in rows]
+            except sqlite3.OperationalError:
+                pass
+
+    # 2. Fallback: load chunks from chunks table and score with BM25Index
+    from chatmem.index.bm25 import BM25Index
+
+    table_name = "chunks"
+    try:
+        col_info = cursor.execute(f"PRAGMA table_info({table_name});").fetchall()
+        has_strategy_col = any(c["name"] == "strategy" for c in col_info)
+    except Exception:
+        return []
+
+    if has_strategy_col:
+        rows = cursor.execute(
+            f"SELECT chunk_id, text, conversation_id, platform, title, message_ids, time "
+            f"FROM {table_name} WHERE strategy = ? OR strategy IS NULL",
+            (strategy,),
+        ).fetchall()
+    else:
+        rows = cursor.execute(
+            f"SELECT chunk_id, text, conversation_id, platform, title, message_ids, time FROM {table_name}"
+        ).fetchall()
+
+    if not rows:
+        return []
+
+    chunks: list[Chunk] = []
+    for r in rows:
+        try:
+            m_ids = json.loads(r["message_ids"]) if isinstance(r["message_ids"], str) else list(r["message_ids"])
+        except Exception:
+            m_ids = []
+        try:
+            t = datetime.fromisoformat(r["time"]) if r["time"] else datetime.now()
+        except Exception:
+            t = datetime.now()
+
+        chunks.append(
+            Chunk(
+                chunk_id=r["chunk_id"],
+                conversation_id=r["conversation_id"],
+                platform=r["platform"],
+                title=r["title"] or "Untitled",
+                text=r["text"],
+                message_ids=m_ids,
+                time=t,
+            )
+        )
+
+    bm25_idx = BM25Index()
+    bm25_idx.index_chunks(chunks)
+    hits = bm25_idx.search(query, top_k=top_k)
+    return [(c.chunk_id, score) for c, score in hits]
+
+
+def get_chunks(
+    conn: sqlite3.Connection,
+    strategy: str,
+    chunk_ids: Sequence[str],
+) -> dict[str, dict]:
+    """Retrieve full chunk records by chunk_ids.
+
+    Returns:
+        dict[chunk_id, record dict with keys:
+            chunk_id, conversation_id, platform, title, text, message_ids (list[str]), time (ISO string)
+        ]
+    """
+    if not chunk_ids:
+        return {}
+
+    placeholders = ",".join("?" for _ in chunk_ids)
+    cursor = conn.cursor()
+
+    query = f"SELECT * FROM chunks WHERE chunk_id IN ({placeholders})"
+    try:
+        rows = cursor.execute(query, list(chunk_ids)).fetchall()
+    except sqlite3.OperationalError:
+        return {}
+
+    records: dict[str, dict] = {}
+    for r in rows:
+        cid = str(r["chunk_id"])
+        m_ids = r["message_ids"]
+        if isinstance(m_ids, str):
+            try:
+                m_ids = json.loads(m_ids)
+            except Exception:
+                m_ids = [m_ids]
+        elif not isinstance(m_ids, list):
+            m_ids = list(m_ids)
+
+        t_val = str(r["time"]) if r["time"] else ""
+
+        records[cid] = {
+            "chunk_id": cid,
+            "conversation_id": str(r["conversation_id"]),
+            "platform": str(r["platform"]),
+            "title": str(r["title"]) if r["title"] is not None else None,
+            "text": str(r["text"]),
+            "message_ids": [str(mid) for mid in m_ids],
+            "time": t_val,
+        }
+
+    return records
+
+
+# ============================================================================
+# 2. SQLite Metadata Store Class
 # ============================================================================
 
 class SQLiteMetadataStore:
@@ -38,10 +209,7 @@ class SQLiteMetadataStore:
         self.init_db()
 
     def _get_connection(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        conn.execute("PRAGMA foreign_keys = ON;")
-        return conn
+        return connect(self.db_path)
 
     def init_db(self) -> None:
         """Create tables for conversations, messages, and chunks."""
@@ -68,6 +236,7 @@ class SQLiteMetadataStore:
 
                 CREATE TABLE IF NOT EXISTS chunks (
                     chunk_id TEXT PRIMARY KEY,
+                    strategy TEXT,
                     conversation_id TEXT NOT NULL,
                     platform TEXT NOT NULL,
                     title TEXT NOT NULL,
@@ -177,7 +346,7 @@ class SQLiteMetadataStore:
                 conversations.append(c)
         return conversations
 
-    def save_chunks(self, chunks: Sequence[Chunk]) -> int:
+    def save_chunks(self, chunks: Sequence[Chunk], strategy: str = "qa") -> int:
         """Store chunk metadata for quick citation hydration."""
         if not chunks:
             return 0
@@ -187,6 +356,7 @@ class SQLiteMetadataStore:
             t_str = c.time.isoformat() if isinstance(c.time, datetime) else str(c.time)
             chunk_rows.append((
                 c.chunk_id,
+                strategy,
                 c.conversation_id,
                 c.platform,
                 c.title,
@@ -197,11 +367,11 @@ class SQLiteMetadataStore:
 
         with self._get_connection() as conn:
             conn.executemany("""
-                INSERT OR REPLACE INTO chunks (chunk_id, conversation_id, platform, title, text, message_ids, time)
-                VALUES (?, ?, ?, ?, ?, ?, ?);
+                INSERT OR REPLACE INTO chunks (chunk_id, strategy, conversation_id, platform, title, text, message_ids, time)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?);
             """, chunk_rows)
 
-        logger.info("Saved %d chunks into SQLite", len(chunk_rows))
+        logger.info("Saved %d chunks into SQLite (strategy=%s)", len(chunk_rows), strategy)
         return len(chunk_rows)
 
     def get_chunk(self, chunk_id: str) -> Chunk | None:
@@ -222,7 +392,7 @@ class SQLiteMetadataStore:
 
 
 # ============================================================================
-# 2. Local Qdrant Store (Vector Database Layer)
+# 3. Local Qdrant Store (Vector Database Layer)
 # ============================================================================
 
 class QdrantStore:
@@ -288,40 +458,16 @@ class QdrantStore:
         """Return list of collection names."""
         return [c.name for c in self.client.get_collections().collections]
 
-    def count_points(self, collection_name: str) -> int:    
+    def count_points(self, collection_name: str) -> int:
         """Get the number of indexed points in a collection."""
         if not self.client.collection_exists(collection_name):
             return 0
         return self.client.get_collection(collection_name).points_count or 0
 
 
-# Default instances for convenient import across modules
 def get_metadata_store(db_path: str | Path | None = None) -> SQLiteMetadataStore:
     return SQLiteMetadataStore(db_path=db_path or DEFAULT_DB_PATH)
 
 
 def get_qdrant_store(url: str | None = None) -> QdrantStore:
     return QdrantStore(url=url)
-
-
-if __name__ == "__main__":
-    from chatmem.chunking.per_message import conversations_list
-    from chatmem.chunking.qa_pair import QA_Chunks
-
-    # 1. Test SQLite Metadata Store
-    print("Testing SQLite Metadata Store...")
-    sql_store = get_metadata_store()
-    convs = list(conversations_list.values())
-    sql_store.save_conversations(convs)
-    sql_store.save_chunks(QA_Chunks)
-
-    loaded = sql_store.get_all_conversations()
-    print(f"SQLite successfully saved & verified: {len(loaded)} conversations.")
-
-    # 2. Test Qdrant Store
-    print("\nTesting Qdrant Store...")
-    q_store = get_qdrant_store()
-    print(f"Local Qdrant active collections: {q_store.list_collections()}")
-    for name in q_store.list_collections():
-        print(f" - {name}: {q_store.count_points(name)} points")
-

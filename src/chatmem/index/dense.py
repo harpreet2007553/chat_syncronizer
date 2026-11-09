@@ -1,8 +1,10 @@
 import logging
+import os
 import uuid
 from datetime import datetime
 from typing import Sequence
 
+from qdrant_client import QdrantClient
 from qdrant_client.models import (
     Distance,
     FieldCondition,
@@ -21,6 +23,62 @@ logger = get_logger(__name__)
 DEFAULT_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 DEFAULT_VECTOR_SIZE = 384
 DEFAULT_COLLECTION_NAME = "chunks_qa"
+DEFAULT_LOCAL_QDRANT_URL = "http://localhost:6333"
+
+_GLOBAL_EMBED_MODEL: SentenceTransformer | None = None
+
+
+def get_qdrant_client(url: str | None = None) -> QdrantClient:
+    """Connect to local Qdrant instance (default: http://localhost:6333)."""
+    target_url = url or os.getenv("QDRANT_URL") or DEFAULT_LOCAL_QDRANT_URL
+    return QdrantClient(url=target_url)
+
+
+def _get_embed_model(model_name: str = DEFAULT_MODEL_NAME) -> SentenceTransformer:
+    global _GLOBAL_EMBED_MODEL
+    if _GLOBAL_EMBED_MODEL is None:
+        logger.info("Loading embedding model '%s' for dense search...", model_name)
+        _GLOBAL_EMBED_MODEL = SentenceTransformer(model_name)
+    return _GLOBAL_EMBED_MODEL
+
+
+def search_dense(
+    client: QdrantClient,
+    collection: str,
+    query: str,
+    top_k: int = 30,
+) -> list[tuple[str, float]]:
+    """Search Qdrant dense vector collection using query text.
+
+    Args:
+        client: QdrantClient instance.
+        collection: Target Qdrant collection name (e.g. 'chunks_qa').
+        query: Query string.
+        top_k: Max points to return.
+
+    Returns:
+        List of (chunk_id, score) tuples sorted best-first.
+    """
+    if not query or not query.strip():
+        return []
+
+    model = _get_embed_model()
+    query_vector = model.encode(query, convert_to_numpy=True).tolist()
+
+    response = client.query_points(
+        collection_name=collection,
+        query=query_vector,
+        limit=top_k,
+        with_payload=True,
+    )
+
+    results: list[tuple[str, float]] = []
+    for p in response.points:
+        payload = p.payload or {}
+        chunk_id = str(payload.get("chunk_id", p.id))
+        results.append((chunk_id, float(p.score)))
+
+    return results
 
 
 class DenseIndex:
@@ -42,8 +100,7 @@ class DenseIndex:
     def model(self) -> SentenceTransformer:
         """Lazy-load the SentenceTransformer embedding model."""
         if self._model is None:
-            logger.info("Loading embedding model: %s", self.model_name)
-            self._model = SentenceTransformer(self.model_name)
+            self._model = _get_embed_model(self.model_name)
             self._vector_dim = self._model.get_sentence_embedding_dimension()
         return self._model
 
@@ -80,7 +137,6 @@ class DenseIndex:
 
         points: list[PointStruct] = []
         for chunk, vec in zip(chunks, embeddings):
-            # Deterministic UUID prevents duplicate points on re-indexing
             point_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, chunk.chunk_id))
             time_val = (
                 chunk.time.isoformat()
@@ -156,15 +212,3 @@ class DenseIndex:
             results.append((chunk, float(sp.score)))
 
         return results
-
-
-if __name__ == "__main__":
-    from chatmem.chunking.qa_pair import QA_Chunks
-
-    idx = DenseIndex(collection_name="chunks_qa")
-    test_query = "How to fix KeyError in pandas groupby?"
-    print(f"\nQuerying: '{test_query}'")
-    hits = idx.search(test_query, top_k=3)
-    for i, (chunk, score) in enumerate(hits, 1):
-        print(f"\n[{i}] Score: {score:.4f} | Chat: {chunk.title} ({chunk.platform})")
-        print(f"Text snippet: {chunk.text[:120]}...")
