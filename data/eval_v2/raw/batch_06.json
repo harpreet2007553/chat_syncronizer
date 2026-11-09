@@ -1,0 +1,347 @@
+[
+  {
+    "id": "c51",
+    "platform": "chatgpt",
+    "title": "Negotiating software engineer salary and equity",
+    "created": 1695805200.0,
+    "facts": [
+      "negotiate_software_engineer_equity_base",
+      "tech_career_negotiation_growth"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "received a software engineer job offer: 130k base, 20k equity/year, 10k sign-on. how do i negotiate?"
+      },
+      {
+        "role": "assistant",
+        "text": "Never accept or negotiate immediately on the phone; always ask for 48 hours to review the total compensation package.\nNegotiation tips:\n1. Base salary is hardest to move for bands; RSUs/equity and sign-on bonuses have much more hiring manager flexibility.\n2. Anchor with market data (Levels.fyi, Blind) or competing offers: 'I'm excited about the team's roadmap. Based on competing conversations and market rates for senior roles, I am looking for $145k base or an additional $20k in initial equity grant.'\n3. Frame negotiation collaboratively: 'If we can reach $145k total base, I am ready to sign today.'"
+      }
+    ]
+  },
+  {
+    "id": "c52",
+    "platform": "claude",
+    "title": "Cover letter transition to AI engineering",
+    "created": 1696237200.0,
+    "facts": [
+      "cover_letter_transition_ai_engineer"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How do I frame a transition from senior backend engineer to AI engineer in a cover letter?"
+      },
+      {
+        "role": "assistant",
+        "text": "Highlight that production AI is 80% systems engineering and infrastructure:\n1. Emphasize backend rigor: production AI applications fail on latency, rate limits, async concurrency, vector indexing, and data pipelines\u2014skills seasoned backend engineers excel at.\n2. Showcase concrete applied AI projects: mention RAG architectures, evaluation benchmarks, or fine-tuning pipelines you've built.\n3. Frame your experience as bridge-building: 'I combine robust distributed systems engineering with practical LLM integration, ensuring models perform reliably in production rather than just in Jupyter notebooks.'"
+      }
+    ]
+  },
+  {
+    "id": "c53",
+    "platform": "chatgpt",
+    "title": "System design interview preparation roadmap",
+    "created": 1696669200.0,
+    "facts": [
+      "system_design_interview_preparation_roadmap"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "what is a comprehensive preparation roadmap for senior backend system design interviews?"
+      },
+      {
+        "role": "assistant",
+        "text": "Follow a 4-step structured roadmap over 4 to 8 weeks:\n1. Foundations: Networking (TCP/HTTP/gRPC), Caching (Redis/Memcached, Cache-Aside vs Write-Through), Database scaling (Replication, Sharding, B-Tree vs LSM), and Message queues (Kafka/RabbitMQ).\n2. Core trade-offs: CAP theorem, PACELC, strong consistency vs eventual consistency.\n3. Standard design patterns: Rate limiters, URL shorteners, distributed ID generation (Snowflake), notification systems, chat apps.\n4. Mock interviews with real-time feedback."
+      },
+      {
+        "role": "user",
+        "text": "how should i pace the 45-minute interview?"
+      },
+      {
+        "role": "assistant",
+        "text": "Divide into 4 distinct phases:\n- 0-5 mins: Clarify requirements & scope (functional, non-functional, latency, QPS, data retention).\n- 5-10 mins: High-level design (draw key services, DB, cache, load balancers).\n- 10-30 mins: Deep dive into core bottlenecks, data schema, APIs, and scaling.\n- 30-40 mins: Failure modes, resiliency, monitoring, and single points of failure.\n- 40-45 mins: Wrap up and interview questions."
+      },
+      {
+        "role": "user",
+        "text": "how to calculate QPS and storage estimations?"
+      },
+      {
+        "role": "assistant",
+        "text": "Memorize quick powers of 10:\n- 1 million requests/day $\\approx$ 12 requests/second ($10^6 / 86400$).\n- 100 million daily active users $\\approx$ 1,200 QPS average, ~2,400 peak.\n- Storage: 100 million posts/day $\\times$ 500 bytes = 50 GB/day $\\approx$ 18 TB/year."
+      },
+      {
+        "role": "user",
+        "text": "what is the best approach for unique ID generation without single point of failure?"
+      },
+      {
+        "role": "assistant",
+        "text": "Twitter Snowflake approach: 64-bit integer consisting of:\n- 1 sign bit (0)\n- 41 bits timestamp in milliseconds (~69 years)\n- 10 bits worker / machine node ID (1024 nodes)\n- 12 bits sequence number (4096 IDs per millisecond per node).\nProvides k-sortable, decentralized, high-throughput unique IDs without database coordination."
+      },
+      {
+        "role": "user",
+        "text": "SQL vs NoSQL: how do I justify my choice in the interview?"
+      },
+      {
+        "role": "assistant",
+        "text": "Justify by access patterns and consistency needs:\n- Choose SQL (PostgreSQL, MySQL) when: ACID transactions are required (financial transactions), data has relational foreign keys, schema is stable, and complex JOINs are common.\n- Choose NoSQL (Cassandra, DynamoDB, MongoDB) when: massive write volume requiring horizontal partitioning, flexible schema, key-value or document lookups by partition key, and eventual consistency is acceptable."
+      },
+      {
+        "role": "user",
+        "text": "how to handle hot partition keys in sharded databases?"
+      },
+      {
+        "role": "assistant",
+        "text": "Add a salt or suffix to hot keys (e.g. `celebrity_user_id_#` where `#` is 0-9) to spread writes across 10 shards, and query shards in parallel with scatter-gather during reads. Or use an aggressive Redis cache in front of read-heavy partitions."
+      },
+      {
+        "role": "user",
+        "text": "what is circuit breaker pattern?"
+      },
+      {
+        "role": "assistant",
+        "text": "Prevents cascading failures when a downstream dependency fails. Three states: Closed (normal), Open (requests fail immediately without calling broken service), Half-Open (allows test requests through to check if service recovered)."
+      },
+      {
+        "role": "user",
+        "text": "what book do you recommend for studying?"
+      },
+      {
+        "role": "assistant",
+        "text": "'Designing Data-Intensive Applications' by Martin Kleppmann is essential for deep conceptual fundamentals. 'System Design Interview' by Alex Xu (Vol 1 & 2) is best for interview template practice."
+      },
+      {
+        "role": "user",
+        "text": "how to design a distributed rate limiter?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use Redis with token bucket or sliding window log using Redis sorted sets (ZADD, ZREMRANGEBYSCORE, ZCARD) wrapped in a Lua script for atomic evaluation."
+      },
+      {
+        "role": "user",
+        "text": "this is an outstanding preparation framework, thank you!"
+      },
+      {
+        "role": "assistant",
+        "text": "Best of luck with your preparation! Consistency and practicing mock interviews out loud are the keys to acing system design."
+      }
+    ]
+  },
+  {
+    "id": "c54",
+    "platform": "claude",
+    "title": "Emergency fund in High-Yield Savings Account",
+    "created": 1697101200.0,
+    "facts": [
+      "emergency_fund_hysa_liquidity"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Where should I keep my 6-month emergency fund?"
+      },
+      {
+        "role": "assistant",
+        "text": "Keep it in a High-Yield Savings Account (HYSA) or a money market fund (like Vanguard VMFXX):\n1. Safety: FDIC or NCUA insurance protects deposits up to $250,000 per institution.\n2. Liquidity: You can transfer funds to your checking account within 1-2 business days with zero penalty.\n3. Return: High-yield savings accounts currently earn 4% to 5% APY, far superior to traditional big banks paying 0.01%.\nNever put your emergency fund in stocks, crypto, or illiquid CDs."
+      }
+    ]
+  },
+  {
+    "id": "c55",
+    "platform": "chatgpt",
+    "title": "Index fund ETF vs mutual fund dollar cost averaging",
+    "created": 1697533200.0,
+    "facts": [
+      "index_fund_etf_voo_vs_vfiax"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "is VOO ETF better than VFIAX mutual fund for automatic dollar cost averaging?"
+      },
+      {
+        "role": "assistant",
+        "text": "Both track the S&P 500 with nearly identical ultra-low expense ratios (0.03% vs 0.04%). Differences:\n- `VOO (ETF)`: Trades like a stock throughout the day with live pricing. In taxable accounts, ETFs have slight tax advantages regarding capital gains distributions. Most brokerages now allow fractional-share automated recurring buys.\n- `VFIAX (Mutual Fund)`: Trades once per day at 4 PM closing NAV. Seamless automatic recurring investments of exact dollar amounts (e.g. $100 every Tuesday) directly from checking account."
+      }
+    ]
+  },
+  {
+    "id": "c56",
+    "platform": "claude",
+    "title": "Backdoor Roth IRA and pro-rata rule",
+    "created": 1697965200.0,
+    "facts": [
+      "backdoor_roth_ira_pro_rata_rule",
+      "retirement_accounts_tax_optimization"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "My income exceeded the Roth IRA limit this year. How does the Backdoor Roth IRA work?"
+      },
+      {
+        "role": "assistant",
+        "text": "When your Modified Adjusted Gross Income exceeds IRS limits (e.g. >$161k single in 2024), you cannot contribute directly to a Roth IRA. The Backdoor Roth is a two-step legal maneuver:\n1. Make a non-deductible contribution to a traditional IRA.\n2. Convert the traditional IRA funds into your Roth IRA.\nBecause non-deductible contributions are made with after-tax money, the conversion is tax-free\u2014provided you don't violate the Pro-Rata Rule."
+      },
+      {
+        "role": "user",
+        "text": "What is the Pro-Rata Rule and how does it bite people?"
+      },
+      {
+        "role": "assistant",
+        "text": "The IRS views ALL your non-Roth IRAs (Traditional, SEP, and SIMPLE IRAs) as one combined bucket under Form 8606. If you have $93,000 in pre-tax traditional IRA funds and contribute $7,000 non-deductible after-tax money, 93% of your conversion will be taxable!"
+      },
+      {
+        "role": "user",
+        "text": "How can I avoid the pro-rata rule if I have an existing pre-tax traditional IRA?"
+      },
+      {
+        "role": "assistant",
+        "text": "Roll over your pre-tax traditional IRA funds into your current employer's 401(k) plan (a 'reverse rollover'). Employer 401(k)s do NOT count towards the IRA pro-rata calculation! Once your traditional IRA balance is $0 as of December 31, the pro-rata rule does not apply."
+      },
+      {
+        "role": "user",
+        "text": "How long should I wait between contributing and converting?"
+      },
+      {
+        "role": "assistant",
+        "text": "Wait until the deposit clears (typically 1 to 3 business days), then immediately convert before it accrues interest. Converting promptly keeps taxable gains to pennies."
+      },
+      {
+        "role": "user",
+        "text": "What tax form is filed for this?"
+      },
+      {
+        "role": "assistant",
+        "text": "You must file IRS Form 8606 with your annual tax return (Form 1040) to report the non-deductible contribution and subsequent conversion."
+      },
+      {
+        "role": "user",
+        "text": "Can I do backdoor Roth every year?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes, as long as IRS tax law permits it and you maintain a $0 pre-tax traditional IRA balance."
+      },
+      {
+        "role": "user",
+        "text": "What if my $7,000 earned $2 of interest before conversion?"
+      },
+      {
+        "role": "assistant",
+        "text": "Convert the full $7,002! You'll simply pay income tax on the $2 of interest. Do not leave $2 behind in the traditional IRA."
+      },
+      {
+        "role": "user",
+        "text": "Can my spouse do one too even if they don't work?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes! Through a Spousal IRA, a non-working spouse can contribute to their own IRA using the working spouse's earned income, and execute their own backdoor conversion."
+      },
+      {
+        "role": "user",
+        "text": "Is there any income ceiling that stops someone from making a non-deductible traditional IRA contribution?"
+      },
+      {
+        "role": "assistant",
+        "text": "No! Anyone with earned income can make a non-deductible traditional IRA contribution regardless of how high their income is. The income limit only restricts deductibility and direct Roth contributions."
+      },
+      {
+        "role": "user",
+        "text": "This demystifies the entire process, especially the pro-rata rule!"
+      },
+      {
+        "role": "assistant",
+        "text": "Glad to help! As long as you keep your pre-tax IRA balance at zero on Dec 31, the backdoor Roth is a clean and powerful retirement wealth builder."
+      }
+    ]
+  },
+  {
+    "id": "c57",
+    "platform": "chatgpt",
+    "title": "Credit score utilization ratio rules",
+    "created": 1698397200.0,
+    "facts": [
+      "credit_score_utilization_ratio"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how does credit utilization affect my credit score and what percent should i stay under?"
+      },
+      {
+        "role": "assistant",
+        "text": "Credit utilization (total balances divided by total credit limits across all cards) accounts for roughly 30% of your FICO score.\n- The general rule is to keep it under 30%.\n- For optimal scores (750+), keep it under 10% (and ideally 1-3%).\nTip: Card issuers report your balance on your statement closing date, not your due date. Pay off your balance a few days before your statement closes to report a near-zero balance."
+      }
+    ]
+  },
+  {
+    "id": "c58",
+    "platform": "claude",
+    "title": "Term vs whole life insurance and garden beds",
+    "created": 1698829200.0,
+    "facts": [
+      "term_vs_whole_life_insurance"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "A financial advisor is pitching whole life insurance as an investment. Is that good or should I get term life?"
+      },
+      {
+        "role": "assistant",
+        "text": "For 99% of people, whole life is an expensive, high-commission product you should avoid. Buy Term and Invest the Difference:\n- `Term Life`: Pure insurance protection (e.g., $1M coverage for 20 or 30 years) for $30-$50/month. Covers your family while kids grow up and you build wealth.\n- `Whole Life`: Costs 5x to 10x more for the same coverage, with mediocre cash value returns heavily eaten by management fees."
+      },
+      {
+        "role": "user",
+        "text": "Makes total sense. Shifting gears to the weekend: what is the best rot-resistant wood for building raised garden beds for veggies?"
+      },
+      {
+        "role": "assistant",
+        "text": "Cedar (Western Red Cedar) and Redwood are the gold standard for raised garden beds because natural oils make them naturally rot- and insect-resistant for 10-15+ years without chemicals.\nIf on a budget, Douglas Fir lasts 5-7 years at half the cost. Avoid old pressure-treated lumber (pre-2004) which contained chromated copper arsenate (CCA)."
+      }
+    ]
+  },
+  {
+    "id": "c59",
+    "platform": "chatgpt",
+    "title": "Couch to 5k running and shin splints prevention",
+    "created": 1699261200.0,
+    "facts": [
+      "couch_to_5k_shin_splints_cadence"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "started couch to 5k week 2 and my shins hurt when running. how to prevent shin splints?"
+      },
+      {
+        "role": "assistant",
+        "text": "Shin splints (medial tibial stress syndrome) are common beginner overuse injuries. How to fix:\n1. Shorten your stride: avoid overstriding (landing with heel far out in front of your knee). Land with feet directly underneath your hips.\n2. Increase cadence to ~160-170 steps per minute.\n3. Run on softer surfaces (dirt path or asphalt instead of concrete sidewalks).\n4. Strengthen tibialis anterior with heel walks and toe raises.\n5. If pain is sharp and hurts when walking, rest 3-5 days to avoid a stress fracture."
+      }
+    ]
+  },
+  {
+    "id": "c60",
+    "platform": "claude",
+    "title": "Barbell bench press shoulder pain and scapula retraction",
+    "created": 1699693200.0,
+    "facts": [
+      "bench_press_shoulder_scapular_retraction",
+      "strength_training_form_cues"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "My front shoulders ache during flat barbell bench press. How can I adjust my form?"
+      },
+      {
+        "role": "assistant",
+        "text": "Front shoulder pain during bench press is usually caused by flared elbows or lost upper-back tension:\n1. Retract and depress your scapulae: pinch your shoulder blades together and push them down into your back pockets, planting firmly into the bench.\n2. Tuck elbows to ~45-75 degrees relative to your torso. Avoid 90-degree flared 'T-bar' pressing.\n3. Bar path should touch lower chest (around sternum/nipple line) and press up in a slight J-curve back over your shoulder joints."
+      }
+    ]
+  }
+]

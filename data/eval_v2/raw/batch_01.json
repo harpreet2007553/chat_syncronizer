@@ -1,0 +1,272 @@
+[
+  {
+    "id": "c01",
+    "platform": "chatgpt",
+    "title": "Fix KeyError in pandas groupby",
+    "created": "2026-09-01T10:00:00+00:00",
+    "facts": [
+      "pandas_groupby_keyerror"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "I get KeyError: 'user_id' when I run df.groupby('user_id').agg(...). The column exists when I print df.columns."
+      },
+      {
+        "role": "assistant",
+        "text": "That usually means the column name has hidden whitespace or you already set it as the index. Check df.columns.tolist() for 'user_id ' with a trailing space, or call df.reset_index() before groupby."
+      },
+      {
+        "role": "user",
+        "text": "Yes, it was a trailing space from the CSV header. Is there a clean way to prevent this?"
+      },
+      {
+        "role": "assistant",
+        "text": "Normalize on load: df.columns = df.columns.str.strip().str.lower(). You can also pass skipinitialspace=True to pd.read_csv."
+      }
+    ]
+  },
+  {
+    "id": "c02",
+    "platform": "chatgpt",
+    "title": "PyTorch CUDA out of memory",
+    "created": "2026-09-03T10:00:00+00:00",
+    "facts": [
+      "pytorch_cuda_out_of_memory",
+      "gpu_out_of_memory_management"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "RuntimeError: CUDA out of memory. Tried to allocate 2.00 GiB while fine-tuning a 7B model on my laptop GPU."
+      },
+      {
+        "role": "assistant",
+        "text": "Reduce memory in this order: lower the batch size to 1 and use gradient accumulation, enable gradient checkpointing, load the model in 4-bit with bitsandbytes (QLoRA), and shorten max sequence length."
+      },
+      {
+        "role": "user",
+        "text": "I only have 8 GB VRAM. Will QLoRA fit a 7B model?"
+      },
+      {
+        "role": "assistant",
+        "text": "Often yes with 4-bit weights, LoRA rank 8-16, batch size 1 and a sequence length around 512. Expect slow training. A 3B model is more comfortable at 8 GB."
+      }
+    ]
+  },
+  {
+    "id": "c03",
+    "platform": "claude",
+    "title": "Docker compose for Qdrant",
+    "created": "2026-09-04T10:00:00+00:00",
+    "facts": [
+      "docker_qdrant_storage"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Give me a docker-compose.yml to run Qdrant locally with persistent storage."
+      },
+      {
+        "role": "assistant",
+        "text": "Use image qdrant/qdrant, expose ports 6333 and 6334, and mount a named volume to /qdrant/storage so data survives restarts. Add restart: unless-stopped."
+      },
+      {
+        "role": "user",
+        "text": "How do I check it is running?"
+      },
+      {
+        "role": "assistant",
+        "text": "Open http://localhost:6333/dashboard or curl http://localhost:6333/collections. You should get a JSON response with an empty collections list."
+      }
+    ]
+  },
+  {
+    "id": "c04",
+    "platform": "claude",
+    "title": "Reciprocal rank fusion explained",
+    "created": "2026-09-06T10:00:00+00:00",
+    "facts": [
+      "reciprocal_rank_fusion_k_constant",
+      "rag_chat_original_retrieval",
+      "rag_chat_retrieval_architecture"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How does reciprocal rank fusion combine BM25 and vector search results?"
+      },
+      {
+        "role": "assistant",
+        "text": "RRF gives each document a score of 1/(k + rank) in every ranked list and sums them. The constant k, commonly 60, dampens the influence of top ranks. It needs only ranks, so you do not have to normalize BM25 and cosine scores."
+      },
+      {
+        "role": "user",
+        "text": "Why not just weight and add the normalized scores?"
+      },
+      {
+        "role": "assistant",
+        "text": "You can, but score distributions differ across retrievers and shift per query, so normalization is brittle. RRF is a robust default; tune a weighted sum only if you have eval data to justify it."
+      }
+    ]
+  },
+  {
+    "id": "c05",
+    "platform": "chatgpt",
+    "title": "Paneer butter masala recipe",
+    "created": "2026-09-07T10:00:00+00:00",
+    "facts": [
+      "paneer_butter_masala_recipe"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Simple paneer butter masala recipe for 3 people?"
+      },
+      {
+        "role": "assistant",
+        "text": "Saute onion and tomato with cashews, blend into a puree, cook it with butter, kashmiri chilli, garam masala and a little cream, then add 250 g paneer cubes and simmer 5 minutes. Finish with kasuri methi."
+      },
+      {
+        "role": "user",
+        "text": "Can I skip the cashews?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes. Use a spoon of fresh cream or a few melon seeds for the same richness."
+      }
+    ]
+  },
+  {
+    "id": "c06",
+    "platform": "claude",
+    "title": "Delhi to Jaipur weekend trip",
+    "created": "2026-09-09T10:00:00+00:00",
+    "facts": [
+      "delhi_jaipur_itinerary"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Plan a 2 day weekend trip from Delhi to Jaipur on a student budget."
+      },
+      {
+        "role": "assistant",
+        "text": "Take an early morning train to Jaipur. Day 1: Amer Fort, Jal Mahal, Hawa Mahal and the old city markets. Day 2: City Palace, Jantar Mantar and Nahargarh sunset. Stay in a hostel near Bani Park."
+      },
+      {
+        "role": "user",
+        "text": "What is the cheapest way back?"
+      },
+      {
+        "role": "assistant",
+        "text": "A night bus or a sleeper-class train on Sunday evening, booked a few days early."
+      }
+    ]
+  },
+  {
+    "id": "c07",
+    "platform": "chatgpt",
+    "title": "Resume bullets for an ML project",
+    "created": "2026-09-11T10:00:00+00:00",
+    "facts": [
+      "resume_ml_bullets",
+      "tech_career_negotiation_growth"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Help me write resume bullets for my pollution severity classification project."
+      },
+      {
+        "role": "assistant",
+        "text": "Use action plus metric: 'Built a gradient-boosted classifier for air pollution severity, improving macro-F1 from 0.61 to 0.78 over a logistic regression baseline.' Add data size, validation method and one deployment detail."
+      },
+      {
+        "role": "user",
+        "text": "I do not have deployment yet."
+      },
+      {
+        "role": "assistant",
+        "text": "Then say what you did do: 'Designed stratified cross-validation and error analysis across 5 severity classes.' Do not claim deployment you have not done."
+      }
+    ]
+  },
+  {
+    "id": "c08",
+    "platform": "claude",
+    "title": "FastAPI CORS error from Chrome extension",
+    "created": "2026-09-13T10:00:00+00:00",
+    "facts": [
+      "fastapi_cors_chrome_extension",
+      "fastapi_production_patterns"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "My extension fetch to my FastAPI server fails: Access to fetch at 'http://localhost:8000/ingest' from origin 'chrome-extension://abcd' has been blocked by CORS policy."
+      },
+      {
+        "role": "assistant",
+        "text": "Add CORSMiddleware to FastAPI and allow the extension origin: app.add_middleware(CORSMiddleware, allow_origins=['chrome-extension://<your-id>'], allow_methods=['*'], allow_headers=['*']). Also list localhost:8000 under host_permissions in manifest.json."
+      },
+      {
+        "role": "user",
+        "text": "It works from the background script but not from the content script."
+      },
+      {
+        "role": "assistant",
+        "text": "Content scripts run under the page origin, so route the request through the background service worker with chrome.runtime.sendMessage and fetch from there."
+      }
+    ]
+  },
+  {
+    "id": "c09",
+    "platform": "chatgpt",
+    "title": "Chunking strategy for chat logs",
+    "created": "2026-09-15T10:00:00+00:00",
+    "facts": [
+      "chunking_chat_transcripts",
+      "rag_chat_original_retrieval",
+      "rag_chat_retrieval_architecture"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How should I chunk chat history for RAG? Fixed size feels wrong."
+      },
+      {
+        "role": "assistant",
+        "text": "Chat data has natural units. Try a question-answer pair as one chunk, or a sliding window of 3 turns with 1 turn of overlap. Keep metadata such as conversation id, timestamp and role so you can cite and filter."
+      },
+      {
+        "role": "user",
+        "text": "What about very long assistant answers with code?"
+      },
+      {
+        "role": "assistant",
+        "text": "Split long answers on code-block and paragraph boundaries, and prepend the user question to each piece so every chunk stays self-contained."
+      }
+    ]
+  },
+  {
+    "id": "c10",
+    "platform": "claude",
+    "title": "Binary search edge cases",
+    "created": "2026-09-16T10:00:00+00:00",
+    "facts": [
+      "binary_search_bounds",
+      "algorithmic_interview_patterns"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Why does my binary search loop forever when low=0 and high=1?"
+      },
+      {
+        "role": "assistant",
+        "text": "If you use while low < high with mid = (low + high) // 2 and set low = mid, mid never advances. Use low = mid + 1 when the target is greater, or use the while low <= high form with mid +/- 1 updates."
+      }
+    ]
+  }
+]

@@ -1,0 +1,100 @@
+{"qid": "q01", "query": "why does groupby say KeyError even though the column is there", "relevant": ["c01"], "type": "paraphrase", "split": "test"}
+{"qid": "q02", "query": "CUDA out of memory Tried to allocate 2.00 GiB", "relevant": ["c02"], "type": "keyword", "split": "test"}
+{"qid": "q03", "query": "how to run a vector database locally with docker and keep the data", "relevant": ["c03"], "type": "paraphrase", "split": "dev"}
+{"qid": "q04", "query": "what is the k constant in RRF", "relevant": ["c04"], "type": "keyword", "split": "test"}
+{"qid": "q05", "query": "my extension cannot call localhost because of CORS from the content script", "relevant": ["c08"], "type": "paraphrase", "split": "dev"}
+{"qid": "q06", "query": "how should I split long chat answers that contain code", "relevant": ["c09"], "type": "paraphrase", "split": "test"}
+{"qid": "q07", "query": "which embedding model and how do I choose between small and base", "relevant": ["c14"], "type": "paraphrase", "split": "test"}
+{"qid": "q08", "query": "set up python version and virtualenv with uv", "relevant": ["c12"], "type": "keyword", "split": "dev"}
+{"qid": "q09", "query": "how to build a retrieval pipeline over my chat history", "relevant": ["c04", "c09", "c14"], "type": "multi_chat", "split": "test"}
+{"qid": "q10", "query": "best way to learn Spanish quickly", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q100", "query": "rust tokio select macro biased cancellation safety", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q11", "query": "how do I deploy a kubernetes cluster on AWS", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q12", "query": "table grouping throws missing key exception", "relevant": ["c01"], "type": "paraphrase", "split": "dev"}
+{"qid": "q13", "query": "vram exhaustion during backward computation", "relevant": ["c20"], "type": "paraphrase", "split": "test"}
+{"qid": "q14", "query": "combining lexical inverted index with dense embeddings", "relevant": ["c24"], "type": "paraphrase", "split": "test"}
+{"qid": "q15", "query": "two-step transformer pass for candidate re-scoring", "relevant": ["c25"], "type": "paraphrase", "split": "dev"}
+{"qid": "q16", "query": "delayed execution plan for analytical columnar format", "relevant": ["c27"], "type": "paraphrase", "split": "dev"}
+{"qid": "q17", "query": "migrating input validation decorators to modern version", "relevant": ["c31"], "type": "paraphrase", "split": "test"}
+{"qid": "q18", "query": "joining related entities in relational database queries", "relevant": ["c32"], "type": "paraphrase", "split": "test"}
+{"qid": "q19", "query": "retrieving uncommitted work after branch removal", "relevant": ["c36"], "type": "paraphrase", "split": "dev"}
+{"qid": "q20", "query": "storing previous timer reference in functional UI renders", "relevant": ["c39"], "type": "paraphrase", "split": "dev"}
+{"qid": "q21", "query": "slow cooked whole black lentils with dairy", "relevant": ["c42"], "type": "paraphrase", "split": "dev"}
+{"qid": "q22", "query": "unrisen sour loaf with soggy dense crumb", "relevant": ["c43"], "type": "paraphrase", "split": "test"}
+{"qid": "q23", "query": "high altitude mountain pass elevation acclimatization", "relevant": ["c46"], "type": "paraphrase", "split": "dev"}
+{"qid": "q24", "query": "evaluating equity compensation against liquid pay", "relevant": ["c51"], "type": "paraphrase", "split": "dev"}
+{"qid": "q25", "query": "after-tax retirement account conversion mechanism", "relevant": ["c56"], "type": "paraphrase", "split": "test"}
+{"qid": "q26", "query": "lower leg burning discomfort during running intervals", "relevant": ["c59"], "type": "paraphrase", "split": "test"}
+{"qid": "q27", "query": "conda env export --no-builds", "relevant": ["c16"], "type": "keyword", "split": "dev"}
+{"qid": "q28", "query": "uv cache clean prune", "relevant": ["c17"], "type": "keyword", "split": "dev"}
+{"qid": "q29", "query": "torch.backends.mps.is_available()", "relevant": ["c19"], "type": "keyword", "split": "dev"}
+{"qid": "q30", "query": "torch.autocast bfloat16 GradScaler", "relevant": ["c21"], "type": "keyword", "split": "dev"}
+{"qid": "q31", "query": "DataLoader persistent_workers pin_memory", "relevant": ["c22"], "type": "keyword", "split": "dev"}
+{"qid": "q32", "query": "qdrant_client models.Filter MatchValue", "relevant": ["c23"], "type": "keyword", "split": "dev"}
+{"qid": "q33", "query": "BAAI/bge-reranker-base sentence_transformers CrossEncoder", "relevant": ["c25"], "type": "keyword", "split": "test"}
+{"qid": "q34", "query": "read_parquet hive_partitioning=true duckdb", "relevant": ["c29"], "type": "keyword", "split": "dev"}
+{"qid": "q35", "query": "@model_validator mode='after' ConfigDict extra='forbid'", "relevant": ["c31"], "type": "keyword", "split": "test"}
+{"qid": "q36", "query": "git cherry-pick --continue", "relevant": ["c34"], "type": "keyword", "split": "test"}
+{"qid": "q37", "query": "git submodule update --init --recursive", "relevant": ["c37"], "type": "keyword", "split": "test"}
+{"qid": "q38", "query": "Tokyo Subway 72-hour Ticket JPY", "relevant": ["c47"], "type": "keyword", "split": "test"}
+{"qid": "q39", "query": "IRS Form 8606 Pro-Rata Rule", "relevant": ["c56"], "type": "keyword", "split": "test"}
+{"qid": "q40", "query": "how do different tools like poetry and uv manage virtual environments and lockfiles", "relevant": ["c12", "c15", "c17", "c18", "c79"], "type": "multi_chat", "split": "test"}
+{"qid": "q41", "query": "techniques for debugging and avoiding GPU out of memory errors in PyTorch", "relevant": ["c02", "c20", "c21"], "type": "multi_chat", "split": "test"}
+{"qid": "q42", "query": "how do SQLite FTS5 and DuckDB handle fast analytical and search queries", "relevant": ["c28", "c29", "c85"], "type": "multi_chat", "split": "dev"}
+{"qid": "q43", "query": "building production FastAPI services with background jobs and custom middleware", "relevant": ["c08", "c30", "c86"], "type": "multi_chat", "split": "dev"}
+{"qid": "q44", "query": "best practices for rewriting and recovering git history without losing work", "relevant": ["c11", "c34", "c36", "c89"], "type": "multi_chat", "split": "dev"}
+{"qid": "q45", "query": "avoiding common state and unmount lifecycle bugs in React components", "relevant": ["c38", "c39", "c40"], "type": "multi_chat", "split": "dev"}
+{"qid": "q46", "query": "how does fermentation time affect flavor and texture in sourdough and pizza dough", "relevant": ["c43", "c45"], "type": "multi_chat", "split": "dev"}
+{"qid": "q47", "query": "planning a two-city trip across Tokyo and Kyoto with public transit", "relevant": ["c47", "c92"], "type": "multi_chat", "split": "test"}
+{"qid": "q48", "query": "career progression strategies for software engineers from interview to promotion", "relevant": ["c07", "c50", "c51", "c95"], "type": "multi_chat", "split": "dev"}
+{"qid": "q49", "query": "maximizing tax advantaged retirement and health savings accounts", "relevant": ["c56", "c96", "c97"], "type": "multi_chat", "split": "dev"}
+{"qid": "q50", "query": "proper upper body and lower body form cues to protect joints during barbell lifts", "relevant": ["c60", "c98"], "type": "multi_chat", "split": "test"}
+{"qid": "q51", "query": "foundational guitar chord shapes and lead soloing techniques for beginners", "relevant": ["c13", "c64", "c65", "c67"], "type": "multi_chat", "split": "dev"}
+{"qid": "q52", "query": "solving classic algorithm interview problems with two pointers and dynamic programming", "relevant": ["c10", "c68", "c69", "c70", "c71"], "type": "multi_chat", "split": "test"}
+{"qid": "q53", "query": "simple DIY home repairs for bathroom sink clogs and dripping kitchen faucets", "relevant": ["c72", "c73"], "type": "multi_chat", "split": "test"}
+{"qid": "q54", "query": "how to build and optimize an end-to-end RAG system from chunking to reranking", "relevant": ["c04", "c09", "c14", "c24", "c25"], "type": "multi_chat", "split": "test"}
+{"qid": "q55", "query": "that chat where I asked about lockfiles in python", "relevant": ["c15"], "type": "vague_reference", "split": "dev"}
+{"qid": "q56", "query": "that conversation about mac vs nvidia gpu device strings", "relevant": ["c19"], "type": "vague_reference", "split": "dev"}
+{"qid": "q57", "query": "that chat about slow data loading and worker processes", "relevant": ["c22"], "type": "vague_reference", "split": "dev"}
+{"qid": "q58", "query": "that discussion where I asked how to filter points in qdrant", "relevant": ["c23"], "type": "vague_reference", "split": "dev"}
+{"qid": "q59", "query": "that conversation about pydantic v2 breaking changes and validators", "relevant": ["c31"], "type": "vague_reference", "split": "test"}
+{"qid": "q60", "query": "that chat where I asked how to get back a deleted git branch", "relevant": ["c36"], "type": "vague_reference", "split": "test"}
+{"qid": "q61", "query": "that conversation about making dal makhani taste creamy", "relevant": ["c42"], "type": "vague_reference", "split": "test"}
+{"qid": "q62", "query": "that chat about taking the road trip to Leh through the tunnel", "relevant": ["c46"], "type": "vague_reference", "split": "test"}
+{"qid": "q63", "query": "that conversation about backdoor roth and paying taxes on it", "relevant": ["c56"], "type": "vague_reference", "split": "dev"}
+{"qid": "q64", "query": "that chat where my shins were hurting when jogging", "relevant": ["c59"], "type": "vague_reference", "split": "test"}
+{"qid": "q65", "query": "that discussion about playing lead solos with the pentatonic scale", "relevant": ["c65"], "type": "vague_reference", "split": "dev"}
+{"qid": "q66", "query": "that chat where my circuit breaker was flipping from the heater", "relevant": ["c77"], "type": "vague_reference", "split": "test"}
+{"qid": "q67", "query": "how to get scuba diving certification PADI open water", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q68", "query": "watercolor painting wet on wet technique paper stretching", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q69", "query": "chess opening theory Sicilian defense Najdorf variation moves", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q70", "query": "diagnosing automatic car transmission slipping clutch fluid", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q71", "query": "knitting top down raglan sweater circular needles gauge swatch", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q72", "query": "astrophotography motorized equatorial mount telescope alignment", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q73", "query": "violin bow hold thumb curve and pinky finger placement", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q74", "query": "learning Mandarin Chinese pinyin tones pronunciation guide", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q75", "query": "pet ferret dietary requirements high protein kibble taurine", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q76", "query": "restoring antique mechanical pocket watch balance wheel hairspring", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q77", "query": "pottery wheel centering clay wedging cone technique", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q78", "query": "cryptocurrency wash sale rule tax loss harvesting bitcoin", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q79", "query": "indoor juniper bonsai tree pruning wiring trunk taper", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q80", "query": "marathon taper week carb loading hydration strategy", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q81", "query": "cleaning antique cast iron skillet lye bath electrolysis rust", "relevant": [], "type": "no_answer_offtopic", "split": "dev"}
+{"qid": "q82", "query": "sailing beginner knots bowline clove hitch figure eight", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q83", "query": "growing oyster mushrooms on pasteurized straw monotub inoculation", "relevant": [], "type": "no_answer_offtopic", "split": "test"}
+{"qid": "q84", "query": "conda channel priority strict vs flexible configuration in condarc", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q85", "query": "deepspeed zero stage 3 offload optimizer parameter partitioning nvme", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q86", "query": "weaviate vector index hnsw parameters efConstruction maxConnections", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q87", "query": "snowflake micro-partition pruning automatic clustering keys depth", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q88", "query": "graphql federation Apollo router subgraph schema composition", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q89", "query": "git bisect run automated test script syntax exit code 125", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q90", "query": "angular signals vs rxjs observables in component store state management", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q91", "query": "french macarons italian meringue method almond flour resting skin", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q92", "query": "iceland ring road 10 day campervan itinerary river crossing f-roads", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q93", "query": "executive compensation equity refresh 83b election early exercise", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q94", "query": "mega backdoor roth after-tax in-plan conversion via fidelity 401k", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q95", "query": "crossfit murph workout weighted vest pacing strategy pullups", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q96", "query": "pedalboard signal chain buffer placement true bypass vs buffered", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q97", "query": "red black tree left rotation color flip balancing proof", "relevant": [], "type": "no_answer_hard", "split": "dev"}
+{"qid": "q98", "query": "tankless water heater scale flush vinegar pump kit procedure", "relevant": [], "type": "no_answer_hard", "split": "test"}
+{"qid": "q99", "query": "terraform aws vpc peering cross-account transit gateway attachment", "relevant": [], "type": "no_answer_hard", "split": "test"}

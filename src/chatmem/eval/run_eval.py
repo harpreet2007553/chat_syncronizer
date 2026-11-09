@@ -37,6 +37,7 @@ class EvalQuery:
     text: str
     relevant: set[str]
     answerable: bool
+    split: str | None = None
 
 
 @dataclass
@@ -74,13 +75,17 @@ def percentile_95(values: Sequence[float]) -> float:
 # 2. Query Loader
 # ============================================================================
 
-def load_queries(path: str | Path) -> list[EvalQuery]:
+def load_queries(path: str | Path, split: str | None = None) -> list[EvalQuery]:
     """Load and validate benchmark evaluation queries from a JSON Lines file.
 
     Raises:
         ValueError: If query data has duplicate IDs, answerable queries without relevant IDs,
-                    or no_answer queries with relevant IDs.
+                    no_answer queries with relevant IDs, or an invalid split filter.
     """
+    valid_splits = {None, "dev", "test", "all"}
+    if split is not None and split.lower() not in valid_splits:
+        raise ValueError(f"Invalid split '{split}'. Expected one of: 'dev', 'test', 'all', or None.")
+
     file_path = Path(path)
     if not file_path.exists():
         raise FileNotFoundError(f"Queries file not found: {file_path}")
@@ -111,11 +116,13 @@ def load_queries(path: str | Path) -> list[EvalQuery]:
             relevant_raw = data.get("relevant", [])
             relevant = {str(r).strip() for r in relevant_raw if str(r).strip()}
             qtype = str(data.get("type") or "").strip().lower()
+            split_raw = data.get("split")
+            query_split = str(split_raw).strip().lower() if split_raw is not None else None
 
-            if qtype == "no_answer":
+            if qtype == "no_answer" or qtype.startswith("no_answer"):
                 if relevant:
                     raise ValueError(
-                        f"Query '{qid}' is marked no_answer but has non-empty relevant set: {relevant}"
+                        f"Query '{qid}' is marked {qtype} but has non-empty relevant set: {relevant}"
                     )
                 answerable = False
             else:
@@ -131,8 +138,17 @@ def load_queries(path: str | Path) -> list[EvalQuery]:
                     text=query_text,
                     relevant=relevant,
                     answerable=answerable,
+                    split=query_split,
                 )
             )
+
+    has_splits = any(q.split is not None for q in queries)
+    if (split is None or split.lower() == "all") and has_splits:
+        print("Choose thresholds on --split dev, report on --split test.")
+
+    if split is not None and split.lower() in ("dev", "test"):
+        target_split = split.lower()
+        queries = [q for q in queries if q.split == target_split]
 
     return queries
 
@@ -276,7 +292,11 @@ def evaluate_config(
 # 4. Gate Report Generator
 # ============================================================================
 
-def gate_report(result: ConfigResult, thresholds: list[float] | None = None) -> str:
+def gate_report(
+    result: ConfigResult,
+    thresholds: list[float] | None = None,
+    split: str | None = None,
+) -> str:
     """Generate threshold sweep evaluation table for cross-encoder rerank configs."""
     if not result.config.use_rerank:
         return ""
@@ -300,12 +320,15 @@ def gate_report(result: ConfigResult, thresholds: list[float] | None = None) -> 
     sweep_results = gate_sweep(rows, thresholds)
     no_ans_count = sum(1 for r in rows if not r["answerable"])
 
+    title_suffix = f" (Split: {split})" if split else ""
     lines: list[str] = [
-        f"## Gate Report: {result.config_name}",
+        f"## Gate Report: {result.config_name}{title_suffix}",
         f"- **Score scale**: `{result.score_scale}`",
         f"- **Rerank model**: `{result.config.rerank_model}`",
         f"- **Rerank normalize**: `{result.config.rerank_normalize}`",
     ]
+    if split:
+        lines.append(f"- **Split**: `{split}`")
 
     if no_ans_count < 5:
         lines.append(
@@ -343,10 +366,11 @@ def run_sweep(
     queries_path: str | Path,
     ks: Sequence[int] = (1, 3, 5, 10),
     out_dir: str | Path | None = None,
+    split: str | None = "all",
     retriever_factory: Callable[..., Any] = build_retriever,
 ) -> list[ConfigResult]:
     """Execute sequential evaluation across multiple configurations and persist artifacts."""
-    queries = load_queries(queries_path)
+    queries = load_queries(queries_path, split=split)
 
     if out_dir is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -387,8 +411,11 @@ def run_sweep(
         json.dump(results_data, f, indent=2)
 
     # 2. summary.md
+    split_str = str(split) if split else "all"
     summary_lines = [
-        "# Retrieval Evaluation Summary",
+        f"# Retrieval Evaluation Summary (Split: {split_str})",
+        "",
+        f"- **Split**: `{split_str}`",
         "",
         "| Config | Score Scale | Rerank Model | Recall@5 | Recall@10 | MRR | nDCG@10 | Hit@1 | Latency Mean (ms) | Latency P95 (ms) | Warnings |",
         "| :--- | :--- | :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |",
@@ -441,7 +468,7 @@ def run_sweep(
                 for qr in res.query_results:
                     writer.writerow([qr["query_id"], qr["answerable"], qr["top_score"]])
 
-            report = gate_report(res)
+            report = gate_report(res, split=split_str)
             if report:
                 gate_reports.append(report)
 

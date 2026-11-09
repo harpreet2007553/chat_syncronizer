@@ -1,0 +1,364 @@
+[
+  {
+    "id": "c41",
+    "platform": "chatgpt",
+    "title": "Tailwind CSS responsive grid and guitar calluses",
+    "created": 1691485200.0,
+    "facts": [
+      "tailwind_grid_responsive_columns"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how to make a 4-column card grid in tailwind that collapses to 2 columns on tablet and 1 on mobile?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use Tailwind's grid utility classes with responsive prefixes:\n```html\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-4\">\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 1</div>\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 2</div>\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 3</div>\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 4</div>\n</div>\n```\n`grid-cols-1` is mobile-first default, `md:` activates at 768px, and `lg:` at 1024px."
+      },
+      {
+        "role": "user",
+        "text": "perfect. taking a break from css, my fingertips hurt from playing steel string acoustic guitar. how long until calluses form?"
+      },
+      {
+        "role": "assistant",
+        "text": "Calluses typically take 2 to 4 weeks of consistent 15-20 minute daily practice. Tips:\n1. Keep practice sessions short (15-20 mins) daily rather than a 2-hour marathon on Sunday.\n2. Ensure your guitar action isn't abnormally high.\n3. Never play right after showering when fingertips are soft and soaked with water."
+      }
+    ]
+  },
+  {
+    "id": "c42",
+    "platform": "claude",
+    "title": "Authentic Dal Makhani slow cooker recipe",
+    "created": 1691917200.0,
+    "facts": [
+      "dal_makhani_slow_cooker_recipe"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How can I make authentic creamy Dal Makhani in a slow cooker?"
+      },
+      {
+        "role": "assistant",
+        "text": "Soak 1 cup whole black urad dal and 1/4 cup kidney beans (rajma) overnight. Rinse thoroughly.\n1. Add dal, beans, 4 cups water, 1 tsp salt, and whole spices (1 black cardamom, 1 cinnamon stick) to slow cooker on LOW for 7-8 hours.\n2. In a pan, make tadka: cook 2 tbsp butter with 1 tbsp ginger-garlic paste, 1 cup pureed tomatoes, 1 tsp kashmiri red chili, and 1/2 tsp garam masala until oil separates.\n3. Stir tadka into the slow cooker. Mash some dal against the side for natural creaminess.\n4. Cook on low for 1 more hour, finishing with 3 tbsp heavy cream, 1 tbsp butter, and crushed kasuri methi."
+      }
+    ]
+  },
+  {
+    "id": "c43",
+    "platform": "chatgpt",
+    "title": "Sourdough bread bulk fermentation troubleshooting",
+    "created": 1692349200.0,
+    "facts": [
+      "sourdough_bulk_fermentation_stretch_folds",
+      "cooking_fermentation_techniques"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "my sourdough loaf came out dense and flat with gummy crumb. what went wrong?"
+      },
+      {
+        "role": "assistant",
+        "text": "Dense, flat sourdough with a gummy crumb usually points to one of three issues:\n1. Under-fermentation (bulk fermentation didn't build enough gas volume).\n2. Weak gluten development (dough couldn't hold its shape during bake).\n3. Slicing while still warm (steam condenses inside, causing gumminess). What was your hydration percentage and bulk time?"
+      },
+      {
+        "role": "user",
+        "text": "i used 75% hydration and bulk fermented for 3 hours at 21 celsius."
+      },
+      {
+        "role": "assistant",
+        "text": "At 21\u00b0C (70\u00b0F), 3 hours is definitely under-fermented! Sourdough fermentation at room temp 21\u00b0C typically needs 5 to 7 hours until the dough rises 50-75%, becomes domed with rounded edges, and shows bubbles underneath."
+      },
+      {
+        "role": "user",
+        "text": "how many stretch and folds do you do during bulk?"
+      },
+      {
+        "role": "assistant",
+        "text": "4 sets of stretch and folds spaced 30 minutes apart during the first 2 hours of bulk fermentation. After the 4th set, let the dough rest undisturbed for the remainder of bulk."
+      },
+      {
+        "role": "user",
+        "text": "should the first set be coil folds or stretch and fold?"
+      },
+      {
+        "role": "assistant",
+        "text": "Start with stretch and folds for the first 2 sets when the dough is stiffer, then switch to gentle coil folds for sets 3 and 4 as gluten develops and gas accumulates to avoid knocking air out."
+      },
+      {
+        "role": "user",
+        "text": "how do i know when bulk fermentation is done?"
+      },
+      {
+        "role": "assistant",
+        "text": "Don't watch the clock; watch the dough. Look for:\n- 50-75% rise in volume.\n- Top surface is smooth and domed with a few translucent bubbles.\n- Jiggly when you gently shake the bowl.\n- The poke test: gentle indentation slowly springs back halfway."
+      },
+      {
+        "role": "user",
+        "text": "what temperature for Dutch oven baking?"
+      },
+      {
+        "role": "assistant",
+        "text": "Preheat Dutch oven at 230\u00b0C (450\u00b0F) for 45-60 minutes. Bake covered with lid for 20 minutes (steam enables oven spring), then remove lid and bake uncovered at 220\u00b0C (425\u00b0F) for 20-25 minutes until deep mahogany crust forms."
+      },
+      {
+        "role": "user",
+        "text": "do i need ice cubes inside the dutch oven for steam?"
+      },
+      {
+        "role": "assistant",
+        "text": "A single ice cube dropped between the parchment paper and Dutch oven wall creates a burst of steam that improves blistered crust and blister ear, though not strictly required if the lid fits tightly."
+      },
+      {
+        "role": "user",
+        "text": "how long to wait before slicing the loaf?"
+      },
+      {
+        "role": "assistant",
+        "text": "Wait at least 2 hours, ideally until the loaf reaches room temperature (around 25\u00b0C). The interior starches are still setting as it cools."
+      },
+      {
+        "role": "user",
+        "text": "what flour mix do you recommend for beginners?"
+      },
+      {
+        "role": "assistant",
+        "text": "80% unbleached strong bread flour (12.5-13% protein) and 20% whole wheat flour. The whole wheat speeds up microbial activity while bread flour gives strong gluten structure."
+      },
+      {
+        "role": "user",
+        "text": "this explains why my loaf was flat, my kitchen was way too cold for a 3 hour bulk. thanks!"
+      },
+      {
+        "role": "assistant",
+        "text": "You're welcome! Try giving it 6 hours at 21\u00b0C or use an oven with the light bulb on to create a warm 26-28\u00b0C proofing box. Happy baking!"
+      }
+    ]
+  },
+  {
+    "id": "c44",
+    "platform": "claude",
+    "title": "Crispy baked tofu with cornstarch",
+    "created": 1692781200.0,
+    "facts": [
+      "crispy_baked_tofu_cornstarch"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How do I make tofu crispy in the oven without deep frying?"
+      },
+      {
+        "role": "assistant",
+        "text": "The secret is pressing moisture out and coating with cornstarch:\n1. Press extra-firm tofu with a heavy skillet for 20 minutes. Cut into 1-inch cubes.\n2. Toss cubes in 1 tbsp soy sauce and 1 tbsp olive oil.\n3. Sprinkle with 1.5 tbsp cornstarch and toss until an even powdery white coat forms.\n4. Spread on parchment paper without touching. Bake at 200\u00b0C (400\u00b0F) for 25-30 minutes, flipping halfway, until golden and crunchy."
+      }
+    ]
+  },
+  {
+    "id": "c45",
+    "platform": "chatgpt",
+    "title": "Pizza dough cold fermentation and career switch",
+    "created": 1693213200.0,
+    "facts": [
+      "pizza_dough_cold_fermentation_enzymes",
+      "cooking_fermentation_techniques"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "why does 72 hour cold fermentation make pizza dough taste so much better?"
+      },
+      {
+        "role": "assistant",
+        "text": "At refrigerator temperatures (3-4\u00b0C), yeast activity slows down dramatically while enzymatic activity continues. Enzymes (amylases and proteases) break complex starches into simple sugars and proteins into amino acids. This creates:\n1. Complex rich flavor (organic acids and esters).\n2. Superior browning and leopard spotting from caramelized simple sugars.\n3. Tender, easily digestible gluten structure."
+      },
+      {
+        "role": "user",
+        "text": "pizza making has been my passion for years, but i'm currently switching careers into software engineering. any advice for someone self-taught?"
+      },
+      {
+        "role": "assistant",
+        "text": "Switching from culinary to software engineering is actually a great parallel\u2014both require discipline, following precise systems, handling feedback loops, and creative problem solving! Advice:\n1. Build 2 or 3 complete full-stack projects rather than 20 half-finished tutorial apps.\n2. Learn git, testing, and debugging deeply\u2014juniors who can debug and write clean tests stand out immediately.\n3. Leverage your unique story: teamwork in fast-paced high-pressure environments translates directly to tech teams."
+      }
+    ]
+  },
+  {
+    "id": "c46",
+    "platform": "claude",
+    "title": "Manali to Leh road trip acclimatization",
+    "created": 1693645200.0,
+    "facts": [
+      "manali_leh_acclimatization_itinerary"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "What is the recommended itinerary for driving from Manali to Leh for proper acclimatization?"
+      },
+      {
+        "role": "assistant",
+        "text": "Do not rush Manali to Leh in one day. Recommended 2-night stop itinerary:\n- Day 1: Manali to Jispa (138 km, ~5 hours) via Atal Tunnel. Sleep at Jispa (~3,200m). Excellent altitude acclimatization.\n- Day 2: Jispa to Sarchu or Zingzingbar / Tsokar (approx 4,200m). Or push to Leh if prone to AMS at Sarchu.\n- Day 3: Cross Baralacha La, Nakee La, Lachung La, and Tanglang La (5,328m) descending into Leh (3,500m).\nCarry Diamox, drink 3-4 liters of water daily, and avoid heavy exertion on day 1."
+      }
+    ]
+  },
+  {
+    "id": "c47",
+    "platform": "chatgpt",
+    "title": "Tokyo 5-day subway pass and neighborhood plan",
+    "created": 1694077200.0,
+    "facts": [
+      "tokyo_subway_72_hour_itinerary",
+      "japan_travel_transit_planning"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "planning a 5-day trip to Tokyo. is the Tokyo Subway 72-hour ticket worth it?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes, the Tokyo Subway 72-hour Ticket (1,500 JPY) is exceptional value! It covers all Tokyo Metro and Toei Subway lines unlimitedly. If you ride 3 or more metro rides a day, it pays for itself. Note: it does NOT cover JR lines (like the Yamanote line), for which you just tap an IC card (Suica or Pasmo)."
+      },
+      {
+        "role": "user",
+        "text": "how should i divide Tokyo neighborhoods across 5 days?"
+      },
+      {
+        "role": "assistant",
+        "text": "Group neighborhoods geographically to minimize transit time:\n- Day 1: Western Tokyo (Shinjuku, Shibuya, Meiji Jingu, Harajuku).\n- Day 2: Historic & Traditional (Asakusa Senso-ji, Ueno Park, Akihabara electronics).\n- Day 3: Central & Waterfront (Ginza, Tsukiji Outer Market, teamLab Planets in Toyosu).\n- Day 4: Hip & Artsy (Shimokitazawa vintage shops, Kichijoji Inokashira Park, Nakano Broadway).\n- Day 5: Day trip to Kamakura (Giant Buddha, coastal beaches) or Nikko."
+      },
+      {
+        "role": "user",
+        "text": "do i need cash in tokyo or is credit card widely accepted?"
+      },
+      {
+        "role": "assistant",
+        "text": "Credit cards and IC transit cards (Suica/Pasmo on Apple Wallet) are accepted in 85% of places, but cash (yen) is still strictly required for small ramen ticket vending machines, temple donation stalls, and local street food. Keep 10,000 to 20,000 yen cash in hand from 7-Eleven 7-Bank ATMs."
+      },
+      {
+        "role": "user",
+        "text": "what is the best time of day to visit Senso-ji temple in Asakusa?"
+      },
+      {
+        "role": "assistant",
+        "text": "Early morning before 7:30 AM! Nakamise street shops won't be open yet, but the temple grounds are tranquil and magical without tourist crowds. Alternatively, visit at 9:00 PM when the pagoda is illuminated."
+      },
+      {
+        "role": "user",
+        "text": "how does mobile internet work? esim vs pocket wifi?"
+      },
+      {
+        "role": "assistant",
+        "text": "eSIM is by far the most convenient if your phone is carrier-unlocked (Ubigi, Airalo, or Nomad). Instant setup without carrying an extra battery pack like Pocket WiFi."
+      },
+      {
+        "role": "user",
+        "text": "where can i get great ramen without waiting 2 hours in line?"
+      },
+      {
+        "role": "assistant",
+        "text": "Skip overhyped TikTok spots like Ichiran. Look on Tabelog (Japan's top food review site; any score 3.5+ is phenomenal) or visit Ramen Street under Tokyo Station (like Rokurinsha for tsukemen dipped noodles) during off-peak hours (3 PM - 5 PM)."
+      },
+      {
+        "role": "user",
+        "text": "is Shibuya Sky observation deck worth the ticket?"
+      },
+      {
+        "role": "assistant",
+        "text": "Absolutely, especially booked 4 weeks in advance for the sunset slot (around 5:00 PM). It offers an open-air 360-degree rooftop view over Shibuya Crossing, Shinjuku skyline, and Mt. Fuji on clear days."
+      },
+      {
+        "role": "user",
+        "text": "how easy is luggage forwarding between tokyo and kyoto?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yamato Transport (Black Cat / Takkyubin) is legendary. Most hotel front desks will ship your large suitcase directly to your Kyoto hotel for ~2,000 yen per bag, arriving next morning."
+      },
+      {
+        "role": "user",
+        "text": "any etiquette rules i should know for public transit?"
+      },
+      {
+        "role": "assistant",
+        "text": "1. Keep phone strictly on silent (Manner Mode); no phone calls on trains.\n2. Do not eat or drink on local metro trains.\n3. Take off your backpack and hold it in front of you or put it on the overhead rack."
+      },
+      {
+        "role": "user",
+        "text": "this is a comprehensive 5-day guide, thank you!"
+      },
+      {
+        "role": "assistant",
+        "text": "Have an incredible time in Tokyo! It's one of the most exciting and food-rich cities in the world."
+      }
+    ]
+  },
+  {
+    "id": "c48",
+    "platform": "claude",
+    "title": "Monsoon trekking packing checklist",
+    "created": 1694509200.0,
+    "facts": [
+      "monsoon_trekking_packing_checklist"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "What are the essential items for a monsoon trek in the Western Ghats?"
+      },
+      {
+        "role": "assistant",
+        "text": "Essential gear checklist for wet weather trekking:\n1. Poncho or breathable rain jacket (ponchos cover backpack too).\n2. Dry bags / ziplock bags inside your backpack to double-waterproof electronics and spare clothes.\n3. Quick-dry synthetic trekking pants (avoid cotton/denim which chafes when wet).\n4. High-ankle trekking shoes with vibram lug grip (mud gets slippery).\n5. Anti-leech socks or salt pouch for leech-prone trails.\n6. Electrolyte tablets and waterproof headlamp."
+      }
+    ]
+  },
+  {
+    "id": "c49",
+    "platform": "chatgpt",
+    "title": "Budget trip to Vietnam and knapsack problem",
+    "created": 1694941200.0,
+    "facts": [
+      "vietnam_budget_hanoi_da_nang"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how much budget do i need for 7 days in Vietnam doing Hanoi and Da Nang?"
+      },
+      {
+        "role": "assistant",
+        "text": "Vietnam is wonderfully affordable. A comfortable mid-range budget is $40-$60 USD per day:\n- Clean boutique hotel/homestay: $25-35/night.\n- Street food (Pho, Banh Mi, Bun Cha): $2-4 per meal.\n- Grab taxi/scooter rides: $2-5 per trip.\n- Domestic flight Hanoi to Da Nang: ~$45.\nTotal for 7 days excluding international flights is around $350-$450 USD."
+      },
+      {
+        "role": "user",
+        "text": "nice. trying to pack everything in a 7kg carry-on reminds me of the 0/1 knapsack algorithm in CS! how does dynamic programming solve that again?"
+      },
+      {
+        "role": "assistant",
+        "text": "Haha, exact match! In 0/1 Knapsack:\nLet `dp[i][w]` be the maximum value possible using a subset of the first `i` items with max weight capacity `w`.\nFor item `i` with weight `wt` and value `val`:\n- If `wt > w`: `dp[i][w] = dp[i-1][w]` (can't take it).\n- Else: `dp[i][w] = max(dp[i-1][w], val + dp[i-1][w - wt])`.\nYou fill a 2D table in $O(N \\times W)$ time and space, or optimize space to 1D array iterating weight backwards."
+      }
+    ]
+  },
+  {
+    "id": "c50",
+    "platform": "claude",
+    "title": "STAR method behavioral interview answers",
+    "created": 1695373200.0,
+    "facts": [
+      "star_method_behavioral_interview",
+      "tech_career_negotiation_growth"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How should I structure software engineering behavioral interview answers with the STAR method?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use STAR to keep answers concise (under 2.5 minutes):\n- Situation (20%): Set context concisely (project, team size, business stakes).\n- Task (10%): What was your specific responsibility or the challenge you had to overcome?\n- Action (50%): The core of your answer! What did YOU specifically do? Detail technical decisions, stakeholder management, and trade-offs.\n- Result (20%): Quantifiable outcomes (e.g. 'reduced latency by 45%', 'shipped 2 weeks early', 'zero production outages'). Include what you learned."
+      }
+    ]
+  }
+]

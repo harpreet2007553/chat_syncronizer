@@ -1,0 +1,337 @@
+[
+  {
+    "id": "c11",
+    "platform": "chatgpt",
+    "title": "Git rebase vs merge",
+    "created": "2026-09-18T10:00:00+00:00",
+    "facts": [
+      "git_rebase_vs_merge",
+      "git_history_manipulation"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "When should I use git rebase instead of merge?"
+      },
+      {
+        "role": "assistant",
+        "text": "Rebase your local feature branch onto main to keep a linear history before opening a PR. Use merge for shared branches, because rebasing rewrites commits and breaks collaborators' history."
+      }
+    ]
+  },
+  {
+    "id": "c12",
+    "platform": "claude",
+    "title": "uv versus pip for Python projects",
+    "created": "2026-09-20T10:00:00+00:00",
+    "facts": [
+      "uv_python_virtualenv_setup",
+      "python_packaging_ecosystem"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Should I use uv or pip with venv for a new project?"
+      },
+      {
+        "role": "assistant",
+        "text": "uv is much faster and manages Python versions, the lockfile and the virtualenv together. Use uv init, uv add and uv run. Commit pyproject.toml and uv.lock, and keep .venv out of git."
+      },
+      {
+        "role": "user",
+        "text": "How do I pin the Python version?"
+      },
+      {
+        "role": "assistant",
+        "text": "Run uv python pin 3.12, which writes a .python-version file, then uv venv uses it automatically."
+      }
+    ]
+  },
+  {
+    "id": "c13",
+    "platform": "chatgpt",
+    "title": "Guitar chords for beginners",
+    "created": "2026-09-22T10:00:00+00:00",
+    "facts": [
+      "guitar_beginner_chords",
+      "guitar_fretboard_techniques"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Which guitar chords should a beginner learn first?"
+      },
+      {
+        "role": "assistant",
+        "text": "Start with Em, Am, C, G and D. Many simple songs use only these. Practice clean changes between two chords for a few minutes daily."
+      }
+    ]
+  },
+  {
+    "id": "c14",
+    "platform": "claude",
+    "title": "Choosing an embedding model",
+    "created": "2026-09-24T10:00:00+00:00",
+    "facts": [
+      "embedding_model_bge_small_base",
+      "rag_chat_original_retrieval",
+      "rag_chat_retrieval_architecture"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "bge-small or e5-base for retrieving my own chat history? I have a modest GPU."
+      },
+      {
+        "role": "assistant",
+        "text": "bge-small is fast and runs well on CPU, so it is a good baseline. e5-base is larger and often slightly better, but you must prefix inputs with 'query: ' and 'passage: '. Decide with your own eval set, measuring recall@5 and latency."
+      },
+      {
+        "role": "user",
+        "text": "Does a reranker make this choice less important?"
+      },
+      {
+        "role": "assistant",
+        "text": "Partly. A cross-encoder reranker over the top 30 candidates recovers many first-stage misses, but first-stage recall still caps the final result."
+      }
+    ]
+  },
+  {
+    "id": "c15",
+    "platform": "chatgpt",
+    "title": "Poetry dependency management and lockfile",
+    "created": 1680253200.0,
+    "facts": [
+      "poetry_lockfile_resolution",
+      "python_packaging_ecosystem"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "hey im confused between poetry and pipenv for my new python backend service. which one handles lockfiles better?"
+      },
+      {
+        "role": "assistant",
+        "text": "Poetry is generally preferred today over Pipenv for several reasons:\n1. Lockfile resolution in Poetry uses an exact SAT solver (resolvelib-like algorithm) which is much faster and deterministic.\n2. Poetry adheres strictly to PEP 517/518 pyproject.toml standards.\n3. Pipenv historically had very slow locking issues on large dependency trees."
+      },
+      {
+        "role": "user",
+        "text": "wait what is the command in poetry to add a dev dependency like pytest"
+      },
+      {
+        "role": "assistant",
+        "text": "In modern Poetry (v1.2+), use dependency groups:\n```bash\npoetry add pytest --group dev\n```\nIn older versions it was `poetry add -D pytest`, but groups are the standard now."
+      },
+      {
+        "role": "user",
+        "text": "how does poetry export to requirements.txt for docker build"
+      },
+      {
+        "role": "assistant",
+        "text": "You use the poetry export plugin:\n```bash\npoetry export --without-hashes --format=requirements.txt > requirements.txt\n```\nYou can also add `--without dev` to only export production dependencies."
+      },
+      {
+        "role": "user",
+        "text": "wait why without-hashes? isn't hashes safer?"
+      },
+      {
+        "role": "assistant",
+        "text": "Hashes are safer for security, but pip install inside Docker often fails if platform wheels differ or if hashes for git/editable dependencies are missing. If you build linux wheels on mac, hashes might mismatch."
+      },
+      {
+        "role": "user",
+        "text": "can poetry resolve private pypi repositories?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes! You configure a secondary repository with:\n```bash\npoetry source add --priority=supplemental my-repo https://pypi.company.com/simple/\npoetry config http-basic.my-repo username password\n```"
+      },
+      {
+        "role": "user",
+        "text": "what if two dependencies need different versions of urllib3?"
+      },
+      {
+        "role": "assistant",
+        "text": "Poetry will fail fast with a SolverProblemError displaying the exact version conflict tree. Unlike pip which might silently overwrite or backtrack indefinitely, Poetry forces you to resolve the constraint."
+      },
+      {
+        "role": "user",
+        "text": "is there a poetry show command to inspect the tree?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes, run `poetry show --tree`. It prints the entire hierarchical dependency tree with active and requested versions."
+      },
+      {
+        "role": "user",
+        "text": "how to update only one package without updating everything?"
+      },
+      {
+        "role": "assistant",
+        "text": "Run `poetry update requests`. That updates only `requests` and its sub-dependencies, preserving the lockfile for all other packages."
+      },
+      {
+        "role": "user",
+        "text": "what about poetry run vs poetry shell?"
+      },
+      {
+        "role": "assistant",
+        "text": "`poetry run <cmd>` executes a command directly in the virtualenv without altering your current terminal environment. `poetry shell` spawns a subshell with the virtualenv activated."
+      },
+      {
+        "role": "user",
+        "text": "does poetry build create both sdist and wheel?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes, running `poetry build` outputs both a source distribution (`.tar.gz`) and a binary wheel (`.whl`) inside the `dist/` directory."
+      },
+      {
+        "role": "user",
+        "text": "awesome, this completely clarifies poetry lockfile resolution and workflow thanks!"
+      },
+      {
+        "role": "assistant",
+        "text": "You're welcome! Poetry's deterministic lockfile and pyproject.toml workflow make it a great choice for production python services."
+      }
+    ]
+  },
+  {
+    "id": "c16",
+    "platform": "claude",
+    "title": "Conda environment export without builds",
+    "created": 1680685200.0,
+    "facts": [
+      "conda_env_export_no_builds"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How do I export a conda environment so colleagues on Mac and Linux can recreate it without build number errors?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use `--no-builds` with conda env export:\n```bash\nconda env export --no-builds > environment.yml\n```\nEven better for cross-platform portability is `--from-history`:\n```bash\nconda env export --from-history > environment.yml\n```\nThis exports only the packages you explicitly installed rather than OS-specific sub-dependencies."
+      },
+      {
+        "role": "user",
+        "text": "What does conda env create -f environment.yml do if the env already exists?"
+      },
+      {
+        "role": "assistant",
+        "text": "It fails with `CondaValueError: prefix already exists`. To update an existing environment in place, run:\n```bash\nconda env update --name myenv --file environment.yml --prune\n```\nThe `--prune` flag removes packages that are no longer in the yaml file."
+      }
+    ]
+  },
+  {
+    "id": "c17",
+    "platform": "chatgpt",
+    "title": "uv cache clean and venv activation",
+    "created": 1681117200.0,
+    "facts": [
+      "uv_cache_clean_prune",
+      "python_packaging_ecosystem"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "my disk space is full because uv cached too many wheels. how do i clean it?"
+      },
+      {
+        "role": "assistant",
+        "text": "Run:\n```bash\nuv cache clean\n```\nYou can also run `uv cache prune` to remove only unreferenced or outdated pre-built wheels while keeping current cached packages."
+      },
+      {
+        "role": "user",
+        "text": "and how do i manually activate the venv uv created in bash?"
+      },
+      {
+        "role": "assistant",
+        "text": "By default, uv creates `.venv` in your project root. Activate it with:\n```bash\nsource .venv/bin/activate\n```\nOn Windows Command Prompt it's `.venv\\Scripts\\activate.bat` or `.venv\\Scripts\\Activate.ps1` in PowerShell."
+      }
+    ]
+  },
+  {
+    "id": "c18",
+    "platform": "claude",
+    "title": "pyproject.toml build-system backend",
+    "created": 1681549200.0,
+    "facts": [
+      "pyproject_build_system_hatchling_flit",
+      "python_packaging_ecosystem"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "what is the minimal pyproject.toml build-system section for flit or hatchling?"
+      },
+      {
+        "role": "assistant",
+        "text": "For Hatchling:\n```toml\n[build-system]\nrequires = [\"hatchling\"]\nbuild-backend = \"hatchling.build\"\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\n```\nFor Flit:\n```toml\n[build-system]\nrequires = [\"flit_core >=3.2,<4\"]\nbuild-backend = \"flit_core.buildapi\"\n```"
+      },
+      {
+        "role": "user",
+        "text": "nice. while this build runs im starving. what is a super quick 10 min pasta i can make with pantry stuff?"
+      },
+      {
+        "role": "assistant",
+        "text": "Make Aglio e Olio! You just need pasta, olive oil, 3 cloves sliced garlic, chili flakes, and salt:\n1. Boil spaghetti in salted water.\n2. Gently sizzle sliced garlic and chili flakes in olive oil over low heat for 2 mins (don't burn garlic).\n3. Toss al dente pasta directly into the oil with 3 tbsp starchy pasta water to form a glossy emulsion. Serve immediately."
+      }
+    ]
+  },
+  {
+    "id": "c19",
+    "platform": "chatgpt",
+    "title": "PyTorch device selection cuda vs mps",
+    "created": 1681981200.0,
+    "facts": [
+      "pytorch_device_cuda_mps"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how to write a universal device check in pytorch for cuda vs apple silicon mps vs cpu?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use this standard pattern:\n```python\nimport torch\n\nif torch.cuda.is_available():\n    device = torch.device('cuda')\nelif torch.backends.mps.is_available():\n    device = torch.device('mps')\nelse:\n    device = torch.device('cpu')\nprint(f'Using device: {device}')\n```"
+      },
+      {
+        "role": "user",
+        "text": "does mps support all torch operations like complex numbers or scatter?"
+      },
+      {
+        "role": "assistant",
+        "text": "Most common operations are supported, but some specialized ops (e.g. certain 3D convolutions, complex fft, or double precision float64) may fall back to CPU or raise `NotImplementedError`. You can set `PYTORCH_ENABLE_MPS_FALLBACK=1` in your environment to automatically fall back to CPU for unsupported ops."
+      }
+    ]
+  },
+  {
+    "id": "c20",
+    "platform": "claude",
+    "title": "CUDA OOM gradient checkpointing and cloud costs",
+    "created": 1682413200.0,
+    "facts": [
+      "cuda_gradient_checkpointing_memory",
+      "gpu_out_of_memory_management"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "My LLM fine-tuning job hits CUDA out of memory during backward pass on 24GB VRAM. Batch size is already 1!"
+      },
+      {
+        "role": "assistant",
+        "text": "Enable gradient checkpointing (activation checkpointing). Instead of storing all intermediate activations during the forward pass, it recalculates them during backward pass. In Hugging Face transformers:\n```python\nmodel.gradient_checkpointing_enable()\n```\nThis typically cuts memory by 40-60% at the cost of ~20% slower compute."
+      },
+      {
+        "role": "user",
+        "text": "That worked! But wow cloud A100 GPUs are expensive. I just saw my AWS bill is $450 this week. Any tips to not go broke?"
+      },
+      {
+        "role": "assistant",
+        "text": "Cloud GPU costs add up fast! Here are top strategies:\n1. Use Spot instances on AWS/GCP (often 60-70% discount) with auto-checkpointing.\n2. Rent on specialized GPU clouds like RunPod, Lambda Labs, or Vast.ai where A100s/H100s are often $1.50-$2.20/hr instead of $4+ on AWS.\n3. Set strict AWS budget alerts with auto-stop SNS lambdas so idle instances get shut down after 30 mins."
+      }
+    ]
+  }
+]

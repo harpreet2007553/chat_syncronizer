@@ -1,0 +1,6410 @@
+[
+  {
+    "id": "c01",
+    "conversation_id": "c01",
+    "title": "Fix KeyError in pandas groupby",
+    "create_time": 1788256800.0,
+    "update_time": 1788257280.0,
+    "mapping": {
+      "36bd9bc1-b1a2-47f4-91b2-015c5a3def5d": {
+        "id": "36bd9bc1-b1a2-47f4-91b2-015c5a3def5d",
+        "message": null,
+        "parent": null,
+        "children": [
+          "99406099-f663-4abc-a139-563f3bff310e"
+        ]
+      },
+      "99406099-f663-4abc-a139-563f3bff310e": {
+        "id": "99406099-f663-4abc-a139-563f3bff310e",
+        "message": {
+          "id": "99406099-f663-4abc-a139-563f3bff310e",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1788256800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "I get KeyError: 'user_id' when I run df.groupby('user_id').agg(...). The column exists when I print df.columns."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "36bd9bc1-b1a2-47f4-91b2-015c5a3def5d",
+        "children": [
+          "a4da9ca6-4544-4153-b21a-d7409074f788"
+        ]
+      },
+      "a4da9ca6-4544-4153-b21a-d7409074f788": {
+        "id": "a4da9ca6-4544-4153-b21a-d7409074f788",
+        "message": {
+          "id": "a4da9ca6-4544-4153-b21a-d7409074f788",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1788256920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "That usually means the column name has hidden whitespace or you already set it as the index. Check df.columns.tolist() for 'user_id ' with a trailing space, or call df.reset_index() before groupby."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "99406099-f663-4abc-a139-563f3bff310e",
+        "children": [
+          "633f17d2-8de5-4c9b-9f31-63be712c77d2"
+        ]
+      },
+      "633f17d2-8de5-4c9b-9f31-63be712c77d2": {
+        "id": "633f17d2-8de5-4c9b-9f31-63be712c77d2",
+        "message": {
+          "id": "633f17d2-8de5-4c9b-9f31-63be712c77d2",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1788257040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, it was a trailing space from the CSV header. Is there a clean way to prevent this?"
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "a4da9ca6-4544-4153-b21a-d7409074f788",
+        "children": [
+          "b05f5638-5424-4972-ab6d-e865bda8a1c9"
+        ]
+      },
+      "b05f5638-5424-4972-ab6d-e865bda8a1c9": {
+        "id": "b05f5638-5424-4972-ab6d-e865bda8a1c9",
+        "message": {
+          "id": "b05f5638-5424-4972-ab6d-e865bda8a1c9",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1788257160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Normalize on load: df.columns = df.columns.str.strip().str.lower(). You can also pass skipinitialspace=True to pd.read_csv."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "633f17d2-8de5-4c9b-9f31-63be712c77d2",
+        "children": []
+      }
+    },
+    "current_node": "b05f5638-5424-4972-ab6d-e865bda8a1c9"
+  },
+  {
+    "id": "c02",
+    "conversation_id": "c02",
+    "title": "PyTorch CUDA out of memory",
+    "create_time": 1788429600.0,
+    "update_time": 1788430080.0,
+    "mapping": {
+      "06c80d30-b964-4644-abbd-883b62978aa5": {
+        "id": "06c80d30-b964-4644-abbd-883b62978aa5",
+        "message": null,
+        "parent": null,
+        "children": [
+          "254c9af3-3676-4490-9b3f-4b8ec841b9e6"
+        ]
+      },
+      "254c9af3-3676-4490-9b3f-4b8ec841b9e6": {
+        "id": "254c9af3-3676-4490-9b3f-4b8ec841b9e6",
+        "message": {
+          "id": "254c9af3-3676-4490-9b3f-4b8ec841b9e6",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1788429600.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "RuntimeError: CUDA out of memory. Tried to allocate 2.00 GiB while fine-tuning a 7B model on my laptop GPU."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "06c80d30-b964-4644-abbd-883b62978aa5",
+        "children": [
+          "127b4e4a-cada-4ae3-9707-086abc02ff00"
+        ]
+      },
+      "127b4e4a-cada-4ae3-9707-086abc02ff00": {
+        "id": "127b4e4a-cada-4ae3-9707-086abc02ff00",
+        "message": {
+          "id": "127b4e4a-cada-4ae3-9707-086abc02ff00",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1788429720.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Reduce memory in this order: lower the batch size to 1 and use gradient accumulation, enable gradient checkpointing, load the model in 4-bit with bitsandbytes (QLoRA), and shorten max sequence length."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "254c9af3-3676-4490-9b3f-4b8ec841b9e6",
+        "children": [
+          "3220546e-f277-41b1-9f5c-de12c2d6a919"
+        ]
+      },
+      "3220546e-f277-41b1-9f5c-de12c2d6a919": {
+        "id": "3220546e-f277-41b1-9f5c-de12c2d6a919",
+        "message": {
+          "id": "3220546e-f277-41b1-9f5c-de12c2d6a919",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1788429840.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "I only have 8 GB VRAM. Will QLoRA fit a 7B model?"
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "127b4e4a-cada-4ae3-9707-086abc02ff00",
+        "children": [
+          "887ea4ab-7da3-4ada-a4fb-67d829d8f856"
+        ]
+      },
+      "887ea4ab-7da3-4ada-a4fb-67d829d8f856": {
+        "id": "887ea4ab-7da3-4ada-a4fb-67d829d8f856",
+        "message": {
+          "id": "887ea4ab-7da3-4ada-a4fb-67d829d8f856",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1788429960.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Often yes with 4-bit weights, LoRA rank 8-16, batch size 1 and a sequence length around 512. Expect slow training. A 3B model is more comfortable at 8 GB."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "3220546e-f277-41b1-9f5c-de12c2d6a919",
+        "children": []
+      }
+    },
+    "current_node": "887ea4ab-7da3-4ada-a4fb-67d829d8f856"
+  },
+  {
+    "id": "c05",
+    "conversation_id": "c05",
+    "title": "Paneer butter masala recipe",
+    "create_time": 1788775200.0,
+    "update_time": 1788775680.0,
+    "mapping": {
+      "e3b0badd-0fdd-4eb0-9dbe-5549551dd091": {
+        "id": "e3b0badd-0fdd-4eb0-9dbe-5549551dd091",
+        "message": null,
+        "parent": null,
+        "children": [
+          "3eec8f72-0349-4122-8057-84ee757f694d"
+        ]
+      },
+      "3eec8f72-0349-4122-8057-84ee757f694d": {
+        "id": "3eec8f72-0349-4122-8057-84ee757f694d",
+        "message": {
+          "id": "3eec8f72-0349-4122-8057-84ee757f694d",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1788775200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Simple paneer butter masala recipe for 3 people?"
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "e3b0badd-0fdd-4eb0-9dbe-5549551dd091",
+        "children": [
+          "5dde0f38-6279-4297-bfce-df5428f61b0a"
+        ]
+      },
+      "5dde0f38-6279-4297-bfce-df5428f61b0a": {
+        "id": "5dde0f38-6279-4297-bfce-df5428f61b0a",
+        "message": {
+          "id": "5dde0f38-6279-4297-bfce-df5428f61b0a",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1788775320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Saute onion and tomato with cashews, blend into a puree, cook it with butter, kashmiri chilli, garam masala and a little cream, then add 250 g paneer cubes and simmer 5 minutes. Finish with kasuri methi."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "3eec8f72-0349-4122-8057-84ee757f694d",
+        "children": [
+          "191cbe1f-c37f-4eb6-ae1b-660bb69ac337"
+        ]
+      },
+      "191cbe1f-c37f-4eb6-ae1b-660bb69ac337": {
+        "id": "191cbe1f-c37f-4eb6-ae1b-660bb69ac337",
+        "message": {
+          "id": "191cbe1f-c37f-4eb6-ae1b-660bb69ac337",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1788775440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Can I skip the cashews?"
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "5dde0f38-6279-4297-bfce-df5428f61b0a",
+        "children": [
+          "fa58b928-761c-4169-8d05-fa69420842d2"
+        ]
+      },
+      "fa58b928-761c-4169-8d05-fa69420842d2": {
+        "id": "fa58b928-761c-4169-8d05-fa69420842d2",
+        "message": {
+          "id": "fa58b928-761c-4169-8d05-fa69420842d2",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1788775560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes. Use a spoon of fresh cream or a few melon seeds for the same richness."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "191cbe1f-c37f-4eb6-ae1b-660bb69ac337",
+        "children": []
+      }
+    },
+    "current_node": "fa58b928-761c-4169-8d05-fa69420842d2"
+  },
+  {
+    "id": "c07",
+    "conversation_id": "c07",
+    "title": "Resume bullets for an ML project",
+    "create_time": 1789120800.0,
+    "update_time": 1789121280.0,
+    "mapping": {
+      "8aed3070-3abd-4a60-b4de-209fb31b7a0e": {
+        "id": "8aed3070-3abd-4a60-b4de-209fb31b7a0e",
+        "message": null,
+        "parent": null,
+        "children": [
+          "2e615e5d-f099-4fad-8209-17e413dd8973"
+        ]
+      },
+      "2e615e5d-f099-4fad-8209-17e413dd8973": {
+        "id": "2e615e5d-f099-4fad-8209-17e413dd8973",
+        "message": {
+          "id": "2e615e5d-f099-4fad-8209-17e413dd8973",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1789120800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Help me write resume bullets for my pollution severity classification project."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "8aed3070-3abd-4a60-b4de-209fb31b7a0e",
+        "children": [
+          "4026a2b8-b69b-47dd-bb3f-edee8a1f483d"
+        ]
+      },
+      "4026a2b8-b69b-47dd-bb3f-edee8a1f483d": {
+        "id": "4026a2b8-b69b-47dd-bb3f-edee8a1f483d",
+        "message": {
+          "id": "4026a2b8-b69b-47dd-bb3f-edee8a1f483d",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1789120920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use action plus metric: 'Built a gradient-boosted classifier for air pollution severity, improving macro-F1 from 0.61 to 0.78 over a logistic regression baseline.' Add data size, validation method and one deployment detail."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "2e615e5d-f099-4fad-8209-17e413dd8973",
+        "children": [
+          "71380076-c456-4043-a84c-8bb06096ca35"
+        ]
+      },
+      "71380076-c456-4043-a84c-8bb06096ca35": {
+        "id": "71380076-c456-4043-a84c-8bb06096ca35",
+        "message": {
+          "id": "71380076-c456-4043-a84c-8bb06096ca35",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1789121040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "I do not have deployment yet."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "4026a2b8-b69b-47dd-bb3f-edee8a1f483d",
+        "children": [
+          "1ab7a07f-f6b1-4153-85e8-a3fb81650cdf"
+        ]
+      },
+      "1ab7a07f-f6b1-4153-85e8-a3fb81650cdf": {
+        "id": "1ab7a07f-f6b1-4153-85e8-a3fb81650cdf",
+        "message": {
+          "id": "1ab7a07f-f6b1-4153-85e8-a3fb81650cdf",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1789121160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Then say what you did do: 'Designed stratified cross-validation and error analysis across 5 severity classes.' Do not claim deployment you have not done."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "71380076-c456-4043-a84c-8bb06096ca35",
+        "children": []
+      }
+    },
+    "current_node": "1ab7a07f-f6b1-4153-85e8-a3fb81650cdf"
+  },
+  {
+    "id": "c09",
+    "conversation_id": "c09",
+    "title": "Chunking strategy for chat logs",
+    "create_time": 1789466400.0,
+    "update_time": 1789466880.0,
+    "mapping": {
+      "e3b2dda8-88cd-4daa-885a-273a035bcd4e": {
+        "id": "e3b2dda8-88cd-4daa-885a-273a035bcd4e",
+        "message": null,
+        "parent": null,
+        "children": [
+          "47b5d802-ca2a-45f0-961d-f27c2d2ddf86"
+        ]
+      },
+      "47b5d802-ca2a-45f0-961d-f27c2d2ddf86": {
+        "id": "47b5d802-ca2a-45f0-961d-f27c2d2ddf86",
+        "message": {
+          "id": "47b5d802-ca2a-45f0-961d-f27c2d2ddf86",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1789466400.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "How should I chunk chat history for RAG? Fixed size feels wrong."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "e3b2dda8-88cd-4daa-885a-273a035bcd4e",
+        "children": [
+          "985c6d3b-ed5c-493d-b2c5-bfc27decaf69"
+        ]
+      },
+      "985c6d3b-ed5c-493d-b2c5-bfc27decaf69": {
+        "id": "985c6d3b-ed5c-493d-b2c5-bfc27decaf69",
+        "message": {
+          "id": "985c6d3b-ed5c-493d-b2c5-bfc27decaf69",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1789466520.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Chat data has natural units. Try a question-answer pair as one chunk, or a sliding window of 3 turns with 1 turn of overlap. Keep metadata such as conversation id, timestamp and role so you can cite and filter."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "47b5d802-ca2a-45f0-961d-f27c2d2ddf86",
+        "children": [
+          "cc136b58-50a8-40a9-91af-52ef2dd2154b"
+        ]
+      },
+      "cc136b58-50a8-40a9-91af-52ef2dd2154b": {
+        "id": "cc136b58-50a8-40a9-91af-52ef2dd2154b",
+        "message": {
+          "id": "cc136b58-50a8-40a9-91af-52ef2dd2154b",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1789466640.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "What about very long assistant answers with code?"
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "985c6d3b-ed5c-493d-b2c5-bfc27decaf69",
+        "children": [
+          "c59e61b6-1711-4062-94b2-456c280bf49a"
+        ]
+      },
+      "c59e61b6-1711-4062-94b2-456c280bf49a": {
+        "id": "c59e61b6-1711-4062-94b2-456c280bf49a",
+        "message": {
+          "id": "c59e61b6-1711-4062-94b2-456c280bf49a",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1789466760.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Split long answers on code-block and paragraph boundaries, and prepend the user question to each piece so every chunk stays self-contained."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "cc136b58-50a8-40a9-91af-52ef2dd2154b",
+        "children": []
+      }
+    },
+    "current_node": "c59e61b6-1711-4062-94b2-456c280bf49a"
+  },
+  {
+    "id": "c11",
+    "conversation_id": "c11",
+    "title": "Git rebase vs merge",
+    "create_time": 1789725600.0,
+    "update_time": 1789725840.0,
+    "mapping": {
+      "7e5cae6a-35ea-4eb0-94ab-142803c31158": {
+        "id": "7e5cae6a-35ea-4eb0-94ab-142803c31158",
+        "message": null,
+        "parent": null,
+        "children": [
+          "83e4c7f8-f974-4e6d-a95e-8aecf4da659e"
+        ]
+      },
+      "83e4c7f8-f974-4e6d-a95e-8aecf4da659e": {
+        "id": "83e4c7f8-f974-4e6d-a95e-8aecf4da659e",
+        "message": {
+          "id": "83e4c7f8-f974-4e6d-a95e-8aecf4da659e",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1789725600.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "When should I use git rebase instead of merge?"
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "7e5cae6a-35ea-4eb0-94ab-142803c31158",
+        "children": [
+          "e9accac1-e0a2-4c15-9e35-59aed1e502c4"
+        ]
+      },
+      "e9accac1-e0a2-4c15-9e35-59aed1e502c4": {
+        "id": "e9accac1-e0a2-4c15-9e35-59aed1e502c4",
+        "message": {
+          "id": "e9accac1-e0a2-4c15-9e35-59aed1e502c4",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1789725720.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Rebase your local feature branch onto main to keep a linear history before opening a PR. Use merge for shared branches, because rebasing rewrites commits and breaks collaborators' history."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "83e4c7f8-f974-4e6d-a95e-8aecf4da659e",
+        "children": []
+      }
+    },
+    "current_node": "e9accac1-e0a2-4c15-9e35-59aed1e502c4"
+  },
+  {
+    "id": "c13",
+    "conversation_id": "c13",
+    "title": "Guitar chords for beginners",
+    "create_time": 1790071200.0,
+    "update_time": 1790071440.0,
+    "mapping": {
+      "a7189b43-bbe5-4dc0-9da4-96ad35310764": {
+        "id": "a7189b43-bbe5-4dc0-9da4-96ad35310764",
+        "message": null,
+        "parent": null,
+        "children": [
+          "a083692a-945b-49c7-9f0b-358e3ca1c86c"
+        ]
+      },
+      "a083692a-945b-49c7-9f0b-358e3ca1c86c": {
+        "id": "a083692a-945b-49c7-9f0b-358e3ca1c86c",
+        "message": {
+          "id": "a083692a-945b-49c7-9f0b-358e3ca1c86c",
+          "author": {
+            "role": "user",
+            "metadata": {}
+          },
+          "create_time": 1790071200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Which guitar chords should a beginner learn first?"
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "a7189b43-bbe5-4dc0-9da4-96ad35310764",
+        "children": [
+          "db500bd2-e618-479d-8473-0b42a8d3659e"
+        ]
+      },
+      "db500bd2-e618-479d-8473-0b42a8d3659e": {
+        "id": "db500bd2-e618-479d-8473-0b42a8d3659e",
+        "message": {
+          "id": "db500bd2-e618-479d-8473-0b42a8d3659e",
+          "author": {
+            "role": "assistant",
+            "metadata": {}
+          },
+          "create_time": 1790071320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Start with Em, Am, C, G and D. Many simple songs use only these. Practice clean changes between two chords for a few minutes daily."
+            ]
+          },
+          "metadata": {}
+        },
+        "parent": "a083692a-945b-49c7-9f0b-358e3ca1c86c",
+        "children": []
+      }
+    },
+    "current_node": "db500bd2-e618-479d-8473-0b42a8d3659e"
+  },
+  {
+    "id": "c15",
+    "conversation_id": "c15",
+    "title": "Poetry dependency management and lockfile",
+    "create_time": 1680253200.0,
+    "update_time": 1680254520.0,
+    "mapping": {
+      "c15-root": {
+        "id": "c15-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c15-msg-0"
+        ]
+      },
+      "c15-msg-0": {
+        "id": "c15-msg-0",
+        "parent": "c15-root",
+        "children": [
+          "c15-msg-1"
+        ],
+        "message": {
+          "id": "c15-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680253200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "hey im confused between poetry and pipenv for my new python backend service. which one handles lockfiles better?"
+            ]
+          }
+        }
+      },
+      "c15-msg-1": {
+        "id": "c15-msg-1",
+        "parent": "c15-msg-0",
+        "children": [
+          "c15-msg-2"
+        ],
+        "message": {
+          "id": "c15-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680253260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Poetry is generally preferred today over Pipenv for several reasons:\n1. Lockfile resolution in Poetry uses an exact SAT solver (resolvelib-like algorithm) which is much faster and deterministic.\n2. Poetry adheres strictly to PEP 517/518 pyproject.toml standards.\n3. Pipenv historically had very slow locking issues on large dependency trees."
+            ]
+          }
+        }
+      },
+      "c15-msg-2": {
+        "id": "c15-msg-2",
+        "parent": "c15-msg-1",
+        "children": [
+          "c15-msg-3"
+        ],
+        "message": {
+          "id": "c15-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680253320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "wait what is the command in poetry to add a dev dependency like pytest"
+            ]
+          }
+        }
+      },
+      "c15-msg-3": {
+        "id": "c15-msg-3",
+        "parent": "c15-msg-2",
+        "children": [
+          "c15-msg-4"
+        ],
+        "message": {
+          "id": "c15-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680253380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "In modern Poetry (v1.2+), use dependency groups:\n```bash\npoetry add pytest --group dev\n```\nIn older versions it was `poetry add -D pytest`, but groups are the standard now."
+            ]
+          }
+        }
+      },
+      "c15-msg-4": {
+        "id": "c15-msg-4",
+        "parent": "c15-msg-3",
+        "children": [
+          "c15-msg-5"
+        ],
+        "message": {
+          "id": "c15-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680253440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how does poetry export to requirements.txt for docker build"
+            ]
+          }
+        }
+      },
+      "c15-msg-5": {
+        "id": "c15-msg-5",
+        "parent": "c15-msg-4",
+        "children": [
+          "c15-msg-6"
+        ],
+        "message": {
+          "id": "c15-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680253500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "You use the poetry export plugin:\n```bash\npoetry export --without-hashes --format=requirements.txt > requirements.txt\n```\nYou can also add `--without dev` to only export production dependencies."
+            ]
+          }
+        }
+      },
+      "c15-msg-6": {
+        "id": "c15-msg-6",
+        "parent": "c15-msg-5",
+        "children": [
+          "c15-msg-7"
+        ],
+        "message": {
+          "id": "c15-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680253560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "wait why without-hashes? isn't hashes safer?"
+            ]
+          }
+        }
+      },
+      "c15-msg-7": {
+        "id": "c15-msg-7",
+        "parent": "c15-msg-6",
+        "children": [
+          "c15-msg-8"
+        ],
+        "message": {
+          "id": "c15-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680253620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Hashes are safer for security, but pip install inside Docker often fails if platform wheels differ or if hashes for git/editable dependencies are missing. If you build linux wheels on mac, hashes might mismatch."
+            ]
+          }
+        }
+      },
+      "c15-msg-8": {
+        "id": "c15-msg-8",
+        "parent": "c15-msg-7",
+        "children": [
+          "c15-msg-9"
+        ],
+        "message": {
+          "id": "c15-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680253680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "can poetry resolve private pypi repositories?"
+            ]
+          }
+        }
+      },
+      "c15-msg-9": {
+        "id": "c15-msg-9",
+        "parent": "c15-msg-8",
+        "children": [
+          "c15-msg-10"
+        ],
+        "message": {
+          "id": "c15-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680253740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes! You configure a secondary repository with:\n```bash\npoetry source add --priority=supplemental my-repo https://pypi.company.com/simple/\npoetry config http-basic.my-repo username password\n```"
+            ]
+          }
+        }
+      },
+      "c15-msg-10": {
+        "id": "c15-msg-10",
+        "parent": "c15-msg-9",
+        "children": [
+          "c15-msg-11"
+        ],
+        "message": {
+          "id": "c15-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680253800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what if two dependencies need different versions of urllib3?"
+            ]
+          }
+        }
+      },
+      "c15-msg-11": {
+        "id": "c15-msg-11",
+        "parent": "c15-msg-10",
+        "children": [
+          "c15-msg-12"
+        ],
+        "message": {
+          "id": "c15-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680253860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Poetry will fail fast with a SolverProblemError displaying the exact version conflict tree. Unlike pip which might silently overwrite or backtrack indefinitely, Poetry forces you to resolve the constraint."
+            ]
+          }
+        }
+      },
+      "c15-msg-12": {
+        "id": "c15-msg-12",
+        "parent": "c15-msg-11",
+        "children": [
+          "c15-msg-13"
+        ],
+        "message": {
+          "id": "c15-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680253920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "is there a poetry show command to inspect the tree?"
+            ]
+          }
+        }
+      },
+      "c15-msg-13": {
+        "id": "c15-msg-13",
+        "parent": "c15-msg-12",
+        "children": [
+          "c15-msg-14"
+        ],
+        "message": {
+          "id": "c15-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680253980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, run `poetry show --tree`. It prints the entire hierarchical dependency tree with active and requested versions."
+            ]
+          }
+        }
+      },
+      "c15-msg-14": {
+        "id": "c15-msg-14",
+        "parent": "c15-msg-13",
+        "children": [
+          "c15-msg-15"
+        ],
+        "message": {
+          "id": "c15-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680254040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to update only one package without updating everything?"
+            ]
+          }
+        }
+      },
+      "c15-msg-15": {
+        "id": "c15-msg-15",
+        "parent": "c15-msg-14",
+        "children": [
+          "c15-msg-16"
+        ],
+        "message": {
+          "id": "c15-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680254100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Run `poetry update requests`. That updates only `requests` and its sub-dependencies, preserving the lockfile for all other packages."
+            ]
+          }
+        }
+      },
+      "c15-msg-16": {
+        "id": "c15-msg-16",
+        "parent": "c15-msg-15",
+        "children": [
+          "c15-msg-17"
+        ],
+        "message": {
+          "id": "c15-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680254160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what about poetry run vs poetry shell?"
+            ]
+          }
+        }
+      },
+      "c15-msg-17": {
+        "id": "c15-msg-17",
+        "parent": "c15-msg-16",
+        "children": [
+          "c15-msg-18"
+        ],
+        "message": {
+          "id": "c15-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680254220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "`poetry run <cmd>` executes a command directly in the virtualenv without altering your current terminal environment. `poetry shell` spawns a subshell with the virtualenv activated."
+            ]
+          }
+        }
+      },
+      "c15-msg-18": {
+        "id": "c15-msg-18",
+        "parent": "c15-msg-17",
+        "children": [
+          "c15-msg-19"
+        ],
+        "message": {
+          "id": "c15-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680254280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "does poetry build create both sdist and wheel?"
+            ]
+          }
+        }
+      },
+      "c15-msg-19": {
+        "id": "c15-msg-19",
+        "parent": "c15-msg-18",
+        "children": [
+          "c15-msg-20"
+        ],
+        "message": {
+          "id": "c15-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680254340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, running `poetry build` outputs both a source distribution (`.tar.gz`) and a binary wheel (`.whl`) inside the `dist/` directory."
+            ]
+          }
+        }
+      },
+      "c15-msg-20": {
+        "id": "c15-msg-20",
+        "parent": "c15-msg-19",
+        "children": [
+          "c15-msg-21"
+        ],
+        "message": {
+          "id": "c15-msg-20",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1680254400.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "awesome, this completely clarifies poetry lockfile resolution and workflow thanks!"
+            ]
+          }
+        }
+      },
+      "c15-msg-21": {
+        "id": "c15-msg-21",
+        "parent": "c15-msg-20",
+        "children": [],
+        "message": {
+          "id": "c15-msg-21",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1680254460.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "You're welcome! Poetry's deterministic lockfile and pyproject.toml workflow make it a great choice for production python services."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c15-msg-21"
+  },
+  {
+    "id": "c17",
+    "conversation_id": "c17",
+    "title": "uv cache clean and venv activation",
+    "create_time": 1681117200.0,
+    "update_time": 1681117440.0,
+    "mapping": {
+      "c17-root": {
+        "id": "c17-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c17-msg-0"
+        ]
+      },
+      "c17-msg-0": {
+        "id": "c17-msg-0",
+        "parent": "c17-root",
+        "children": [
+          "c17-msg-1"
+        ],
+        "message": {
+          "id": "c17-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1681117200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "my disk space is full because uv cached too many wheels. how do i clean it?"
+            ]
+          }
+        }
+      },
+      "c17-msg-1": {
+        "id": "c17-msg-1",
+        "parent": "c17-msg-0",
+        "children": [
+          "c17-msg-2"
+        ],
+        "message": {
+          "id": "c17-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1681117260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Run:\n```bash\nuv cache clean\n```\nYou can also run `uv cache prune` to remove only unreferenced or outdated pre-built wheels while keeping current cached packages."
+            ]
+          }
+        }
+      },
+      "c17-msg-2": {
+        "id": "c17-msg-2",
+        "parent": "c17-msg-1",
+        "children": [
+          "c17-msg-3"
+        ],
+        "message": {
+          "id": "c17-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1681117320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "and how do i manually activate the venv uv created in bash?"
+            ]
+          }
+        }
+      },
+      "c17-msg-3": {
+        "id": "c17-msg-3",
+        "parent": "c17-msg-2",
+        "children": [],
+        "message": {
+          "id": "c17-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1681117380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "By default, uv creates `.venv` in your project root. Activate it with:\n```bash\nsource .venv/bin/activate\n```\nOn Windows Command Prompt it's `.venv\\Scripts\\activate.bat` or `.venv\\Scripts\\Activate.ps1` in PowerShell."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c17-msg-3"
+  },
+  {
+    "id": "c19",
+    "conversation_id": "c19",
+    "title": "PyTorch device selection cuda vs mps",
+    "create_time": 1681981200.0,
+    "update_time": 1681981440.0,
+    "mapping": {
+      "c19-root": {
+        "id": "c19-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c19-msg-0"
+        ]
+      },
+      "c19-msg-0": {
+        "id": "c19-msg-0",
+        "parent": "c19-root",
+        "children": [
+          "c19-msg-1"
+        ],
+        "message": {
+          "id": "c19-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1681981200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to write a universal device check in pytorch for cuda vs apple silicon mps vs cpu?"
+            ]
+          }
+        }
+      },
+      "c19-msg-1": {
+        "id": "c19-msg-1",
+        "parent": "c19-msg-0",
+        "children": [
+          "c19-msg-2"
+        ],
+        "message": {
+          "id": "c19-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1681981260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use this standard pattern:\n```python\nimport torch\n\nif torch.cuda.is_available():\n    device = torch.device('cuda')\nelif torch.backends.mps.is_available():\n    device = torch.device('mps')\nelse:\n    device = torch.device('cpu')\nprint(f'Using device: {device}')\n```"
+            ]
+          }
+        }
+      },
+      "c19-msg-2": {
+        "id": "c19-msg-2",
+        "parent": "c19-msg-1",
+        "children": [
+          "c19-msg-3"
+        ],
+        "message": {
+          "id": "c19-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1681981320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "does mps support all torch operations like complex numbers or scatter?"
+            ]
+          }
+        }
+      },
+      "c19-msg-3": {
+        "id": "c19-msg-3",
+        "parent": "c19-msg-2",
+        "children": [],
+        "message": {
+          "id": "c19-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1681981380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Most common operations are supported, but some specialized ops (e.g. certain 3D convolutions, complex fft, or double precision float64) may fall back to CPU or raise `NotImplementedError`. You can set `PYTORCH_ENABLE_MPS_FALLBACK=1` in your environment to automatically fall back to CPU for unsupported ops."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c19-msg-3"
+  },
+  {
+    "id": "c21",
+    "conversation_id": "c21",
+    "title": "PyTorch mixed precision fp16 vs bf16",
+    "create_time": 1682845200.0,
+    "update_time": 1682845440.0,
+    "mapping": {
+      "c21-root": {
+        "id": "c21-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c21-msg-0"
+        ]
+      },
+      "c21-msg-0": {
+        "id": "c21-msg-0",
+        "parent": "c21-root",
+        "children": [
+          "c21-msg-1"
+        ],
+        "message": {
+          "id": "c21-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1682845200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "whats the difference between fp16 and bf16 in pytorch amp autocast?"
+            ]
+          }
+        }
+      },
+      "c21-msg-1": {
+        "id": "c21-msg-1",
+        "parent": "c21-msg-0",
+        "children": [
+          "c21-msg-2"
+        ],
+        "message": {
+          "id": "c21-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1682845260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "The key difference is exponent vs mantissa bits:\n- `fp16`: 1 sign, 5 exponent, 10 mantissa bits. High precision but narrow dynamic range (max ~65504). Prone to underflow/overflow, requiring `GradScaler`.\n- `bf16`: 1 sign, 8 exponent, 7 mantissa bits. Same dynamic range as fp32 (8 exponent bits), but lower precision. It rarely underflows or overflows, so no GradScaler is needed.\nUse `torch.bfloat16` if your GPU supports it (NVIDIA Ampere A100/RTX 30xx or newer)."
+            ]
+          }
+        }
+      },
+      "c21-msg-2": {
+        "id": "c21-msg-2",
+        "parent": "c21-msg-1",
+        "children": [
+          "c21-msg-3"
+        ],
+        "message": {
+          "id": "c21-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1682845320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "do I still use torch.cuda.amp.GradScaler with bf16?"
+            ]
+          }
+        }
+      },
+      "c21-msg-3": {
+        "id": "c21-msg-3",
+        "parent": "c21-msg-2",
+        "children": [],
+        "message": {
+          "id": "c21-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1682845380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "No! With `torch.autocast(device_type='cuda', dtype=torch.bfloat16)`, `GradScaler` is unnecessary and should be omitted because bf16 doesn't suffer from gradient underflow."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c21-msg-3"
+  },
+  {
+    "id": "c23",
+    "conversation_id": "c23",
+    "title": "Qdrant compound payload filtering",
+    "create_time": 1683709200.0,
+    "update_time": 1683709440.0,
+    "mapping": {
+      "c23-root": {
+        "id": "c23-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c23-msg-0"
+        ]
+      },
+      "c23-msg-0": {
+        "id": "c23-msg-0",
+        "parent": "c23-root",
+        "children": [
+          "c23-msg-1"
+        ],
+        "message": {
+          "id": "c23-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1683709200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i do compound filtering in qdrant with both must and should conditions in python"
+            ]
+          }
+        }
+      },
+      "c23-msg-1": {
+        "id": "c23-msg-1",
+        "parent": "c23-msg-0",
+        "children": [
+          "c23-msg-2"
+        ],
+        "message": {
+          "id": "c23-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1683709260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use `models.Filter` from `qdrant_client.http`:\n```python\nfrom qdrant_client.http import models\n\nquery_filter = models.Filter(\n    must=[\n        models.FieldCondition(key=\"user_id\", match=models.MatchValue(value=\"usr_123\")),\n        models.FieldCondition(key=\"status\", match=models.MatchValue(value=\"active\")),\n    ],\n    should=[\n        models.FieldCondition(key=\"category\", match=models.MatchValue(value=\"ai\")),\n        models.FieldCondition(key=\"category\", match=models.MatchValue(value=\"python\")),\n    ]\n)\nclient.search(collection_name=\"docs\", query_vector=vec, query_filter=query_filter)\n```"
+            ]
+          }
+        }
+      },
+      "c23-msg-2": {
+        "id": "c23-msg-2",
+        "parent": "c23-msg-1",
+        "children": [
+          "c23-msg-3"
+        ],
+        "message": {
+          "id": "c23-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1683709320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "does qdrant support range filtering on numeric timestamps?"
+            ]
+          }
+        }
+      },
+      "c23-msg-3": {
+        "id": "c23-msg-3",
+        "parent": "c23-msg-2",
+        "children": [],
+        "message": {
+          "id": "c23-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1683709380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, use `models.Range`:\n```python\nmodels.FieldCondition(key=\"created_at\", range=models.Range(gte=1672531200, lte=1704067200))\n```\nMake sure to create a payload index on `created_at` with `schema=models.PayloadSchemaType.INTEGER` for fast lookups."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c23-msg-3"
+  },
+  {
+    "id": "c25",
+    "conversation_id": "c25",
+    "title": "Cross-encoder reranking with BAAI bge-reranker",
+    "create_time": 1684573200.0,
+    "update_time": 1684574400.0,
+    "mapping": {
+      "c25-root": {
+        "id": "c25-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c25-msg-0"
+        ]
+      },
+      "c25-msg-0": {
+        "id": "c25-msg-0",
+        "parent": "c25-root",
+        "children": [
+          "c25-msg-1"
+        ],
+        "message": {
+          "id": "c25-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684573200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "why should i use a cross-encoder to rerank after rrf fusion in rag?"
+            ]
+          }
+        }
+      },
+      "c25-msg-1": {
+        "id": "c25-msg-1",
+        "parent": "c25-msg-0",
+        "children": [
+          "c25-msg-2"
+        ],
+        "message": {
+          "id": "c25-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684573260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Bi-encoders (like vector embeddings) compute query and document representations independently in vector space. While very fast for first-stage candidate retrieval, they miss token-level cross-attention interactions.\nA cross-encoder passes the query and document together into the transformer layers simultaneously (`[CLS] query [SEP] document [SEP]`), allowing full self-attention across every word pair. This provides drastically superior relevance scoring."
+            ]
+          }
+        }
+      },
+      "c25-msg-2": {
+        "id": "c25-msg-2",
+        "parent": "c25-msg-1",
+        "children": [
+          "c25-msg-3"
+        ],
+        "message": {
+          "id": "c25-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684573320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "which cross-encoder model is recommended for general text search?"
+            ]
+          }
+        }
+      },
+      "c25-msg-3": {
+        "id": "c25-msg-3",
+        "parent": "c25-msg-2",
+        "children": [
+          "c25-msg-4"
+        ],
+        "message": {
+          "id": "c25-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684573380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "`BAAI/bge-reranker-base` or `BAAI/bge-reranker-large` are currently state of the art open weights models. `bge-reranker-base` runs fast on CPU or small GPUs with sentence-transformers."
+            ]
+          }
+        }
+      },
+      "c25-msg-4": {
+        "id": "c25-msg-4",
+        "parent": "c25-msg-3",
+        "children": [
+          "c25-msg-5"
+        ],
+        "message": {
+          "id": "c25-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684573440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i load and predict with BAAI/bge-reranker-base in python?"
+            ]
+          }
+        }
+      },
+      "c25-msg-5": {
+        "id": "c25-msg-5",
+        "parent": "c25-msg-4",
+        "children": [
+          "c25-msg-6"
+        ],
+        "message": {
+          "id": "c25-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684573500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "```python\nfrom sentence_transformers import CrossEncoder\n\nmodel = CrossEncoder('BAAI/bge-reranker-base')\npairs = [[query, doc_text] for doc_text in candidates]\nscores = model.predict(pairs, batch_size=32)\n```"
+            ]
+          }
+        }
+      },
+      "c25-msg-6": {
+        "id": "c25-msg-6",
+        "parent": "c25-msg-5",
+        "children": [
+          "c25-msg-7"
+        ],
+        "message": {
+          "id": "c25-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684573560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "are the scores raw logits or probabilities?"
+            ]
+          }
+        }
+      },
+      "c25-msg-7": {
+        "id": "c25-msg-7",
+        "parent": "c25-msg-6",
+        "children": [
+          "c25-msg-8"
+        ],
+        "message": {
+          "id": "c25-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684573620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "By default, `model.predict(pairs)` returns raw unnormalized logits (which can range from negative numbers like -8.0 up to positive +8.0). If you need scores bounded in [0, 1], apply `scipy.special.expit(scores)` (sigmoid) or pass `apply_softmax=True` if supported."
+            ]
+          }
+        }
+      },
+      "c25-msg-8": {
+        "id": "c25-msg-8",
+        "parent": "c25-msg-7",
+        "children": [
+          "c25-msg-9"
+        ],
+        "message": {
+          "id": "c25-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684573680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how many candidates should i pass into reranking?"
+            ]
+          }
+        }
+      },
+      "c25-msg-9": {
+        "id": "c25-msg-9",
+        "parent": "c25-msg-8",
+        "children": [
+          "c25-msg-10"
+        ],
+        "message": {
+          "id": "c25-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684573740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Typically 20 to 50 candidates from first-stage retrieval. Passing 100+ candidates adds excessive latency since cross-encoders are $O(N)$ transformer inferences per query."
+            ]
+          }
+        }
+      },
+      "c25-msg-10": {
+        "id": "c25-msg-10",
+        "parent": "c25-msg-9",
+        "children": [
+          "c25-msg-11"
+        ],
+        "message": {
+          "id": "c25-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684573800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what latency should i expect on cpu vs gpu for 30 candidates?"
+            ]
+          }
+        }
+      },
+      "c25-msg-11": {
+        "id": "c25-msg-11",
+        "parent": "c25-msg-10",
+        "children": [
+          "c25-msg-12"
+        ],
+        "message": {
+          "id": "c25-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684573860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "On an modern 8-core CPU, scoring 30 candidates with bge-reranker-base takes ~150-300ms. On an NVIDIA GPU (T4 or A10), it takes ~15-25ms."
+            ]
+          }
+        }
+      },
+      "c25-msg-12": {
+        "id": "c25-msg-12",
+        "parent": "c25-msg-11",
+        "children": [
+          "c25-msg-13"
+        ],
+        "message": {
+          "id": "c25-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684573920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "can a cross-encoder score be used for relevance gating?"
+            ]
+          }
+        }
+      },
+      "c25-msg-13": {
+        "id": "c25-msg-13",
+        "parent": "c25-msg-12",
+        "children": [
+          "c25-msg-14"
+        ],
+        "message": {
+          "id": "c25-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684573980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes! Because cross-encoder scores measure true semantic relevance rather than relative rank, setting a minimum score threshold (like sigmoid score >= 0.35 or logit >= -2.0) is very effective at filtering out irrelevant noise."
+            ]
+          }
+        }
+      },
+      "c25-msg-14": {
+        "id": "c25-msg-14",
+        "parent": "c25-msg-13",
+        "children": [
+          "c25-msg-15"
+        ],
+        "message": {
+          "id": "c25-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684574040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "should query and doc be truncated if too long?"
+            ]
+          }
+        }
+      },
+      "c25-msg-15": {
+        "id": "c25-msg-15",
+        "parent": "c25-msg-14",
+        "children": [
+          "c25-msg-16"
+        ],
+        "message": {
+          "id": "c25-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684574100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, `CrossEncoder(..., max_length=512)`. Excessively long documents will be truncated; in RAG, you want each candidate chunk to be around 200-400 tokens."
+            ]
+          }
+        }
+      },
+      "c25-msg-16": {
+        "id": "c25-msg-16",
+        "parent": "c25-msg-15",
+        "children": [
+          "c25-msg-17"
+        ],
+        "message": {
+          "id": "c25-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684574160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "does bge-reranker support multilingual text?"
+            ]
+          }
+        }
+      },
+      "c25-msg-17": {
+        "id": "c25-msg-17",
+        "parent": "c25-msg-16",
+        "children": [
+          "c25-msg-18"
+        ],
+        "message": {
+          "id": "c25-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684574220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, `bge-reranker-base` and `bge-reranker-large` support both English and Chinese, with solid performance across other major languages."
+            ]
+          }
+        }
+      },
+      "c25-msg-18": {
+        "id": "c25-msg-18",
+        "parent": "c25-msg-17",
+        "children": [
+          "c25-msg-19"
+        ],
+        "message": {
+          "id": "c25-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1684574280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "awesome, this covers the cross-encoder reranker architecture completely."
+            ]
+          }
+        }
+      },
+      "c25-msg-19": {
+        "id": "c25-msg-19",
+        "parent": "c25-msg-18",
+        "children": [],
+        "message": {
+          "id": "c25-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1684574340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Glad to help! A hybrid BM25 + dense retrieval pipeline with RRF followed by a BGE cross-encoder reranker is industry standard."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c25-msg-19"
+  },
+  {
+    "id": "c27",
+    "conversation_id": "c27",
+    "title": "Polars LazyFrame query optimization and posture",
+    "create_time": 1685437200.0,
+    "update_time": 1685437440.0,
+    "mapping": {
+      "c27-root": {
+        "id": "c27-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c27-msg-0"
+        ]
+      },
+      "c27-msg-0": {
+        "id": "c27-msg-0",
+        "parent": "c27-root",
+        "children": [
+          "c27-msg-1"
+        ],
+        "message": {
+          "id": "c27-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1685437200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how does polars lazyframe optimize queries compared to eager dataframe?"
+            ]
+          }
+        }
+      },
+      "c27-msg-1": {
+        "id": "c27-msg-1",
+        "parent": "c27-msg-0",
+        "children": [
+          "c27-msg-2"
+        ],
+        "message": {
+          "id": "c27-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1685437260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "When using `pl.scan_parquet()` or `df.lazy()`, Polars builds a logical query plan without executing immediately. The query optimizer applies:\n1. Predicate pushdown: filters (`.filter()`) are evaluated at the storage level, skipping unneeded parquet row groups.\n2. Projection pushdown: only referenced columns (`.select()`) are loaded into RAM.\n3. Common subplan elimination and slice pushdown.\nCall `.collect()` to execute the optimized plan."
+            ]
+          }
+        }
+      },
+      "c27-msg-2": {
+        "id": "c27-msg-2",
+        "parent": "c27-msg-1",
+        "children": [
+          "c27-msg-3"
+        ],
+        "message": {
+          "id": "c27-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1685437320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "my back is killing me after sitting debugging all day. any advice on chair or desk setup?"
+            ]
+          }
+        }
+      },
+      "c27-msg-3": {
+        "id": "c27-msg-3",
+        "parent": "c27-msg-2",
+        "children": [],
+        "message": {
+          "id": "c27-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1685437380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Back pain from desk work is brutal! Quick checklist:\n1. Screen height: top third of monitor should be at eye level so your neck isn't bent forward.\n2. Elbows at 90 degrees resting naturally on armrests, shoulders relaxed.\n3. Lower back support: place a small rolled towel behind your lumbar spine if your chair lacks support.\n4. Take a 2-minute walking break every 45 minutes."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c27-msg-3"
+  },
+  {
+    "id": "c29",
+    "conversation_id": "c29",
+    "title": "DuckDB querying partitioned parquet files",
+    "create_time": 1686301200.0,
+    "update_time": 1686301320.0,
+    "mapping": {
+      "c29-root": {
+        "id": "c29-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c29-msg-0"
+        ]
+      },
+      "c29-msg-0": {
+        "id": "c29-msg-0",
+        "parent": "c29-root",
+        "children": [
+          "c29-msg-1"
+        ],
+        "message": {
+          "id": "c29-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1686301200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "can duckdb query a partitioned hive-style parquet folder directly with glob patterns?"
+            ]
+          }
+        }
+      },
+      "c29-msg-1": {
+        "id": "c29-msg-1",
+        "parent": "c29-msg-0",
+        "children": [],
+        "message": {
+          "id": "c29-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1686301260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes! DuckDB handles Hive partitioning out of the box:\n```sql\nSELECT year, category, count(*), avg(amount)\nFROM read_parquet('data/sales/*/*/*.parquet', hive_partitioning=true)\nWHERE year = 2023\nGROUP BY year, category;\n```\nDuckDB automatically pushes down partition filters to skip irrelevant partition folders without reading files."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c29-msg-1"
+  },
+  {
+    "id": "c31",
+    "conversation_id": "c31",
+    "title": "Pydantic v2 migration and validators",
+    "create_time": 1687165200.0,
+    "update_time": 1687166400.0,
+    "mapping": {
+      "c31-root": {
+        "id": "c31-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c31-msg-0"
+        ]
+      },
+      "c31-msg-0": {
+        "id": "c31-msg-0",
+        "parent": "c31-root",
+        "children": [
+          "c31-msg-1"
+        ],
+        "message": {
+          "id": "c31-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687165200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "I'm migrating a FastAPI codebase from Pydantic v1 to Pydantic v2. What replaced @validator and @root_validator?"
+            ]
+          }
+        }
+      },
+      "c31-msg-1": {
+        "id": "c31-msg-1",
+        "parent": "c31-msg-0",
+        "children": [
+          "c31-msg-2"
+        ],
+        "message": {
+          "id": "c31-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687165260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "In Pydantic v2:\n- `@validator` is replaced by `@field_validator('field_name', mode='before'|'after')`.\n- `@root_validator` is replaced by `@model_validator(mode='before'|'after')`.\nAlso, `mode='after'` validators receive the validated model instance `self` directly in model_validator, whereas `mode='before'` validators receive the raw dictionary `data` before field validation."
+            ]
+          }
+        }
+      },
+      "c31-msg-2": {
+        "id": "c31-msg-2",
+        "parent": "c31-msg-1",
+        "children": [
+          "c31-msg-3"
+        ],
+        "message": {
+          "id": "c31-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687165320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "How do I forbid extra fields in a Pydantic v2 model?"
+            ]
+          }
+        }
+      },
+      "c31-msg-3": {
+        "id": "c31-msg-3",
+        "parent": "c31-msg-2",
+        "children": [
+          "c31-msg-4"
+        ],
+        "message": {
+          "id": "c31-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687165380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Instead of the old `class Config:` inner class, use `model_config = ConfigDict(extra='forbid')`:\n```python\nfrom pydantic import BaseModel, ConfigDict\n\nclass MyModel(BaseModel):\n    model_config = ConfigDict(extra='forbid')\n    name: str\n    age: int\n```"
+            ]
+          }
+        }
+      },
+      "c31-msg-4": {
+        "id": "c31-msg-4",
+        "parent": "c31-msg-3",
+        "children": [
+          "c31-msg-5"
+        ],
+        "message": {
+          "id": "c31-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687165440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "What happened to .dict() and .json()?"
+            ]
+          }
+        }
+      },
+      "c31-msg-5": {
+        "id": "c31-msg-5",
+        "parent": "c31-msg-4",
+        "children": [
+          "c31-msg-6"
+        ],
+        "message": {
+          "id": "c31-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687165500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "They are deprecated and will be removed in v3. Use:\n- `model.model_dump()` instead of `.dict()`\n- `model.model_dump_json()` instead of `.json()`"
+            ]
+          }
+        }
+      },
+      "c31-msg-6": {
+        "id": "c31-msg-6",
+        "parent": "c31-msg-5",
+        "children": [
+          "c31-msg-7"
+        ],
+        "message": {
+          "id": "c31-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687165560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "What replaced parse_obj()?"
+            ]
+          }
+        }
+      },
+      "c31-msg-7": {
+        "id": "c31-msg-7",
+        "parent": "c31-msg-6",
+        "children": [
+          "c31-msg-8"
+        ],
+        "message": {
+          "id": "c31-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687165620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use `MyModel.model_validate(obj)` instead of `MyModel.parse_obj(obj)`. For JSON strings, use `MyModel.model_validate_json(raw_json)`."
+            ]
+          }
+        }
+      },
+      "c31-msg-8": {
+        "id": "c31-msg-8",
+        "parent": "c31-msg-7",
+        "children": [
+          "c31-msg-9"
+        ],
+        "message": {
+          "id": "c31-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687165680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Can you show an example of @model_validator(mode='after') checking cross-field constraints?"
+            ]
+          }
+        }
+      },
+      "c31-msg-9": {
+        "id": "c31-msg-9",
+        "parent": "c31-msg-8",
+        "children": [
+          "c31-msg-10"
+        ],
+        "message": {
+          "id": "c31-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687165740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "```python\nfrom typing_extensions import Self\nfrom pydantic import BaseModel, model_validator\n\nclass DateRange(BaseModel):\n    start_date: int\n    end_date: int\n\n    @model_validator(mode='after')\n    def check_dates(self) -> Self:\n        if self.start_date > self.end_date:\n            raise ValueError('start_date cannot be greater than end_date')\n        return self\n```"
+            ]
+          }
+        }
+      },
+      "c31-msg-10": {
+        "id": "c31-msg-10",
+        "parent": "c31-msg-9",
+        "children": [
+          "c31-msg-11"
+        ],
+        "message": {
+          "id": "c31-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687165800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "What about schema() for OpenAPI generation?"
+            ]
+          }
+        }
+      },
+      "c31-msg-11": {
+        "id": "c31-msg-11",
+        "parent": "c31-msg-10",
+        "children": [
+          "c31-msg-12"
+        ],
+        "message": {
+          "id": "c31-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687165860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use `MyModel.model_json_schema()` instead of `MyModel.schema()`."
+            ]
+          }
+        }
+      },
+      "c31-msg-12": {
+        "id": "c31-msg-12",
+        "parent": "c31-msg-11",
+        "children": [
+          "c31-msg-13"
+        ],
+        "message": {
+          "id": "c31-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687165920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Is Pydantic v2 much faster because of pydantic-core?"
+            ]
+          }
+        }
+      },
+      "c31-msg-13": {
+        "id": "c31-msg-13",
+        "parent": "c31-msg-12",
+        "children": [
+          "c31-msg-14"
+        ],
+        "message": {
+          "id": "c31-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687165980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, pydantic-core is written in Rust. Parsing and validation benchmarks typically show 5x to 20x speedups compared to v1 pure Python implementation."
+            ]
+          }
+        }
+      },
+      "c31-msg-14": {
+        "id": "c31-msg-14",
+        "parent": "c31-msg-13",
+        "children": [
+          "c31-msg-15"
+        ],
+        "message": {
+          "id": "c31-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687166040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Does Field(..., regex=...) still work?"
+            ]
+          }
+        }
+      },
+      "c31-msg-15": {
+        "id": "c31-msg-15",
+        "parent": "c31-msg-14",
+        "children": [
+          "c31-msg-16"
+        ],
+        "message": {
+          "id": "c31-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687166100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "No, `regex` was renamed to `pattern`, e.g. `Field(pattern=r'^[a-z]+$')`."
+            ]
+          }
+        }
+      },
+      "c31-msg-16": {
+        "id": "c31-msg-16",
+        "parent": "c31-msg-15",
+        "children": [
+          "c31-msg-17"
+        ],
+        "message": {
+          "id": "c31-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687166160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "What about custom types with __get_validators__?"
+            ]
+          }
+        }
+      },
+      "c31-msg-17": {
+        "id": "c31-msg-17",
+        "parent": "c31-msg-16",
+        "children": [
+          "c31-msg-18"
+        ],
+        "message": {
+          "id": "c31-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687166220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Custom types now use `__get_pydantic_core_schema__` from `pydantic_core.core_schema` or `Annotated[T, BeforeValidator(...)]`."
+            ]
+          }
+        }
+      },
+      "c31-msg-18": {
+        "id": "c31-msg-18",
+        "parent": "c31-msg-17",
+        "children": [
+          "c31-msg-19"
+        ],
+        "message": {
+          "id": "c31-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1687166280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "This covers all the breaking changes I was hitting, thanks!"
+            ]
+          }
+        }
+      },
+      "c31-msg-19": {
+        "id": "c31-msg-19",
+        "parent": "c31-msg-18",
+        "children": [],
+        "message": {
+          "id": "c31-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1687166340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Glad to help! The v1 to v2 migration is straightforward once you know the new `model_dump`, `ConfigDict`, and validator conventions."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c31-msg-19"
+  },
+  {
+    "id": "c33",
+    "conversation_id": "c33",
+    "title": "FastAPI JWT Bearer auth header",
+    "create_time": 1688029200.0,
+    "update_time": 1688029440.0,
+    "mapping": {
+      "c33-root": {
+        "id": "c33-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c33-msg-0"
+        ]
+      },
+      "c33-msg-0": {
+        "id": "c33-msg-0",
+        "parent": "c33-root",
+        "children": [
+          "c33-msg-1"
+        ],
+        "message": {
+          "id": "c33-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1688029200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to extract and verify a Bearer JWT in a fastapi header dependency?"
+            ]
+          }
+        }
+      },
+      "c33-msg-1": {
+        "id": "c33-msg-1",
+        "parent": "c33-msg-0",
+        "children": [
+          "c33-msg-2"
+        ],
+        "message": {
+          "id": "c33-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1688029260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use `HTTPBearer` from `fastapi.security` and `jwt.decode` from PyJWT:\n```python\nfrom fastapi import Depends, HTTPException, status\nfrom fastapi.security import HTTPBearer, HTTPAuthorizationCredentials\nimport jwt\n\nsecurity = HTTPBearer()\n\ndef get_current_user(creds: HTTPAuthorizationCredentials = Depends(security)):\n    token = creds.credentials\n    try:\n        payload = jwt.decode(token, 'SECRET_KEY', algorithms=['HS256'])\n        return payload['sub']\n    except jwt.PyJWTError:\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid token')\n```"
+            ]
+          }
+        }
+      },
+      "c33-msg-2": {
+        "id": "c33-msg-2",
+        "parent": "c33-msg-1",
+        "children": [
+          "c33-msg-3"
+        ],
+        "message": {
+          "id": "c33-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1688029320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "finally got this auth working. once this sprint is done im taking a week off. where is a chill beach place to relax?"
+            ]
+          }
+        }
+      },
+      "c33-msg-3": {
+        "id": "c33-msg-3",
+        "parent": "c33-msg-2",
+        "children": [],
+        "message": {
+          "id": "c33-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1688029380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Congrats on finishing the auth! For a chill beach getaway:\n- Goa (South Goa like Palolem or Agonda) is quiet, scenic, and great for unwinding without loud crowds.\n- Andaman Islands (Havelock / Radhanagar Beach) has turquoise waters and amazing diving.\n- If Southeast Asia: Da Nang / Hoi An in Vietnam has great beaches and delicious food on a budget."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c33-msg-3"
+  },
+  {
+    "id": "c35",
+    "conversation_id": "c35",
+    "title": "Git stash pop vs apply",
+    "create_time": 1688893200.0,
+    "update_time": 1688893320.0,
+    "mapping": {
+      "c35-root": {
+        "id": "c35-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c35-msg-0"
+        ]
+      },
+      "c35-msg-0": {
+        "id": "c35-msg-0",
+        "parent": "c35-root",
+        "children": [
+          "c35-msg-1"
+        ],
+        "message": {
+          "id": "c35-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1688893200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "whats the difference between git stash pop and git stash apply?"
+            ]
+          }
+        }
+      },
+      "c35-msg-1": {
+        "id": "c35-msg-1",
+        "parent": "c35-msg-0",
+        "children": [],
+        "message": {
+          "id": "c35-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1688893260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "- `git stash pop`: Applies the most recent stashed changes (`stash@{0}`) to your working directory AND removes it from the stash list if there are no conflicts.\n- `git stash apply`: Applies the changes to your working directory but KEEPS the stash entry in your stash list so you can re-use it elsewhere."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c35-msg-1"
+  },
+  {
+    "id": "c37",
+    "conversation_id": "c37",
+    "title": "Git submodule recursive init and update",
+    "create_time": 1689757200.0,
+    "update_time": 1689757440.0,
+    "mapping": {
+      "c37-root": {
+        "id": "c37-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c37-msg-0"
+        ]
+      },
+      "c37-msg-0": {
+        "id": "c37-msg-0",
+        "parent": "c37-root",
+        "children": [
+          "c37-msg-1"
+        ],
+        "message": {
+          "id": "c37-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1689757200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "cloned a repo with git submodules and the subfolder is empty. what command populates it?"
+            ]
+          }
+        }
+      },
+      "c37-msg-1": {
+        "id": "c37-msg-1",
+        "parent": "c37-msg-0",
+        "children": [
+          "c37-msg-2"
+        ],
+        "message": {
+          "id": "c37-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1689757260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Run:\n```bash\ngit submodule update --init --recursive\n```\nAlternatively, when cloning a new repository, pass the `--recurse-submodules` flag:\n```bash\ngit clone --recurse-submodules <repo-url>\n```"
+            ]
+          }
+        }
+      },
+      "c37-msg-2": {
+        "id": "c37-msg-2",
+        "parent": "c37-msg-1",
+        "children": [
+          "c37-msg-3"
+        ],
+        "message": {
+          "id": "c37-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1689757320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "that worked. totally random question, my bedroom door latch squeaks every time i close it. how to fix?"
+            ]
+          }
+        }
+      },
+      "c37-msg-3": {
+        "id": "c37-msg-3",
+        "parent": "c37-msg-2",
+        "children": [],
+        "message": {
+          "id": "c37-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1689757380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Spray a tiny squirt of WD-40 or silicone lubricant directly onto the spring latch bolt and the hinge pins, then open and close the door 10 times to let it penetrate. If you don't have spray lube, rub a little petroleum jelly (Vaseline) or pencil graphite on the latch face!"
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c37-msg-3"
+  },
+  {
+    "id": "c39",
+    "conversation_id": "c39",
+    "title": "React useState stale closure in setInterval",
+    "create_time": 1690621200.0,
+    "update_time": 1690621320.0,
+    "mapping": {
+      "c39-root": {
+        "id": "c39-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c39-msg-0"
+        ]
+      },
+      "c39-msg-0": {
+        "id": "c39-msg-0",
+        "parent": "c39-root",
+        "children": [
+          "c39-msg-1"
+        ],
+        "message": {
+          "id": "c39-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1690621200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "my count state stays at 1 inside setInterval even though i call setCount(count + 1). why?"
+            ]
+          }
+        }
+      },
+      "c39-msg-1": {
+        "id": "c39-msg-1",
+        "parent": "c39-msg-0",
+        "children": [],
+        "message": {
+          "id": "c39-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1690621260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "This is a classic 'stale closure' bug. The interval callback captures the `count` variable from the initial render when it was 0.\nTo fix it, use the functional state updater form:\n```javascript\nuseEffect(() => {\n  const id = setInterval(() => {\n    setCount(prev => prev + 1);\n  }, 1000);\n  return () => clearInterval(id);\n}, []);\n```\nThe updater function always receives the fresh current state."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c39-msg-1"
+  },
+  {
+    "id": "c41",
+    "conversation_id": "c41",
+    "title": "Tailwind CSS responsive grid and guitar calluses",
+    "create_time": 1691485200.0,
+    "update_time": 1691485440.0,
+    "mapping": {
+      "c41-root": {
+        "id": "c41-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c41-msg-0"
+        ]
+      },
+      "c41-msg-0": {
+        "id": "c41-msg-0",
+        "parent": "c41-root",
+        "children": [
+          "c41-msg-1"
+        ],
+        "message": {
+          "id": "c41-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1691485200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to make a 4-column card grid in tailwind that collapses to 2 columns on tablet and 1 on mobile?"
+            ]
+          }
+        }
+      },
+      "c41-msg-1": {
+        "id": "c41-msg-1",
+        "parent": "c41-msg-0",
+        "children": [
+          "c41-msg-2"
+        ],
+        "message": {
+          "id": "c41-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1691485260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use Tailwind's grid utility classes with responsive prefixes:\n```html\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-4\">\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 1</div>\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 2</div>\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 3</div>\n  <div class=\"bg-white rounded-lg shadow p-4\">Card 4</div>\n</div>\n```\n`grid-cols-1` is mobile-first default, `md:` activates at 768px, and `lg:` at 1024px."
+            ]
+          }
+        }
+      },
+      "c41-msg-2": {
+        "id": "c41-msg-2",
+        "parent": "c41-msg-1",
+        "children": [
+          "c41-msg-3"
+        ],
+        "message": {
+          "id": "c41-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1691485320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "perfect. taking a break from css, my fingertips hurt from playing steel string acoustic guitar. how long until calluses form?"
+            ]
+          }
+        }
+      },
+      "c41-msg-3": {
+        "id": "c41-msg-3",
+        "parent": "c41-msg-2",
+        "children": [],
+        "message": {
+          "id": "c41-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1691485380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Calluses typically take 2 to 4 weeks of consistent 15-20 minute daily practice. Tips:\n1. Keep practice sessions short (15-20 mins) daily rather than a 2-hour marathon on Sunday.\n2. Ensure your guitar action isn't abnormally high.\n3. Never play right after showering when fingertips are soft and soaked with water."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c41-msg-3"
+  },
+  {
+    "id": "c43",
+    "conversation_id": "c43",
+    "title": "Sourdough bread bulk fermentation troubleshooting",
+    "create_time": 1692349200.0,
+    "update_time": 1692350400.0,
+    "mapping": {
+      "c43-root": {
+        "id": "c43-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c43-msg-0"
+        ]
+      },
+      "c43-msg-0": {
+        "id": "c43-msg-0",
+        "parent": "c43-root",
+        "children": [
+          "c43-msg-1"
+        ],
+        "message": {
+          "id": "c43-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692349200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "my sourdough loaf came out dense and flat with gummy crumb. what went wrong?"
+            ]
+          }
+        }
+      },
+      "c43-msg-1": {
+        "id": "c43-msg-1",
+        "parent": "c43-msg-0",
+        "children": [
+          "c43-msg-2"
+        ],
+        "message": {
+          "id": "c43-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692349260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Dense, flat sourdough with a gummy crumb usually points to one of three issues:\n1. Under-fermentation (bulk fermentation didn't build enough gas volume).\n2. Weak gluten development (dough couldn't hold its shape during bake).\n3. Slicing while still warm (steam condenses inside, causing gumminess). What was your hydration percentage and bulk time?"
+            ]
+          }
+        }
+      },
+      "c43-msg-2": {
+        "id": "c43-msg-2",
+        "parent": "c43-msg-1",
+        "children": [
+          "c43-msg-3"
+        ],
+        "message": {
+          "id": "c43-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692349320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "i used 75% hydration and bulk fermented for 3 hours at 21 celsius."
+            ]
+          }
+        }
+      },
+      "c43-msg-3": {
+        "id": "c43-msg-3",
+        "parent": "c43-msg-2",
+        "children": [
+          "c43-msg-4"
+        ],
+        "message": {
+          "id": "c43-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692349380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "At 21\u00b0C (70\u00b0F), 3 hours is definitely under-fermented! Sourdough fermentation at room temp 21\u00b0C typically needs 5 to 7 hours until the dough rises 50-75%, becomes domed with rounded edges, and shows bubbles underneath."
+            ]
+          }
+        }
+      },
+      "c43-msg-4": {
+        "id": "c43-msg-4",
+        "parent": "c43-msg-3",
+        "children": [
+          "c43-msg-5"
+        ],
+        "message": {
+          "id": "c43-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692349440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how many stretch and folds do you do during bulk?"
+            ]
+          }
+        }
+      },
+      "c43-msg-5": {
+        "id": "c43-msg-5",
+        "parent": "c43-msg-4",
+        "children": [
+          "c43-msg-6"
+        ],
+        "message": {
+          "id": "c43-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692349500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "4 sets of stretch and folds spaced 30 minutes apart during the first 2 hours of bulk fermentation. After the 4th set, let the dough rest undisturbed for the remainder of bulk."
+            ]
+          }
+        }
+      },
+      "c43-msg-6": {
+        "id": "c43-msg-6",
+        "parent": "c43-msg-5",
+        "children": [
+          "c43-msg-7"
+        ],
+        "message": {
+          "id": "c43-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692349560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "should the first set be coil folds or stretch and fold?"
+            ]
+          }
+        }
+      },
+      "c43-msg-7": {
+        "id": "c43-msg-7",
+        "parent": "c43-msg-6",
+        "children": [
+          "c43-msg-8"
+        ],
+        "message": {
+          "id": "c43-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692349620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Start with stretch and folds for the first 2 sets when the dough is stiffer, then switch to gentle coil folds for sets 3 and 4 as gluten develops and gas accumulates to avoid knocking air out."
+            ]
+          }
+        }
+      },
+      "c43-msg-8": {
+        "id": "c43-msg-8",
+        "parent": "c43-msg-7",
+        "children": [
+          "c43-msg-9"
+        ],
+        "message": {
+          "id": "c43-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692349680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i know when bulk fermentation is done?"
+            ]
+          }
+        }
+      },
+      "c43-msg-9": {
+        "id": "c43-msg-9",
+        "parent": "c43-msg-8",
+        "children": [
+          "c43-msg-10"
+        ],
+        "message": {
+          "id": "c43-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692349740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Don't watch the clock; watch the dough. Look for:\n- 50-75% rise in volume.\n- Top surface is smooth and domed with a few translucent bubbles.\n- Jiggly when you gently shake the bowl.\n- The poke test: gentle indentation slowly springs back halfway."
+            ]
+          }
+        }
+      },
+      "c43-msg-10": {
+        "id": "c43-msg-10",
+        "parent": "c43-msg-9",
+        "children": [
+          "c43-msg-11"
+        ],
+        "message": {
+          "id": "c43-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692349800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what temperature for Dutch oven baking?"
+            ]
+          }
+        }
+      },
+      "c43-msg-11": {
+        "id": "c43-msg-11",
+        "parent": "c43-msg-10",
+        "children": [
+          "c43-msg-12"
+        ],
+        "message": {
+          "id": "c43-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692349860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Preheat Dutch oven at 230\u00b0C (450\u00b0F) for 45-60 minutes. Bake covered with lid for 20 minutes (steam enables oven spring), then remove lid and bake uncovered at 220\u00b0C (425\u00b0F) for 20-25 minutes until deep mahogany crust forms."
+            ]
+          }
+        }
+      },
+      "c43-msg-12": {
+        "id": "c43-msg-12",
+        "parent": "c43-msg-11",
+        "children": [
+          "c43-msg-13"
+        ],
+        "message": {
+          "id": "c43-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692349920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "do i need ice cubes inside the dutch oven for steam?"
+            ]
+          }
+        }
+      },
+      "c43-msg-13": {
+        "id": "c43-msg-13",
+        "parent": "c43-msg-12",
+        "children": [
+          "c43-msg-14"
+        ],
+        "message": {
+          "id": "c43-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692349980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "A single ice cube dropped between the parchment paper and Dutch oven wall creates a burst of steam that improves blistered crust and blister ear, though not strictly required if the lid fits tightly."
+            ]
+          }
+        }
+      },
+      "c43-msg-14": {
+        "id": "c43-msg-14",
+        "parent": "c43-msg-13",
+        "children": [
+          "c43-msg-15"
+        ],
+        "message": {
+          "id": "c43-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692350040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how long to wait before slicing the loaf?"
+            ]
+          }
+        }
+      },
+      "c43-msg-15": {
+        "id": "c43-msg-15",
+        "parent": "c43-msg-14",
+        "children": [
+          "c43-msg-16"
+        ],
+        "message": {
+          "id": "c43-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692350100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Wait at least 2 hours, ideally until the loaf reaches room temperature (around 25\u00b0C). The interior starches are still setting as it cools."
+            ]
+          }
+        }
+      },
+      "c43-msg-16": {
+        "id": "c43-msg-16",
+        "parent": "c43-msg-15",
+        "children": [
+          "c43-msg-17"
+        ],
+        "message": {
+          "id": "c43-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692350160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what flour mix do you recommend for beginners?"
+            ]
+          }
+        }
+      },
+      "c43-msg-17": {
+        "id": "c43-msg-17",
+        "parent": "c43-msg-16",
+        "children": [
+          "c43-msg-18"
+        ],
+        "message": {
+          "id": "c43-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692350220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "80% unbleached strong bread flour (12.5-13% protein) and 20% whole wheat flour. The whole wheat speeds up microbial activity while bread flour gives strong gluten structure."
+            ]
+          }
+        }
+      },
+      "c43-msg-18": {
+        "id": "c43-msg-18",
+        "parent": "c43-msg-17",
+        "children": [
+          "c43-msg-19"
+        ],
+        "message": {
+          "id": "c43-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1692350280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "this explains why my loaf was flat, my kitchen was way too cold for a 3 hour bulk. thanks!"
+            ]
+          }
+        }
+      },
+      "c43-msg-19": {
+        "id": "c43-msg-19",
+        "parent": "c43-msg-18",
+        "children": [],
+        "message": {
+          "id": "c43-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1692350340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "You're welcome! Try giving it 6 hours at 21\u00b0C or use an oven with the light bulb on to create a warm 26-28\u00b0C proofing box. Happy baking!"
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c43-msg-19"
+  },
+  {
+    "id": "c45",
+    "conversation_id": "c45",
+    "title": "Pizza dough cold fermentation and career switch",
+    "create_time": 1693213200.0,
+    "update_time": 1693213440.0,
+    "mapping": {
+      "c45-root": {
+        "id": "c45-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c45-msg-0"
+        ]
+      },
+      "c45-msg-0": {
+        "id": "c45-msg-0",
+        "parent": "c45-root",
+        "children": [
+          "c45-msg-1"
+        ],
+        "message": {
+          "id": "c45-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1693213200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "why does 72 hour cold fermentation make pizza dough taste so much better?"
+            ]
+          }
+        }
+      },
+      "c45-msg-1": {
+        "id": "c45-msg-1",
+        "parent": "c45-msg-0",
+        "children": [
+          "c45-msg-2"
+        ],
+        "message": {
+          "id": "c45-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1693213260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "At refrigerator temperatures (3-4\u00b0C), yeast activity slows down dramatically while enzymatic activity continues. Enzymes (amylases and proteases) break complex starches into simple sugars and proteins into amino acids. This creates:\n1. Complex rich flavor (organic acids and esters).\n2. Superior browning and leopard spotting from caramelized simple sugars.\n3. Tender, easily digestible gluten structure."
+            ]
+          }
+        }
+      },
+      "c45-msg-2": {
+        "id": "c45-msg-2",
+        "parent": "c45-msg-1",
+        "children": [
+          "c45-msg-3"
+        ],
+        "message": {
+          "id": "c45-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1693213320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "pizza making has been my passion for years, but i'm currently switching careers into software engineering. any advice for someone self-taught?"
+            ]
+          }
+        }
+      },
+      "c45-msg-3": {
+        "id": "c45-msg-3",
+        "parent": "c45-msg-2",
+        "children": [],
+        "message": {
+          "id": "c45-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1693213380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Switching from culinary to software engineering is actually a great parallel\u2014both require discipline, following precise systems, handling feedback loops, and creative problem solving! Advice:\n1. Build 2 or 3 complete full-stack projects rather than 20 half-finished tutorial apps.\n2. Learn git, testing, and debugging deeply\u2014juniors who can debug and write clean tests stand out immediately.\n3. Leverage your unique story: teamwork in fast-paced high-pressure environments translates directly to tech teams."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c45-msg-3"
+  },
+  {
+    "id": "c47",
+    "conversation_id": "c47",
+    "title": "Tokyo 5-day subway pass and neighborhood plan",
+    "create_time": 1694077200.0,
+    "update_time": 1694078400.0,
+    "mapping": {
+      "c47-root": {
+        "id": "c47-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c47-msg-0"
+        ]
+      },
+      "c47-msg-0": {
+        "id": "c47-msg-0",
+        "parent": "c47-root",
+        "children": [
+          "c47-msg-1"
+        ],
+        "message": {
+          "id": "c47-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694077200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "planning a 5-day trip to Tokyo. is the Tokyo Subway 72-hour ticket worth it?"
+            ]
+          }
+        }
+      },
+      "c47-msg-1": {
+        "id": "c47-msg-1",
+        "parent": "c47-msg-0",
+        "children": [
+          "c47-msg-2"
+        ],
+        "message": {
+          "id": "c47-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694077260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, the Tokyo Subway 72-hour Ticket (1,500 JPY) is exceptional value! It covers all Tokyo Metro and Toei Subway lines unlimitedly. If you ride 3 or more metro rides a day, it pays for itself. Note: it does NOT cover JR lines (like the Yamanote line), for which you just tap an IC card (Suica or Pasmo)."
+            ]
+          }
+        }
+      },
+      "c47-msg-2": {
+        "id": "c47-msg-2",
+        "parent": "c47-msg-1",
+        "children": [
+          "c47-msg-3"
+        ],
+        "message": {
+          "id": "c47-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694077320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how should i divide Tokyo neighborhoods across 5 days?"
+            ]
+          }
+        }
+      },
+      "c47-msg-3": {
+        "id": "c47-msg-3",
+        "parent": "c47-msg-2",
+        "children": [
+          "c47-msg-4"
+        ],
+        "message": {
+          "id": "c47-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694077380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Group neighborhoods geographically to minimize transit time:\n- Day 1: Western Tokyo (Shinjuku, Shibuya, Meiji Jingu, Harajuku).\n- Day 2: Historic & Traditional (Asakusa Senso-ji, Ueno Park, Akihabara electronics).\n- Day 3: Central & Waterfront (Ginza, Tsukiji Outer Market, teamLab Planets in Toyosu).\n- Day 4: Hip & Artsy (Shimokitazawa vintage shops, Kichijoji Inokashira Park, Nakano Broadway).\n- Day 5: Day trip to Kamakura (Giant Buddha, coastal beaches) or Nikko."
+            ]
+          }
+        }
+      },
+      "c47-msg-4": {
+        "id": "c47-msg-4",
+        "parent": "c47-msg-3",
+        "children": [
+          "c47-msg-5"
+        ],
+        "message": {
+          "id": "c47-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694077440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "do i need cash in tokyo or is credit card widely accepted?"
+            ]
+          }
+        }
+      },
+      "c47-msg-5": {
+        "id": "c47-msg-5",
+        "parent": "c47-msg-4",
+        "children": [
+          "c47-msg-6"
+        ],
+        "message": {
+          "id": "c47-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694077500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Credit cards and IC transit cards (Suica/Pasmo on Apple Wallet) are accepted in 85% of places, but cash (yen) is still strictly required for small ramen ticket vending machines, temple donation stalls, and local street food. Keep 10,000 to 20,000 yen cash in hand from 7-Eleven 7-Bank ATMs."
+            ]
+          }
+        }
+      },
+      "c47-msg-6": {
+        "id": "c47-msg-6",
+        "parent": "c47-msg-5",
+        "children": [
+          "c47-msg-7"
+        ],
+        "message": {
+          "id": "c47-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694077560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is the best time of day to visit Senso-ji temple in Asakusa?"
+            ]
+          }
+        }
+      },
+      "c47-msg-7": {
+        "id": "c47-msg-7",
+        "parent": "c47-msg-6",
+        "children": [
+          "c47-msg-8"
+        ],
+        "message": {
+          "id": "c47-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694077620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Early morning before 7:30 AM! Nakamise street shops won't be open yet, but the temple grounds are tranquil and magical without tourist crowds. Alternatively, visit at 9:00 PM when the pagoda is illuminated."
+            ]
+          }
+        }
+      },
+      "c47-msg-8": {
+        "id": "c47-msg-8",
+        "parent": "c47-msg-7",
+        "children": [
+          "c47-msg-9"
+        ],
+        "message": {
+          "id": "c47-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694077680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how does mobile internet work? esim vs pocket wifi?"
+            ]
+          }
+        }
+      },
+      "c47-msg-9": {
+        "id": "c47-msg-9",
+        "parent": "c47-msg-8",
+        "children": [
+          "c47-msg-10"
+        ],
+        "message": {
+          "id": "c47-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694077740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "eSIM is by far the most convenient if your phone is carrier-unlocked (Ubigi, Airalo, or Nomad). Instant setup without carrying an extra battery pack like Pocket WiFi."
+            ]
+          }
+        }
+      },
+      "c47-msg-10": {
+        "id": "c47-msg-10",
+        "parent": "c47-msg-9",
+        "children": [
+          "c47-msg-11"
+        ],
+        "message": {
+          "id": "c47-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694077800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "where can i get great ramen without waiting 2 hours in line?"
+            ]
+          }
+        }
+      },
+      "c47-msg-11": {
+        "id": "c47-msg-11",
+        "parent": "c47-msg-10",
+        "children": [
+          "c47-msg-12"
+        ],
+        "message": {
+          "id": "c47-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694077860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Skip overhyped TikTok spots like Ichiran. Look on Tabelog (Japan's top food review site; any score 3.5+ is phenomenal) or visit Ramen Street under Tokyo Station (like Rokurinsha for tsukemen dipped noodles) during off-peak hours (3 PM - 5 PM)."
+            ]
+          }
+        }
+      },
+      "c47-msg-12": {
+        "id": "c47-msg-12",
+        "parent": "c47-msg-11",
+        "children": [
+          "c47-msg-13"
+        ],
+        "message": {
+          "id": "c47-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694077920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "is Shibuya Sky observation deck worth the ticket?"
+            ]
+          }
+        }
+      },
+      "c47-msg-13": {
+        "id": "c47-msg-13",
+        "parent": "c47-msg-12",
+        "children": [
+          "c47-msg-14"
+        ],
+        "message": {
+          "id": "c47-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694077980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Absolutely, especially booked 4 weeks in advance for the sunset slot (around 5:00 PM). It offers an open-air 360-degree rooftop view over Shibuya Crossing, Shinjuku skyline, and Mt. Fuji on clear days."
+            ]
+          }
+        }
+      },
+      "c47-msg-14": {
+        "id": "c47-msg-14",
+        "parent": "c47-msg-13",
+        "children": [
+          "c47-msg-15"
+        ],
+        "message": {
+          "id": "c47-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694078040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how easy is luggage forwarding between tokyo and kyoto?"
+            ]
+          }
+        }
+      },
+      "c47-msg-15": {
+        "id": "c47-msg-15",
+        "parent": "c47-msg-14",
+        "children": [
+          "c47-msg-16"
+        ],
+        "message": {
+          "id": "c47-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694078100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yamato Transport (Black Cat / Takkyubin) is legendary. Most hotel front desks will ship your large suitcase directly to your Kyoto hotel for ~2,000 yen per bag, arriving next morning."
+            ]
+          }
+        }
+      },
+      "c47-msg-16": {
+        "id": "c47-msg-16",
+        "parent": "c47-msg-15",
+        "children": [
+          "c47-msg-17"
+        ],
+        "message": {
+          "id": "c47-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694078160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "any etiquette rules i should know for public transit?"
+            ]
+          }
+        }
+      },
+      "c47-msg-17": {
+        "id": "c47-msg-17",
+        "parent": "c47-msg-16",
+        "children": [
+          "c47-msg-18"
+        ],
+        "message": {
+          "id": "c47-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694078220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "1. Keep phone strictly on silent (Manner Mode); no phone calls on trains.\n2. Do not eat or drink on local metro trains.\n3. Take off your backpack and hold it in front of you or put it on the overhead rack."
+            ]
+          }
+        }
+      },
+      "c47-msg-18": {
+        "id": "c47-msg-18",
+        "parent": "c47-msg-17",
+        "children": [
+          "c47-msg-19"
+        ],
+        "message": {
+          "id": "c47-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694078280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "this is a comprehensive 5-day guide, thank you!"
+            ]
+          }
+        }
+      },
+      "c47-msg-19": {
+        "id": "c47-msg-19",
+        "parent": "c47-msg-18",
+        "children": [],
+        "message": {
+          "id": "c47-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694078340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Have an incredible time in Tokyo! It's one of the most exciting and food-rich cities in the world."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c47-msg-19"
+  },
+  {
+    "id": "c49",
+    "conversation_id": "c49",
+    "title": "Budget trip to Vietnam and knapsack problem",
+    "create_time": 1694941200.0,
+    "update_time": 1694941440.0,
+    "mapping": {
+      "c49-root": {
+        "id": "c49-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c49-msg-0"
+        ]
+      },
+      "c49-msg-0": {
+        "id": "c49-msg-0",
+        "parent": "c49-root",
+        "children": [
+          "c49-msg-1"
+        ],
+        "message": {
+          "id": "c49-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694941200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how much budget do i need for 7 days in Vietnam doing Hanoi and Da Nang?"
+            ]
+          }
+        }
+      },
+      "c49-msg-1": {
+        "id": "c49-msg-1",
+        "parent": "c49-msg-0",
+        "children": [
+          "c49-msg-2"
+        ],
+        "message": {
+          "id": "c49-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694941260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Vietnam is wonderfully affordable. A comfortable mid-range budget is $40-$60 USD per day:\n- Clean boutique hotel/homestay: $25-35/night.\n- Street food (Pho, Banh Mi, Bun Cha): $2-4 per meal.\n- Grab taxi/scooter rides: $2-5 per trip.\n- Domestic flight Hanoi to Da Nang: ~$45.\nTotal for 7 days excluding international flights is around $350-$450 USD."
+            ]
+          }
+        }
+      },
+      "c49-msg-2": {
+        "id": "c49-msg-2",
+        "parent": "c49-msg-1",
+        "children": [
+          "c49-msg-3"
+        ],
+        "message": {
+          "id": "c49-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1694941320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "nice. trying to pack everything in a 7kg carry-on reminds me of the 0/1 knapsack algorithm in CS! how does dynamic programming solve that again?"
+            ]
+          }
+        }
+      },
+      "c49-msg-3": {
+        "id": "c49-msg-3",
+        "parent": "c49-msg-2",
+        "children": [],
+        "message": {
+          "id": "c49-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1694941380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Haha, exact match! In 0/1 Knapsack:\nLet `dp[i][w]` be the maximum value possible using a subset of the first `i` items with max weight capacity `w`.\nFor item `i` with weight `wt` and value `val`:\n- If `wt > w`: `dp[i][w] = dp[i-1][w]` (can't take it).\n- Else: `dp[i][w] = max(dp[i-1][w], val + dp[i-1][w - wt])`.\nYou fill a 2D table in $O(N \\times W)$ time and space, or optimize space to 1D array iterating weight backwards."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c49-msg-3"
+  },
+  {
+    "id": "c51",
+    "conversation_id": "c51",
+    "title": "Negotiating software engineer salary and equity",
+    "create_time": 1695805200.0,
+    "update_time": 1695805320.0,
+    "mapping": {
+      "c51-root": {
+        "id": "c51-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c51-msg-0"
+        ]
+      },
+      "c51-msg-0": {
+        "id": "c51-msg-0",
+        "parent": "c51-root",
+        "children": [
+          "c51-msg-1"
+        ],
+        "message": {
+          "id": "c51-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1695805200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "received a software engineer job offer: 130k base, 20k equity/year, 10k sign-on. how do i negotiate?"
+            ]
+          }
+        }
+      },
+      "c51-msg-1": {
+        "id": "c51-msg-1",
+        "parent": "c51-msg-0",
+        "children": [],
+        "message": {
+          "id": "c51-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1695805260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Never accept or negotiate immediately on the phone; always ask for 48 hours to review the total compensation package.\nNegotiation tips:\n1. Base salary is hardest to move for bands; RSUs/equity and sign-on bonuses have much more hiring manager flexibility.\n2. Anchor with market data (Levels.fyi, Blind) or competing offers: 'I'm excited about the team's roadmap. Based on competing conversations and market rates for senior roles, I am looking for $145k base or an additional $20k in initial equity grant.'\n3. Frame negotiation collaboratively: 'If we can reach $145k total base, I am ready to sign today.'"
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c51-msg-1"
+  },
+  {
+    "id": "c53",
+    "conversation_id": "c53",
+    "title": "System design interview preparation roadmap",
+    "create_time": 1696669200.0,
+    "update_time": 1696670400.0,
+    "mapping": {
+      "c53-root": {
+        "id": "c53-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c53-msg-0"
+        ]
+      },
+      "c53-msg-0": {
+        "id": "c53-msg-0",
+        "parent": "c53-root",
+        "children": [
+          "c53-msg-1"
+        ],
+        "message": {
+          "id": "c53-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696669200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is a comprehensive preparation roadmap for senior backend system design interviews?"
+            ]
+          }
+        }
+      },
+      "c53-msg-1": {
+        "id": "c53-msg-1",
+        "parent": "c53-msg-0",
+        "children": [
+          "c53-msg-2"
+        ],
+        "message": {
+          "id": "c53-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696669260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Follow a 4-step structured roadmap over 4 to 8 weeks:\n1. Foundations: Networking (TCP/HTTP/gRPC), Caching (Redis/Memcached, Cache-Aside vs Write-Through), Database scaling (Replication, Sharding, B-Tree vs LSM), and Message queues (Kafka/RabbitMQ).\n2. Core trade-offs: CAP theorem, PACELC, strong consistency vs eventual consistency.\n3. Standard design patterns: Rate limiters, URL shorteners, distributed ID generation (Snowflake), notification systems, chat apps.\n4. Mock interviews with real-time feedback."
+            ]
+          }
+        }
+      },
+      "c53-msg-2": {
+        "id": "c53-msg-2",
+        "parent": "c53-msg-1",
+        "children": [
+          "c53-msg-3"
+        ],
+        "message": {
+          "id": "c53-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696669320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how should i pace the 45-minute interview?"
+            ]
+          }
+        }
+      },
+      "c53-msg-3": {
+        "id": "c53-msg-3",
+        "parent": "c53-msg-2",
+        "children": [
+          "c53-msg-4"
+        ],
+        "message": {
+          "id": "c53-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696669380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Divide into 4 distinct phases:\n- 0-5 mins: Clarify requirements & scope (functional, non-functional, latency, QPS, data retention).\n- 5-10 mins: High-level design (draw key services, DB, cache, load balancers).\n- 10-30 mins: Deep dive into core bottlenecks, data schema, APIs, and scaling.\n- 30-40 mins: Failure modes, resiliency, monitoring, and single points of failure.\n- 40-45 mins: Wrap up and interview questions."
+            ]
+          }
+        }
+      },
+      "c53-msg-4": {
+        "id": "c53-msg-4",
+        "parent": "c53-msg-3",
+        "children": [
+          "c53-msg-5"
+        ],
+        "message": {
+          "id": "c53-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696669440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to calculate QPS and storage estimations?"
+            ]
+          }
+        }
+      },
+      "c53-msg-5": {
+        "id": "c53-msg-5",
+        "parent": "c53-msg-4",
+        "children": [
+          "c53-msg-6"
+        ],
+        "message": {
+          "id": "c53-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696669500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Memorize quick powers of 10:\n- 1 million requests/day $\\approx$ 12 requests/second ($10^6 / 86400$).\n- 100 million daily active users $\\approx$ 1,200 QPS average, ~2,400 peak.\n- Storage: 100 million posts/day $\\times$ 500 bytes = 50 GB/day $\\approx$ 18 TB/year."
+            ]
+          }
+        }
+      },
+      "c53-msg-6": {
+        "id": "c53-msg-6",
+        "parent": "c53-msg-5",
+        "children": [
+          "c53-msg-7"
+        ],
+        "message": {
+          "id": "c53-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696669560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is the best approach for unique ID generation without single point of failure?"
+            ]
+          }
+        }
+      },
+      "c53-msg-7": {
+        "id": "c53-msg-7",
+        "parent": "c53-msg-6",
+        "children": [
+          "c53-msg-8"
+        ],
+        "message": {
+          "id": "c53-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696669620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Twitter Snowflake approach: 64-bit integer consisting of:\n- 1 sign bit (0)\n- 41 bits timestamp in milliseconds (~69 years)\n- 10 bits worker / machine node ID (1024 nodes)\n- 12 bits sequence number (4096 IDs per millisecond per node).\nProvides k-sortable, decentralized, high-throughput unique IDs without database coordination."
+            ]
+          }
+        }
+      },
+      "c53-msg-8": {
+        "id": "c53-msg-8",
+        "parent": "c53-msg-7",
+        "children": [
+          "c53-msg-9"
+        ],
+        "message": {
+          "id": "c53-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696669680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "SQL vs NoSQL: how do I justify my choice in the interview?"
+            ]
+          }
+        }
+      },
+      "c53-msg-9": {
+        "id": "c53-msg-9",
+        "parent": "c53-msg-8",
+        "children": [
+          "c53-msg-10"
+        ],
+        "message": {
+          "id": "c53-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696669740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Justify by access patterns and consistency needs:\n- Choose SQL (PostgreSQL, MySQL) when: ACID transactions are required (financial transactions), data has relational foreign keys, schema is stable, and complex JOINs are common.\n- Choose NoSQL (Cassandra, DynamoDB, MongoDB) when: massive write volume requiring horizontal partitioning, flexible schema, key-value or document lookups by partition key, and eventual consistency is acceptable."
+            ]
+          }
+        }
+      },
+      "c53-msg-10": {
+        "id": "c53-msg-10",
+        "parent": "c53-msg-9",
+        "children": [
+          "c53-msg-11"
+        ],
+        "message": {
+          "id": "c53-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696669800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to handle hot partition keys in sharded databases?"
+            ]
+          }
+        }
+      },
+      "c53-msg-11": {
+        "id": "c53-msg-11",
+        "parent": "c53-msg-10",
+        "children": [
+          "c53-msg-12"
+        ],
+        "message": {
+          "id": "c53-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696669860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Add a salt or suffix to hot keys (e.g. `celebrity_user_id_#` where `#` is 0-9) to spread writes across 10 shards, and query shards in parallel with scatter-gather during reads. Or use an aggressive Redis cache in front of read-heavy partitions."
+            ]
+          }
+        }
+      },
+      "c53-msg-12": {
+        "id": "c53-msg-12",
+        "parent": "c53-msg-11",
+        "children": [
+          "c53-msg-13"
+        ],
+        "message": {
+          "id": "c53-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696669920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is circuit breaker pattern?"
+            ]
+          }
+        }
+      },
+      "c53-msg-13": {
+        "id": "c53-msg-13",
+        "parent": "c53-msg-12",
+        "children": [
+          "c53-msg-14"
+        ],
+        "message": {
+          "id": "c53-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696669980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Prevents cascading failures when a downstream dependency fails. Three states: Closed (normal), Open (requests fail immediately without calling broken service), Half-Open (allows test requests through to check if service recovered)."
+            ]
+          }
+        }
+      },
+      "c53-msg-14": {
+        "id": "c53-msg-14",
+        "parent": "c53-msg-13",
+        "children": [
+          "c53-msg-15"
+        ],
+        "message": {
+          "id": "c53-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696670040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what book do you recommend for studying?"
+            ]
+          }
+        }
+      },
+      "c53-msg-15": {
+        "id": "c53-msg-15",
+        "parent": "c53-msg-14",
+        "children": [
+          "c53-msg-16"
+        ],
+        "message": {
+          "id": "c53-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696670100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "'Designing Data-Intensive Applications' by Martin Kleppmann is essential for deep conceptual fundamentals. 'System Design Interview' by Alex Xu (Vol 1 & 2) is best for interview template practice."
+            ]
+          }
+        }
+      },
+      "c53-msg-16": {
+        "id": "c53-msg-16",
+        "parent": "c53-msg-15",
+        "children": [
+          "c53-msg-17"
+        ],
+        "message": {
+          "id": "c53-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696670160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to design a distributed rate limiter?"
+            ]
+          }
+        }
+      },
+      "c53-msg-17": {
+        "id": "c53-msg-17",
+        "parent": "c53-msg-16",
+        "children": [
+          "c53-msg-18"
+        ],
+        "message": {
+          "id": "c53-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696670220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use Redis with token bucket or sliding window log using Redis sorted sets (ZADD, ZREMRANGEBYSCORE, ZCARD) wrapped in a Lua script for atomic evaluation."
+            ]
+          }
+        }
+      },
+      "c53-msg-18": {
+        "id": "c53-msg-18",
+        "parent": "c53-msg-17",
+        "children": [
+          "c53-msg-19"
+        ],
+        "message": {
+          "id": "c53-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1696670280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "this is an outstanding preparation framework, thank you!"
+            ]
+          }
+        }
+      },
+      "c53-msg-19": {
+        "id": "c53-msg-19",
+        "parent": "c53-msg-18",
+        "children": [],
+        "message": {
+          "id": "c53-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1696670340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Best of luck with your preparation! Consistency and practicing mock interviews out loud are the keys to acing system design."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c53-msg-19"
+  },
+  {
+    "id": "c55",
+    "conversation_id": "c55",
+    "title": "Index fund ETF vs mutual fund dollar cost averaging",
+    "create_time": 1697533200.0,
+    "update_time": 1697533320.0,
+    "mapping": {
+      "c55-root": {
+        "id": "c55-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c55-msg-0"
+        ]
+      },
+      "c55-msg-0": {
+        "id": "c55-msg-0",
+        "parent": "c55-root",
+        "children": [
+          "c55-msg-1"
+        ],
+        "message": {
+          "id": "c55-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1697533200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "is VOO ETF better than VFIAX mutual fund for automatic dollar cost averaging?"
+            ]
+          }
+        }
+      },
+      "c55-msg-1": {
+        "id": "c55-msg-1",
+        "parent": "c55-msg-0",
+        "children": [],
+        "message": {
+          "id": "c55-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1697533260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Both track the S&P 500 with nearly identical ultra-low expense ratios (0.03% vs 0.04%). Differences:\n- `VOO (ETF)`: Trades like a stock throughout the day with live pricing. In taxable accounts, ETFs have slight tax advantages regarding capital gains distributions. Most brokerages now allow fractional-share automated recurring buys.\n- `VFIAX (Mutual Fund)`: Trades once per day at 4 PM closing NAV. Seamless automatic recurring investments of exact dollar amounts (e.g. $100 every Tuesday) directly from checking account."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c55-msg-1"
+  },
+  {
+    "id": "c57",
+    "conversation_id": "c57",
+    "title": "Credit score utilization ratio rules",
+    "create_time": 1698397200.0,
+    "update_time": 1698397320.0,
+    "mapping": {
+      "c57-root": {
+        "id": "c57-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c57-msg-0"
+        ]
+      },
+      "c57-msg-0": {
+        "id": "c57-msg-0",
+        "parent": "c57-root",
+        "children": [
+          "c57-msg-1"
+        ],
+        "message": {
+          "id": "c57-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1698397200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how does credit utilization affect my credit score and what percent should i stay under?"
+            ]
+          }
+        }
+      },
+      "c57-msg-1": {
+        "id": "c57-msg-1",
+        "parent": "c57-msg-0",
+        "children": [],
+        "message": {
+          "id": "c57-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1698397260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Credit utilization (total balances divided by total credit limits across all cards) accounts for roughly 30% of your FICO score.\n- The general rule is to keep it under 30%.\n- For optimal scores (750+), keep it under 10% (and ideally 1-3%).\nTip: Card issuers report your balance on your statement closing date, not your due date. Pay off your balance a few days before your statement closes to report a near-zero balance."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c57-msg-1"
+  },
+  {
+    "id": "c59",
+    "conversation_id": "c59",
+    "title": "Couch to 5k running and shin splints prevention",
+    "create_time": 1699261200.0,
+    "update_time": 1699261320.0,
+    "mapping": {
+      "c59-root": {
+        "id": "c59-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c59-msg-0"
+        ]
+      },
+      "c59-msg-0": {
+        "id": "c59-msg-0",
+        "parent": "c59-root",
+        "children": [
+          "c59-msg-1"
+        ],
+        "message": {
+          "id": "c59-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1699261200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "started couch to 5k week 2 and my shins hurt when running. how to prevent shin splints?"
+            ]
+          }
+        }
+      },
+      "c59-msg-1": {
+        "id": "c59-msg-1",
+        "parent": "c59-msg-0",
+        "children": [],
+        "message": {
+          "id": "c59-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1699261260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Shin splints (medial tibial stress syndrome) are common beginner overuse injuries. How to fix:\n1. Shorten your stride: avoid overstriding (landing with heel far out in front of your knee). Land with feet directly underneath your hips.\n2. Increase cadence to ~160-170 steps per minute.\n3. Run on softer surfaces (dirt path or asphalt instead of concrete sidewalks).\n4. Strengthen tibialis anterior with heel walks and toe raises.\n5. If pain is sharp and hurts when walking, rest 3-5 days to avoid a stress fracture."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c59-msg-1"
+  },
+  {
+    "id": "c61",
+    "conversation_id": "c61",
+    "title": "Daily protein intake for muscle building",
+    "create_time": 1700125200.0,
+    "update_time": 1700125320.0,
+    "mapping": {
+      "c61-root": {
+        "id": "c61-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c61-msg-0"
+        ]
+      },
+      "c61-msg-0": {
+        "id": "c61-msg-0",
+        "parent": "c61-root",
+        "children": [
+          "c61-msg-1"
+        ],
+        "message": {
+          "id": "c61-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1700125200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how much protein per day for building muscle? is 1 gram per pound really necessary?"
+            ]
+          }
+        }
+      },
+      "c61-msg-1": {
+        "id": "c61-msg-1",
+        "parent": "c61-msg-0",
+        "children": [],
+        "message": {
+          "id": "c61-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1700125260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "The scientific consensus (Schoenfeld & Aragon meta-analyses) shows that 1.6 to 2.2 grams of protein per kilogram of bodyweight (0.7 to 1.0 grams per pound) is the optimal range for muscle hypertrophy.\nBeyond 1.0g per pound, there are diminishing returns. If you weigh 75 kg (165 lbs), aiming for 130 to 160 grams of protein daily distributed across 3 to 4 meals is plenty."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c61-msg-1"
+  },
+  {
+    "id": "c63",
+    "conversation_id": "c63",
+    "title": "Stretching tight hip flexors from desk work",
+    "create_time": 1700989200.0,
+    "update_time": 1700989320.0,
+    "mapping": {
+      "c63-root": {
+        "id": "c63-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c63-msg-0"
+        ]
+      },
+      "c63-msg-0": {
+        "id": "c63-msg-0",
+        "parent": "c63-root",
+        "children": [
+          "c63-msg-1"
+        ],
+        "message": {
+          "id": "c63-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1700989200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "sitting at my desk 8 hours a day made my hip flexors super tight. what stretches help?"
+            ]
+          }
+        }
+      },
+      "c63-msg-1": {
+        "id": "c63-msg-1",
+        "parent": "c63-msg-0",
+        "children": [],
+        "message": {
+          "id": "c63-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1700989260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Three high-impact stretches for tight hip flexors:\n1. Kneeling lunge with posterior pelvic tilt: Kneel on one knee, tuck your tailbone under (squeeze glute), and gently shift weight forward until you feel a deep stretch in the front of the back hip.\n2. Couch stretch: Place rear knee and shin flat against a wall/couch while lunging forward.\n3. Pigeon pose or 90/90 stretch for glute and hip rotators.\nHold each side for 60-90 seconds while taking slow belly breaths."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c63-msg-1"
+  },
+  {
+    "id": "c65",
+    "conversation_id": "c65",
+    "title": "Minor pentatonic box 1 blues solo phrasing",
+    "create_time": 1701853200.0,
+    "update_time": 1701854400.0,
+    "mapping": {
+      "c65-root": {
+        "id": "c65-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c65-msg-0"
+        ]
+      },
+      "c65-msg-0": {
+        "id": "c65-msg-0",
+        "parent": "c65-root",
+        "children": [
+          "c65-msg-1"
+        ],
+        "message": {
+          "id": "c65-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701853200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "i learned the A minor pentatonic box 1 on guitar (frets 5 and 8). how do i make it sound like music instead of just running scales up and down?"
+            ]
+          }
+        }
+      },
+      "c65-msg-1": {
+        "id": "c65-msg-1",
+        "parent": "c65-msg-0",
+        "children": [
+          "c65-msg-2"
+        ],
+        "message": {
+          "id": "c65-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701853260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Running scales up and down sounds like an exercise. To make it sound like real blues/rock solos:\n1. Phrasing and breathing: play a short 3-note idea, then pause for 2 beats like a singer taking a breath.\n2. Use articulation: string bending, vibrato, hammer-ons, and slides.\n3. Target chord tones: when the backing track plays an A minor chord, land on an A, C, or E note on the downbeat."
+            ]
+          }
+        }
+      },
+      "c65-msg-2": {
+        "id": "c65-msg-2",
+        "parent": "c65-msg-1",
+        "children": [
+          "c65-msg-3"
+        ],
+        "message": {
+          "id": "c65-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701853320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "which note should i bend in box 1?"
+            ]
+          }
+        }
+      },
+      "c65-msg-3": {
+        "id": "c65-msg-3",
+        "parent": "c65-msg-2",
+        "children": [
+          "c65-msg-4"
+        ],
+        "message": {
+          "id": "c65-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701853380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "The money bend in A minor pentatonic box 1 is the 7th fret on the G string (D note) bent up a whole step to E! Also bend the 8th fret on the B string (G note) bent a whole step to A."
+            ]
+          }
+        }
+      },
+      "c65-msg-4": {
+        "id": "c65-msg-4",
+        "parent": "c65-msg-3",
+        "children": [
+          "c65-msg-5"
+        ],
+        "message": {
+          "id": "c65-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701853440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i do vibrato without throwing my finger off the string?"
+            ]
+          }
+        }
+      },
+      "c65-msg-5": {
+        "id": "c65-msg-5",
+        "parent": "c65-msg-4",
+        "children": [
+          "c65-msg-6"
+        ],
+        "message": {
+          "id": "c65-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701853500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Rotate your forearm and wrist like turning a doorknob, rather than wiggling just your finger joint. Keep the finger anchored and pivot from the wrist."
+            ]
+          }
+        }
+      },
+      "c65-msg-6": {
+        "id": "c65-msg-6",
+        "parent": "c65-msg-5",
+        "children": [
+          "c65-msg-7"
+        ],
+        "message": {
+          "id": "c65-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701853560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is the 'blues note' added to pentatonic?"
+            ]
+          }
+        }
+      },
+      "c65-msg-7": {
+        "id": "c65-msg-7",
+        "parent": "c65-msg-6",
+        "children": [
+          "c65-msg-8"
+        ],
+        "message": {
+          "id": "c65-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701853620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "The flat 5th ($b5$). In A minor, that's the D# / Eb note at the 8th fret on the A string or the 8th fret on the G string. Passing through this note creates the classic grit of the Blues Scale."
+            ]
+          }
+        }
+      },
+      "c65-msg-8": {
+        "id": "c65-msg-8",
+        "parent": "c65-msg-7",
+        "children": [
+          "c65-msg-9"
+        ],
+        "message": {
+          "id": "c65-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701853680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "can i use the same box 1 shape for other keys?"
+            ]
+          }
+        }
+      },
+      "c65-msg-9": {
+        "id": "c65-msg-9",
+        "parent": "c65-msg-8",
+        "children": [
+          "c65-msg-10"
+        ],
+        "message": {
+          "id": "c65-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701853740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes! The pattern is movable. Move your index finger to the 3rd fret for G minor, 7th fret for B minor, 10th fret for D minor, and 12th fret for E minor."
+            ]
+          }
+        }
+      },
+      "c65-msg-10": {
+        "id": "c65-msg-10",
+        "parent": "c65-msg-9",
+        "children": [
+          "c65-msg-11"
+        ],
+        "message": {
+          "id": "c65-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701853800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is a call and response pattern in soloing?"
+            ]
+          }
+        }
+      },
+      "c65-msg-11": {
+        "id": "c65-msg-11",
+        "parent": "c65-msg-10",
+        "children": [
+          "c65-msg-12"
+        ],
+        "message": {
+          "id": "c65-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701853860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Play a short musical phrase (the 'call'), then answer it with a resolving phrase (the 'response'), like a conversation between two instruments."
+            ]
+          }
+        }
+      },
+      "c65-msg-12": {
+        "id": "c65-msg-12",
+        "parent": "c65-msg-11",
+        "children": [
+          "c65-msg-13"
+        ],
+        "message": {
+          "id": "c65-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701853920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to stop adjacent strings from ringing out during bends?"
+            ]
+          }
+        }
+      },
+      "c65-msg-13": {
+        "id": "c65-msg-13",
+        "parent": "c65-msg-12",
+        "children": [
+          "c65-msg-14"
+        ],
+        "message": {
+          "id": "c65-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701853980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Mute with both hands: use the palm of your picking hand to rest against lower pitch strings, and let the index finger of your fretting hand gently touch adjacent strings."
+            ]
+          }
+        }
+      },
+      "c65-msg-14": {
+        "id": "c65-msg-14",
+        "parent": "c65-msg-13",
+        "children": [
+          "c65-msg-15"
+        ],
+        "message": {
+          "id": "c65-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701854040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "should i practice with a metronome or backing tracks?"
+            ]
+          }
+        }
+      },
+      "c65-msg-15": {
+        "id": "c65-msg-15",
+        "parent": "c65-msg-14",
+        "children": [
+          "c65-msg-16"
+        ],
+        "message": {
+          "id": "c65-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701854100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Both! Metronome for clean timing and note subdivisions; YouTube 12-bar blues backing tracks for musical expression and groove."
+            ]
+          }
+        }
+      },
+      "c65-msg-16": {
+        "id": "c65-msg-16",
+        "parent": "c65-msg-15",
+        "children": [
+          "c65-msg-17"
+        ],
+        "message": {
+          "id": "c65-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701854160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "can i mix major and minor pentatonic?"
+            ]
+          }
+        }
+      },
+      "c65-msg-17": {
+        "id": "c65-msg-17",
+        "parent": "c65-msg-16",
+        "children": [
+          "c65-msg-18"
+        ],
+        "message": {
+          "id": "c65-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701854220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes! In blues, sliding between A minor pentatonic (fret 5) and A major pentatonic (fret 2) creates the legendary B.B. King sound."
+            ]
+          }
+        }
+      },
+      "c65-msg-18": {
+        "id": "c65-msg-18",
+        "parent": "c65-msg-17",
+        "children": [
+          "c65-msg-19"
+        ],
+        "message": {
+          "id": "c65-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1701854280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "this is so helpful, practicing bending and phrasing right now!"
+            ]
+          }
+        }
+      },
+      "c65-msg-19": {
+        "id": "c65-msg-19",
+        "parent": "c65-msg-18",
+        "children": [],
+        "message": {
+          "id": "c65-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1701854340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Keep rocking! Mastering phrasing and vibrato on box 1 is the foundation of lead guitar."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c65-msg-19"
+  },
+  {
+    "id": "c67",
+    "conversation_id": "c67",
+    "title": "Guitar Drop D tuning and power chords",
+    "create_time": 1702717200.0,
+    "update_time": 1702717320.0,
+    "mapping": {
+      "c67-root": {
+        "id": "c67-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c67-msg-0"
+        ]
+      },
+      "c67-msg-0": {
+        "id": "c67-msg-0",
+        "parent": "c67-root",
+        "children": [
+          "c67-msg-1"
+        ],
+        "message": {
+          "id": "c67-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1702717200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i tune my guitar to Drop D and why do rock bands use it?"
+            ]
+          }
+        }
+      },
+      "c67-msg-1": {
+        "id": "c67-msg-1",
+        "parent": "c67-msg-0",
+        "children": [],
+        "message": {
+          "id": "c67-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1702717260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "To tune to Drop D: lower only the 6th string (low E) down a whole step to D. Strings 1 through 5 remain in standard tuning (D-A-D-G-B-E).\nWhy bands love it:\n1. One-finger power chords: you can bar across strings 6, 5, and 4 with just your index finger.\n2. Deeper, heavier bass resonance with an open low D note.\n3. Fast riffing transitions across the fretboard."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c67-msg-1"
+  },
+  {
+    "id": "c69",
+    "conversation_id": "c69",
+    "title": "Two-pointer technique for sorted two sum",
+    "create_time": 1703581200.0,
+    "update_time": 1703581320.0,
+    "mapping": {
+      "c69-root": {
+        "id": "c69-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c69-msg-0"
+        ]
+      },
+      "c69-msg-0": {
+        "id": "c69-msg-0",
+        "parent": "c69-root",
+        "children": [
+          "c69-msg-1"
+        ],
+        "message": {
+          "id": "c69-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1703581200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how does the two-pointer technique solve Two Sum in a sorted array in O(n) time?"
+            ]
+          }
+        }
+      },
+      "c69-msg-1": {
+        "id": "c69-msg-1",
+        "parent": "c69-msg-0",
+        "children": [],
+        "message": {
+          "id": "c69-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1703581260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Place one pointer `left` at index 0 and `right` at the last index `len(nums) - 1`:\n```python\nwhile left < right:\n    current_sum = nums[left] + nums[right]\n    if current_sum == target:\n        return [left, right]\n    elif current_sum < target:\n        left += 1  # need a larger sum\n    else:\n        right -= 1 # need a smaller sum\n```\nBecause the array is sorted, moving `left` strictly increases the sum and moving `right` strictly decreases the sum, guaranteeing $O(N)$ time and $O(1)$ space."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c69-msg-1"
+  },
+  {
+    "id": "c71",
+    "conversation_id": "c71",
+    "title": "Dynamic programming coin change problem",
+    "create_time": 1704445200.0,
+    "update_time": 1704446400.0,
+    "mapping": {
+      "c71-root": {
+        "id": "c71-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c71-msg-0"
+        ]
+      },
+      "c71-msg-0": {
+        "id": "c71-msg-0",
+        "parent": "c71-root",
+        "children": [
+          "c71-msg-1"
+        ],
+        "message": {
+          "id": "c71-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704445200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how does the dynamic programming solution for the Coin Change problem (fewest coins) work?"
+            ]
+          }
+        }
+      },
+      "c71-msg-1": {
+        "id": "c71-msg-1",
+        "parent": "c71-msg-0",
+        "children": [
+          "c71-msg-2"
+        ],
+        "message": {
+          "id": "c71-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704445260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "In the Coin Change problem, given coins `[c1, c2, ...]` and target `amount`, we find minimum coins to make that amount.\nDefine `dp[i]` as minimum coins needed for amount `i`.\nBase case: `dp[0] = 0`, and initialize all other `dp[i] = float('inf')`.\nRecurrence relation:\nFor each amount `i` from 1 to `amount`:\n  For each coin `c` in coins:\n    if `i >= c`: `dp[i] = min(dp[i], 1 + dp[i - c])`.\nReturn `dp[amount]` if not infinity, else -1."
+            ]
+          }
+        }
+      },
+      "c71-msg-2": {
+        "id": "c71-msg-2",
+        "parent": "c71-msg-1",
+        "children": [
+          "c71-msg-3"
+        ],
+        "message": {
+          "id": "c71-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704445320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "can you write the python code for this?"
+            ]
+          }
+        }
+      },
+      "c71-msg-3": {
+        "id": "c71-msg-3",
+        "parent": "c71-msg-2",
+        "children": [
+          "c71-msg-4"
+        ],
+        "message": {
+          "id": "c71-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704445380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "```python\ndef coin_change(coins: list[int], amount: int) -> int:\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    for i in range(1, amount + 1):\n        for c in coins:\n            if i >= c:\n                dp[i] = min(dp[i], 1 + dp[i - c])\n    return dp[amount] if dp[amount] != float('inf') else -1\n```"
+            ]
+          }
+        }
+      },
+      "c71-msg-4": {
+        "id": "c71-msg-4",
+        "parent": "c71-msg-3",
+        "children": [
+          "c71-msg-5"
+        ],
+        "message": {
+          "id": "c71-msg-4",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704445440.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is the time and space complexity?"
+            ]
+          }
+        }
+      },
+      "c71-msg-5": {
+        "id": "c71-msg-5",
+        "parent": "c71-msg-4",
+        "children": [
+          "c71-msg-6"
+        ],
+        "message": {
+          "id": "c71-msg-5",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704445500.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Time Complexity: $O(A \\times C)$ where $A$ is the target amount and $C$ is the number of coin denominations.\nSpace Complexity: $O(A)$ for the 1D array of size `amount + 1`."
+            ]
+          }
+        }
+      },
+      "c71-msg-6": {
+        "id": "c71-msg-6",
+        "parent": "c71-msg-5",
+        "children": [
+          "c71-msg-7"
+        ],
+        "message": {
+          "id": "c71-msg-6",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704445560.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "why does a greedy approach fail for coin change?"
+            ]
+          }
+        }
+      },
+      "c71-msg-7": {
+        "id": "c71-msg-7",
+        "parent": "c71-msg-6",
+        "children": [
+          "c71-msg-8"
+        ],
+        "message": {
+          "id": "c71-msg-7",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704445620.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Greedy picks the largest coin first. Consider coins `[1, 3, 4]` and amount `6`:\n- Greedy takes 4, leaving 2, which requires 1 + 1 (total 3 coins: 4, 1, 1).\n- Optimal DP solution is 3 + 3 (total 2 coins).\nGreedy is only guaranteed optimal for canonical coin systems (like US currency)."
+            ]
+          }
+        }
+      },
+      "c71-msg-8": {
+        "id": "c71-msg-8",
+        "parent": "c71-msg-7",
+        "children": [
+          "c71-msg-9"
+        ],
+        "message": {
+          "id": "c71-msg-8",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704445680.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do you modify this to return the actual coins used, not just the count?"
+            ]
+          }
+        }
+      },
+      "c71-msg-9": {
+        "id": "c71-msg-9",
+        "parent": "c71-msg-8",
+        "children": [
+          "c71-msg-10"
+        ],
+        "message": {
+          "id": "c71-msg-9",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704445740.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Maintain a second array `coin_used = [0] * (amount + 1)`: whenever `1 + dp[i - c] < dp[i]`, set `coin_used[i] = c`. After the loop, backtrack from `curr = amount` appending `coin_used[curr]` and subtracting until `curr == 0`."
+            ]
+          }
+        }
+      },
+      "c71-msg-10": {
+        "id": "c71-msg-10",
+        "parent": "c71-msg-9",
+        "children": [
+          "c71-msg-11"
+        ],
+        "message": {
+          "id": "c71-msg-10",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704445800.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what if the problem asks for number of combinations to make the amount?"
+            ]
+          }
+        }
+      },
+      "c71-msg-11": {
+        "id": "c71-msg-11",
+        "parent": "c71-msg-10",
+        "children": [
+          "c71-msg-12"
+        ],
+        "message": {
+          "id": "c71-msg-11",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704445860.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "That's Coin Change II (Unbounded Knapsack)! Swap the loop order: loop over coins on the outer loop, and amounts on the inner loop, with `dp[i] += dp[i - c]`. Outer coin loop ensures combinations are counted without permutation ordering."
+            ]
+          }
+        }
+      },
+      "c71-msg-12": {
+        "id": "c71-msg-12",
+        "parent": "c71-msg-11",
+        "children": [
+          "c71-msg-13"
+        ],
+        "message": {
+          "id": "c71-msg-12",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704445920.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "can top-down memoization be faster than bottom-up tabulation?"
+            ]
+          }
+        }
+      },
+      "c71-msg-13": {
+        "id": "c71-msg-13",
+        "parent": "c71-msg-12",
+        "children": [
+          "c71-msg-14"
+        ],
+        "message": {
+          "id": "c71-msg-13",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704445980.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Top-down with `@lru_cache` only computes states that are actually reachable from the target amount, which can be faster if many intermediate amounts are never visited. However, bottom-up avoids recursion call-stack overhead and stack overflows."
+            ]
+          }
+        }
+      },
+      "c71-msg-14": {
+        "id": "c71-msg-14",
+        "parent": "c71-msg-13",
+        "children": [
+          "c71-msg-15"
+        ],
+        "message": {
+          "id": "c71-msg-14",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704446040.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what if amount is 0?"
+            ]
+          }
+        }
+      },
+      "c71-msg-15": {
+        "id": "c71-msg-15",
+        "parent": "c71-msg-14",
+        "children": [
+          "c71-msg-16"
+        ],
+        "message": {
+          "id": "c71-msg-15",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704446100.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "`dp[0]` is initialized to 0, which correctly returns 0 coins needed."
+            ]
+          }
+        }
+      },
+      "c71-msg-16": {
+        "id": "c71-msg-16",
+        "parent": "c71-msg-15",
+        "children": [
+          "c71-msg-17"
+        ],
+        "message": {
+          "id": "c71-msg-16",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704446160.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to handle negative coin values?"
+            ]
+          }
+        }
+      },
+      "c71-msg-17": {
+        "id": "c71-msg-17",
+        "parent": "c71-msg-16",
+        "children": [
+          "c71-msg-18"
+        ],
+        "message": {
+          "id": "c71-msg-17",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704446220.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Standard Coin Change assumes positive integer denominations. Negative coins create potential infinite cycles where you could subtract and add value indefinitely."
+            ]
+          }
+        }
+      },
+      "c71-msg-18": {
+        "id": "c71-msg-18",
+        "parent": "c71-msg-17",
+        "children": [
+          "c71-msg-19"
+        ],
+        "message": {
+          "id": "c71-msg-18",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1704446280.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "this covers the entire coin change problem variations clearly!"
+            ]
+          }
+        }
+      },
+      "c71-msg-19": {
+        "id": "c71-msg-19",
+        "parent": "c71-msg-18",
+        "children": [],
+        "message": {
+          "id": "c71-msg-19",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1704446340.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Glad to help! Mastering bottom-up vs top-down and loop order on Coin Change is essential for coding interviews."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c71-msg-19"
+  },
+  {
+    "id": "c73",
+    "conversation_id": "c73",
+    "title": "Unclogging sink with baking soda and vinegar",
+    "create_time": 1705309200.0,
+    "update_time": 1705309320.0,
+    "mapping": {
+      "c73-root": {
+        "id": "c73-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c73-msg-0"
+        ]
+      },
+      "c73-msg-0": {
+        "id": "c73-msg-0",
+        "parent": "c73-root",
+        "children": [
+          "c73-msg-1"
+        ],
+        "message": {
+          "id": "c73-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1705309200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "my bathroom sink is draining super slowly. can baking soda and vinegar clear it?"
+            ]
+          }
+        }
+      },
+      "c73-msg-1": {
+        "id": "c73-msg-1",
+        "parent": "c73-msg-0",
+        "children": [],
+        "message": {
+          "id": "c73-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1705309260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes, for minor organic build-up:\n1. Pour 1/2 cup baking soda down the drain.\n2. Follow immediately with 1 cup white vinegar and plug the drain with a cloth to force the fizzing reaction downward.\n3. Let it sit for 30 minutes.\n4. Flush with a kettle of boiling hot water.\nIf that fails, clear the P-trap pipe underneath or use a plastic drain snake to pull out hair clumps."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c73-msg-1"
+  },
+  {
+    "id": "c75",
+    "conversation_id": "c75",
+    "title": "Indoor snake plant watering and light",
+    "create_time": 1706173200.0,
+    "update_time": 1706173320.0,
+    "mapping": {
+      "c75-root": {
+        "id": "c75-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c75-msg-0"
+        ]
+      },
+      "c75-msg-0": {
+        "id": "c75-msg-0",
+        "parent": "c75-root",
+        "children": [
+          "c75-msg-1"
+        ],
+        "message": {
+          "id": "c75-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1706173200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how often should i water my indoor snake plant (sansevieria) and what light does it need?"
+            ]
+          }
+        }
+      },
+      "c75-msg-1": {
+        "id": "c75-msg-1",
+        "parent": "c75-msg-0",
+        "children": [],
+        "message": {
+          "id": "c75-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1706173260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Snake plants thrive on neglect:\n- Watering: Only water when the soil is 100% bone dry all the way to the bottom of the pot. In summer, that's typically every 2 to 3 weeks; in winter, once every 4 to 6 weeks. Overwatering causes root rot.\n- Light: Extremely versatile. They tolerate low light corners, but grow best in medium to bright indirect light."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c75-msg-1"
+  },
+  {
+    "id": "c77",
+    "conversation_id": "c77",
+    "title": "Circuit breaker tripping and smart plug python script",
+    "create_time": 1707037200.0,
+    "update_time": 1707037440.0,
+    "mapping": {
+      "c77-root": {
+        "id": "c77-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c77-msg-0"
+        ]
+      },
+      "c77-msg-0": {
+        "id": "c77-msg-0",
+        "parent": "c77-root",
+        "children": [
+          "c77-msg-1"
+        ],
+        "message": {
+          "id": "c77-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1707037200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "my bedroom circuit breaker keeps tripping when space heater and computer run together. why?"
+            ]
+          }
+        }
+      },
+      "c77-msg-1": {
+        "id": "c77-msg-1",
+        "parent": "c77-msg-0",
+        "children": [
+          "c77-msg-2"
+        ],
+        "message": {
+          "id": "c77-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1707037260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Standard residential bedroom circuits are 15 amps at 120V (1,800 watts max continuous load $\\approx$ 1,440W safe 80% limit). A space heater on high draws 1,500W alone! Adding a gaming PC (300-600W) overloads the circuit, tripping the thermal breaker. Plug the space heater into an outlet on a separate circuit breaker."
+            ]
+          }
+        }
+      },
+      "c77-msg-2": {
+        "id": "c77-msg-2",
+        "parent": "c77-msg-1",
+        "children": [
+          "c77-msg-3"
+        ],
+        "message": {
+          "id": "c77-msg-2",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1707037320.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "makes total sense. i got a smart plug that monitors energy; can i write a python script to poll its wattage every minute?"
+            ]
+          }
+        }
+      },
+      "c77-msg-3": {
+        "id": "c77-msg-3",
+        "parent": "c77-msg-2",
+        "children": [],
+        "message": {
+          "id": "c77-msg-3",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1707037380.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Yes! Many smart plugs (like TP-Link Kasa) have open Python libraries like `python-kasa`:\n```python\nimport asyncio\nfrom kasa import SmartPlug\n\nasync def log_power():\n    plug = SmartPlug('192.168.1.50')\n    await plug.update()\n    print(f'Current Power: {plug.emeter_realtime.power:.1f} W')\n\nasyncio.run(log_power())\n```\nYou can run this in an async loop or cron job logging to SQLite or CSV!"
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c77-msg-3"
+  },
+  {
+    "id": "c79",
+    "conversation_id": "c79",
+    "title": "Hatchling vs Flit build backends",
+    "create_time": 1707901200.0,
+    "update_time": 1707901320.0,
+    "mapping": {
+      "c79-root": {
+        "id": "c79-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c79-msg-0"
+        ]
+      },
+      "c79-msg-0": {
+        "id": "c79-msg-0",
+        "parent": "c79-root",
+        "children": [
+          "c79-msg-1"
+        ],
+        "message": {
+          "id": "c79-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1707901200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "between hatchling and flit, which is better for a simple open source python library published to PyPI?"
+            ]
+          }
+        }
+      },
+      "c79-msg-1": {
+        "id": "c79-msg-1",
+        "parent": "c79-msg-0",
+        "children": [],
+        "message": {
+          "id": "c79-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1707901260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Both are modern PEP 517/621 compliant build backends:\n- `Flit`: Minimalist, zero-config, ultra-fast. Best if your package structure is standard (`src/pkg` or `pkg/`) and has no complex build plugins.\n- `Hatchling`: More extensible, supports custom build hooks (e.g. running code generation before packaging), editable installs with file watching, and version management plugins.\nFor simple pure-Python libraries, Flit is delightfully lightweight."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c79-msg-1"
+  },
+  {
+    "id": "c81",
+    "conversation_id": "c81",
+    "title": "vLLM PagedAttention and continuous batching",
+    "create_time": 1708765200.0,
+    "update_time": 1708765320.0,
+    "mapping": {
+      "c81-root": {
+        "id": "c81-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c81-msg-0"
+        ]
+      },
+      "c81-msg-0": {
+        "id": "c81-msg-0",
+        "parent": "c81-root",
+        "children": [
+          "c81-msg-1"
+        ],
+        "message": {
+          "id": "c81-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1708765200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what makes vLLM throughput so much higher than naive transformers for local LLM inference?"
+            ]
+          }
+        }
+      },
+      "c81-msg-1": {
+        "id": "c81-msg-1",
+        "parent": "c81-msg-0",
+        "children": [],
+        "message": {
+          "id": "c81-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1708765260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "vLLM's breakthrough is PagedAttention:\n1. PagedAttention manages KV-cache memory in virtual pages like operating system virtual memory, eliminating 96% of memory fragmentation and waste.\n2. Continuous batching: incoming requests are batched dynamically iteration-by-iteration, so finished requests exit immediately and new ones enter without waiting for whole batch completion.\n3. Optimized CUDA kernels for tensor parallelism."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c81-msg-1"
+  },
+  {
+    "id": "c83",
+    "conversation_id": "c83",
+    "title": "Qdrant snapshot creation and recovery",
+    "create_time": 1709629200.0,
+    "update_time": 1709629320.0,
+    "mapping": {
+      "c83-root": {
+        "id": "c83-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c83-msg-0"
+        ]
+      },
+      "c83-msg-0": {
+        "id": "c83-msg-0",
+        "parent": "c83-root",
+        "children": [
+          "c83-msg-1"
+        ],
+        "message": {
+          "id": "c83-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1709629200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i create a snapshot of a qdrant collection and restore it?"
+            ]
+          }
+        }
+      },
+      "c83-msg-1": {
+        "id": "c83-msg-1",
+        "parent": "c83-msg-0",
+        "children": [],
+        "message": {
+          "id": "c83-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1709629260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Using the Qdrant Python client:\n```python\n# Create snapshot\nsnapshot_info = client.create_snapshot(collection_name=\"my_collection\")\nprint(snapshot_info.name)\n\n# Recover from snapshot file\nclient.recover_snapshot(\n    collection_name=\"my_collection\",\n    location=\"http://backup-server/snapshots/my_collection.snapshot\"\n)\n```\nYou can also download the `.snapshot` file via Qdrant's REST API `/collections/{name}/snapshots/{snapshot_name}`."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c83-msg-1"
+  },
+  {
+    "id": "c85",
+    "conversation_id": "c85",
+    "title": "DuckDB window functions running total",
+    "create_time": 1710493200.0,
+    "update_time": 1710493320.0,
+    "mapping": {
+      "c85-root": {
+        "id": "c85-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c85-msg-0"
+        ]
+      },
+      "c85-msg-0": {
+        "id": "c85-msg-0",
+        "parent": "c85-root",
+        "children": [
+          "c85-msg-1"
+        ],
+        "message": {
+          "id": "c85-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1710493200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to write a running cumulative total and row rank in duckdb sql?"
+            ]
+          }
+        }
+      },
+      "c85-msg-1": {
+        "id": "c85-msg-1",
+        "parent": "c85-msg-0",
+        "children": [],
+        "message": {
+          "id": "c85-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1710493260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use window functions with `OVER ()`:\n```sql\nSELECT\n    order_date,\n    amount,\n    SUM(amount) OVER (ORDER BY order_date ASC) AS running_total,\n    ROW_NUMBER() OVER (PARTITION BY category ORDER BY amount DESC) AS rank_in_cat\nFROM orders;\n```\nDuckDB executes window functions in parallel with zero intermediate copy overhead."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c85-msg-1"
+  },
+  {
+    "id": "c87",
+    "conversation_id": "c87",
+    "title": "Pydantic v2 Settings reading .env file",
+    "create_time": 1711357200.0,
+    "update_time": 1711357320.0,
+    "mapping": {
+      "c87-root": {
+        "id": "c87-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c87-msg-0"
+        ]
+      },
+      "c87-msg-0": {
+        "id": "c87-msg-0",
+        "parent": "c87-root",
+        "children": [
+          "c87-msg-1"
+        ],
+        "message": {
+          "id": "c87-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1711357200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i load environment variables from a .env file into pydantic v2?"
+            ]
+          }
+        }
+      },
+      "c87-msg-1": {
+        "id": "c87-msg-1",
+        "parent": "c87-msg-0",
+        "children": [],
+        "message": {
+          "id": "c87-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1711357260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "In Pydantic v2, settings management was moved to `pydantic-settings`:\n```python\nfrom pydantic_settings import BaseSettings, SettingsConfigDict\n\nclass Settings(BaseSettings):\n    database_url: str\n    api_key: str\n    debug: bool = False\n\n    model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')\n\nsettings = Settings()\n```"
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c87-msg-1"
+  },
+  {
+    "id": "c89",
+    "conversation_id": "c89",
+    "title": "Git soft reset squash last N commits",
+    "create_time": 1712221200.0,
+    "update_time": 1712221320.0,
+    "mapping": {
+      "c89-root": {
+        "id": "c89-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c89-msg-0"
+        ]
+      },
+      "c89-msg-0": {
+        "id": "c89-msg-0",
+        "parent": "c89-root",
+        "children": [
+          "c89-msg-1"
+        ],
+        "message": {
+          "id": "c89-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1712221200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to squash the last 3 commits into one clean commit before creating PR?"
+            ]
+          }
+        }
+      },
+      "c89-msg-1": {
+        "id": "c89-msg-1",
+        "parent": "c89-msg-0",
+        "children": [],
+        "message": {
+          "id": "c89-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1712221260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "The simplest way without interactive rebase is `git reset --soft`:\n```bash\ngit reset --soft HEAD~3\ngit commit -m \"feat: implement user onboarding flow\"\n```\n`--soft` keeps all changes from the last 3 commits staged in your index, allowing you to create one unified commit."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c89-msg-1"
+  },
+  {
+    "id": "c91",
+    "conversation_id": "c91",
+    "title": "French press cold brew coffee ratio",
+    "create_time": 1713085200.0,
+    "update_time": 1713085320.0,
+    "mapping": {
+      "c91-root": {
+        "id": "c91-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c91-msg-0"
+        ]
+      },
+      "c91-msg-0": {
+        "id": "c91-msg-0",
+        "parent": "c91-root",
+        "children": [
+          "c91-msg-1"
+        ],
+        "message": {
+          "id": "c91-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1713085200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "what is the best coffee to water ratio for cold brew in a french press and how long to steep?"
+            ]
+          }
+        }
+      },
+      "c91-msg-1": {
+        "id": "c91-msg-1",
+        "parent": "c91-msg-0",
+        "children": [],
+        "message": {
+          "id": "c91-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1713085260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "- Ratio: 1:8 (coffee to water by weight) for ready-to-drink, or 1:4 for a strong cold brew concentrate you dilute with milk or ice.\n- Example: 100 grams of coarse ground coffee to 800 grams cold filtered water.\n- Grind size: Extra coarse (like sea salt) to prevent cloudiness.\n- Steep time: 16 to 18 hours in the refrigerator (or 12-14 hours at room temp). Then press gently and strain through a paper filter."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c91-msg-1"
+  },
+  {
+    "id": "c93",
+    "conversation_id": "c93",
+    "title": "One bag travel packing for Europe",
+    "create_time": 1713949200.0,
+    "update_time": 1713949320.0,
+    "mapping": {
+      "c93-root": {
+        "id": "c93-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c93-msg-0"
+        ]
+      },
+      "c93-msg-0": {
+        "id": "c93-msg-0",
+        "parent": "c93-root",
+        "children": [
+          "c93-msg-1"
+        ],
+        "message": {
+          "id": "c93-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1713949200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how to pack for 2 weeks in Europe in a single 35L carry-on backpack?"
+            ]
+          }
+        }
+      },
+      "c93-msg-1": {
+        "id": "c93-msg-1",
+        "parent": "c93-msg-0",
+        "children": [],
+        "message": {
+          "id": "c93-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1713949260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "One-bag travel packing system:\n1. 5 days of clothing made from merino wool or quick-dry synthetics (wash in sink every 3-4 days; air dries overnight).\n2. Wear your bulkiest shoes and jacket on the plane.\n3. Compression packing cubes: pack 5 shirts, 1 extra pants, 1 shorts, 5 merino socks, 5 underwear.\n4. Solid toiletries (shampoo bar, deodorant) to breeze through airport liquid limits.\n5. Single 65W GaN multi-port charger for phone, laptop, and power bank."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c93-msg-1"
+  },
+  {
+    "id": "c95",
+    "conversation_id": "c95",
+    "title": "Promotion packet self-evaluation impact statement",
+    "create_time": 1714813200.0,
+    "update_time": 1714813320.0,
+    "mapping": {
+      "c95-root": {
+        "id": "c95-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c95-msg-0"
+        ]
+      },
+      "c95-msg-0": {
+        "id": "c95-msg-0",
+        "parent": "c95-root",
+        "children": [
+          "c95-msg-1"
+        ],
+        "message": {
+          "id": "c95-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1714813200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i write a high-impact self-evaluation statement for my senior promotion packet?"
+            ]
+          }
+        }
+      },
+      "c95-msg-1": {
+        "id": "c95-msg-1",
+        "parent": "c95-msg-0",
+        "children": [],
+        "message": {
+          "id": "c95-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1714813260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Use the Outcome + Metric + Scope formula:\n- Weak: 'I refactored the checkout pipeline and made it better.'\n- Strong: 'Architected and led the migration of the payment processing pipeline to an asynchronous event-driven system across 3 services, reducing P99 checkout latency from 1.8s to 240ms (-86%) and eliminating $12k/month in timeout error refunds.'\nHighlight leadership, mentorship of junior engineers, and cross-functional alignment."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c95-msg-1"
+  },
+  {
+    "id": "c97",
+    "conversation_id": "c97",
+    "title": "HSA triple tax advantage stealth IRA",
+    "create_time": 1715677200.0,
+    "update_time": 1715677320.0,
+    "mapping": {
+      "c97-root": {
+        "id": "c97-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c97-msg-0"
+        ]
+      },
+      "c97-msg-0": {
+        "id": "c97-msg-0",
+        "parent": "c97-root",
+        "children": [
+          "c97-msg-1"
+        ],
+        "message": {
+          "id": "c97-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1715677200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "why is an HSA called triple tax-advantaged and how can it be used as a stealth retirement account?"
+            ]
+          }
+        }
+      },
+      "c97-msg-1": {
+        "id": "c97-msg-1",
+        "parent": "c97-msg-0",
+        "children": [],
+        "message": {
+          "id": "c97-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1715677260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "An HSA (Health Savings Account) has three distinct tax advantages:\n1. Pre-tax contributions: Deducted from paycheck, avoiding federal, state, and FICA payroll taxes.\n2. Tax-free growth: Invested in index funds, gains and dividends grow 100% tax-free.\n3. Tax-free withdrawals: Zero tax on withdrawals for qualified medical expenses.\nStealth retirement hack: Pay medical expenses out-of-pocket today, save all itemized receipts digitally, and let your HSA investments compound for 25 years. You can reimburse yourself tax-free decades later at any time!"
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c97-msg-1"
+  },
+  {
+    "id": "c99",
+    "conversation_id": "c99",
+    "title": "Zone 2 cardio heart rate calculation",
+    "create_time": 1716541200.0,
+    "update_time": 1716541320.0,
+    "mapping": {
+      "c99-root": {
+        "id": "c99-root",
+        "message": null,
+        "parent": null,
+        "children": [
+          "c99-msg-0"
+        ]
+      },
+      "c99-msg-0": {
+        "id": "c99-msg-0",
+        "parent": "c99-root",
+        "children": [
+          "c99-msg-1"
+        ],
+        "message": {
+          "id": "c99-msg-0",
+          "author": {
+            "role": "user"
+          },
+          "create_time": 1716541200.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "how do i calculate my Zone 2 cardio heart rate for aerobic endurance base building?"
+            ]
+          }
+        }
+      },
+      "c99-msg-1": {
+        "id": "c99-msg-1",
+        "parent": "c99-msg-0",
+        "children": [],
+        "message": {
+          "id": "c99-msg-1",
+          "author": {
+            "role": "assistant"
+          },
+          "create_time": 1716541260.0,
+          "content": {
+            "content_type": "text",
+            "parts": [
+              "Two common methods:\n1. Maffetone 180 Formula: $180 - \\text{age}$. For a 30-year-old, $180 - 30 = 150\\text{ bpm}$. Keep heart rate between 140 and 150 bpm.\n2. Percent of Max Heart Rate: 60% to 70% of max heart rate ($220 - \\text{age}$). For age 30 (max ~190): Zone 2 is 114 to 133 bpm.\nThe golden test is the 'Talk Test': you should be able to speak in complete sentences without gasping, but feel working enough that someone on the phone knows you are exercising."
+            ]
+          }
+        }
+      }
+    },
+    "current_node": "c99-msg-1"
+  }
+]

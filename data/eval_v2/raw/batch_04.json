@@ -1,0 +1,285 @@
+[
+  {
+    "id": "c31",
+    "platform": "chatgpt",
+    "title": "Pydantic v2 migration and validators",
+    "created": 1687165200.0,
+    "facts": [
+      "pydantic_v2_field_model_validator"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "I'm migrating a FastAPI codebase from Pydantic v1 to Pydantic v2. What replaced @validator and @root_validator?"
+      },
+      {
+        "role": "assistant",
+        "text": "In Pydantic v2:\n- `@validator` is replaced by `@field_validator('field_name', mode='before'|'after')`.\n- `@root_validator` is replaced by `@model_validator(mode='before'|'after')`.\nAlso, `mode='after'` validators receive the validated model instance `self` directly in model_validator, whereas `mode='before'` validators receive the raw dictionary `data` before field validation."
+      },
+      {
+        "role": "user",
+        "text": "How do I forbid extra fields in a Pydantic v2 model?"
+      },
+      {
+        "role": "assistant",
+        "text": "Instead of the old `class Config:` inner class, use `model_config = ConfigDict(extra='forbid')`:\n```python\nfrom pydantic import BaseModel, ConfigDict\n\nclass MyModel(BaseModel):\n    model_config = ConfigDict(extra='forbid')\n    name: str\n    age: int\n```"
+      },
+      {
+        "role": "user",
+        "text": "What happened to .dict() and .json()?"
+      },
+      {
+        "role": "assistant",
+        "text": "They are deprecated and will be removed in v3. Use:\n- `model.model_dump()` instead of `.dict()`\n- `model.model_dump_json()` instead of `.json()`"
+      },
+      {
+        "role": "user",
+        "text": "What replaced parse_obj()?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use `MyModel.model_validate(obj)` instead of `MyModel.parse_obj(obj)`. For JSON strings, use `MyModel.model_validate_json(raw_json)`."
+      },
+      {
+        "role": "user",
+        "text": "Can you show an example of @model_validator(mode='after') checking cross-field constraints?"
+      },
+      {
+        "role": "assistant",
+        "text": "```python\nfrom typing_extensions import Self\nfrom pydantic import BaseModel, model_validator\n\nclass DateRange(BaseModel):\n    start_date: int\n    end_date: int\n\n    @model_validator(mode='after')\n    def check_dates(self) -> Self:\n        if self.start_date > self.end_date:\n            raise ValueError('start_date cannot be greater than end_date')\n        return self\n```"
+      },
+      {
+        "role": "user",
+        "text": "What about schema() for OpenAPI generation?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use `MyModel.model_json_schema()` instead of `MyModel.schema()`."
+      },
+      {
+        "role": "user",
+        "text": "Is Pydantic v2 much faster because of pydantic-core?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes, pydantic-core is written in Rust. Parsing and validation benchmarks typically show 5x to 20x speedups compared to v1 pure Python implementation."
+      },
+      {
+        "role": "user",
+        "text": "Does Field(..., regex=...) still work?"
+      },
+      {
+        "role": "assistant",
+        "text": "No, `regex` was renamed to `pattern`, e.g. `Field(pattern=r'^[a-z]+$')`."
+      },
+      {
+        "role": "user",
+        "text": "What about custom types with __get_validators__?"
+      },
+      {
+        "role": "assistant",
+        "text": "Custom types now use `__get_pydantic_core_schema__` from `pydantic_core.core_schema` or `Annotated[T, BeforeValidator(...)]`."
+      },
+      {
+        "role": "user",
+        "text": "This covers all the breaking changes I was hitting, thanks!"
+      },
+      {
+        "role": "assistant",
+        "text": "Glad to help! The v1 to v2 migration is straightforward once you know the new `model_dump`, `ConfigDict`, and validator conventions."
+      }
+    ]
+  },
+  {
+    "id": "c32",
+    "platform": "claude",
+    "title": "Django ORM select_related vs prefetch_related",
+    "created": 1687597200.0,
+    "facts": [
+      "django_orm_select_vs_prefetch_related"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "In Django ORM, when should I use select_related vs prefetch_related?"
+      },
+      {
+        "role": "assistant",
+        "text": "- `select_related`: Performs an SQL `JOIN` in a single query. Use for single-valued relationships (ForeignKey and OneToOneField).\n- `prefetch_related`: Executes separate SQL queries and performs joining in Python. Use for multi-valued relationships (ManyToManyField and reverse ForeignKey).\nUsing `select_related` on ManyToMany will raise a FieldError."
+      }
+    ]
+  },
+  {
+    "id": "c33",
+    "platform": "chatgpt",
+    "title": "FastAPI JWT Bearer auth header",
+    "created": 1688029200.0,
+    "facts": [
+      "fastapi_jwt_bearer_authentication"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how to extract and verify a Bearer JWT in a fastapi header dependency?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use `HTTPBearer` from `fastapi.security` and `jwt.decode` from PyJWT:\n```python\nfrom fastapi import Depends, HTTPException, status\nfrom fastapi.security import HTTPBearer, HTTPAuthorizationCredentials\nimport jwt\n\nsecurity = HTTPBearer()\n\ndef get_current_user(creds: HTTPAuthorizationCredentials = Depends(security)):\n    token = creds.credentials\n    try:\n        payload = jwt.decode(token, 'SECRET_KEY', algorithms=['HS256'])\n        return payload['sub']\n    except jwt.PyJWTError:\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid token')\n```"
+      },
+      {
+        "role": "user",
+        "text": "finally got this auth working. once this sprint is done im taking a week off. where is a chill beach place to relax?"
+      },
+      {
+        "role": "assistant",
+        "text": "Congrats on finishing the auth! For a chill beach getaway:\n- Goa (South Goa like Palolem or Agonda) is quiet, scenic, and great for unwinding without loud crowds.\n- Andaman Islands (Havelock / Radhanagar Beach) has turquoise waters and amazing diving.\n- If Southeast Asia: Da Nang / Hoi An in Vietnam has great beaches and delicious food on a budget."
+      }
+    ]
+  },
+  {
+    "id": "c34",
+    "platform": "claude",
+    "title": "Git cherry-pick merge conflict resolution",
+    "created": 1688461200.0,
+    "facts": [
+      "git_cherry_pick_resolve_continue",
+      "git_history_manipulation"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "I cherry-picked a commit into release branch and got merge conflicts. How do I finish it?"
+      },
+      {
+        "role": "assistant",
+        "text": "1. Open the conflicted files, resolve the conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`), and save.\n2. Stage the resolved files with `git add <file>`.\n3. Continue the cherry-pick with:\n```bash\ngit cherry-pick --continue\n```\nIf you want to abort and return to the state before cherry-picking, run `git cherry-pick --abort`."
+      }
+    ]
+  },
+  {
+    "id": "c35",
+    "platform": "chatgpt",
+    "title": "Git stash pop vs apply",
+    "created": 1688893200.0,
+    "facts": [
+      "git_stash_pop_vs_apply"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "whats the difference between git stash pop and git stash apply?"
+      },
+      {
+        "role": "assistant",
+        "text": "- `git stash pop`: Applies the most recent stashed changes (`stash@{0}`) to your working directory AND removes it from the stash list if there are no conflicts.\n- `git stash apply`: Applies the changes to your working directory but KEEPS the stash entry in your stash list so you can re-use it elsewhere."
+      }
+    ]
+  },
+  {
+    "id": "c36",
+    "platform": "claude",
+    "title": "Git reflog recover deleted branch",
+    "created": 1689325200.0,
+    "facts": [
+      "git_reflog_recover_branch",
+      "git_history_manipulation"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "I accidentally deleted a local branch with `git branch -D feature-login` before pushing! Is it gone forever?"
+      },
+      {
+        "role": "assistant",
+        "text": "No, it's not gone! Git keeps commits in the reflog for typically 30-90 days:\n1. Run `git reflog`.\n2. Look for the last commit hash where you worked on `feature-login` (e.g. `abc1234 HEAD@{2}: commit: fix login validation`).\n3. Recreate the branch from that commit:\n```bash\ngit checkout -b feature-login abc1234\n```"
+      }
+    ]
+  },
+  {
+    "id": "c37",
+    "platform": "chatgpt",
+    "title": "Git submodule recursive init and update",
+    "created": 1689757200.0,
+    "facts": [
+      "git_submodule_update_recursive"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "cloned a repo with git submodules and the subfolder is empty. what command populates it?"
+      },
+      {
+        "role": "assistant",
+        "text": "Run:\n```bash\ngit submodule update --init --recursive\n```\nAlternatively, when cloning a new repository, pass the `--recurse-submodules` flag:\n```bash\ngit clone --recurse-submodules <repo-url>\n```"
+      },
+      {
+        "role": "user",
+        "text": "that worked. totally random question, my bedroom door latch squeaks every time i close it. how to fix?"
+      },
+      {
+        "role": "assistant",
+        "text": "Spray a tiny squirt of WD-40 or silicone lubricant directly onto the spring latch bolt and the hinge pins, then open and close the door 10 times to let it penetrate. If you don't have spray lube, rub a little petroleum jelly (Vaseline) or pencil graphite on the latch face!"
+      }
+    ]
+  },
+  {
+    "id": "c38",
+    "platform": "claude",
+    "title": "React useEffect cleanup function",
+    "created": 1690189200.0,
+    "facts": [
+      "react_useeffect_cleanup_unmount",
+      "react_lifecycle_state_pitfalls"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Why does my React component keep receiving WebSocket messages after the user navigates away?"
+      },
+      {
+        "role": "assistant",
+        "text": "You need to return a cleanup function from your `useEffect` hook to close the WebSocket connection when the component unmounts:\n```javascript\nuseEffect(() => {\n  const ws = new WebSocket('wss://api.example.com/stream');\n  ws.onmessage = (event) => setData(JSON.parse(event.data));\n\n  return () => {\n    ws.close();\n  };\n}, []);\n```\nWithout the cleanup return function, the connection remains open in memory."
+      }
+    ]
+  },
+  {
+    "id": "c39",
+    "platform": "chatgpt",
+    "title": "React useState stale closure in setInterval",
+    "created": 1690621200.0,
+    "facts": [
+      "react_usestate_stale_closure_interval",
+      "react_lifecycle_state_pitfalls"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "my count state stays at 1 inside setInterval even though i call setCount(count + 1). why?"
+      },
+      {
+        "role": "assistant",
+        "text": "This is a classic 'stale closure' bug. The interval callback captures the `count` variable from the initial render when it was 0.\nTo fix it, use the functional state updater form:\n```javascript\nuseEffect(() => {\n  const id = setInterval(() => {\n    setCount(prev => prev + 1);\n  }, 1000);\n  return () => clearInterval(id);\n}, []);\n```\nThe updater function always receives the fresh current state."
+      }
+    ]
+  },
+  {
+    "id": "c40",
+    "platform": "claude",
+    "title": "Next.js App Router server vs client components",
+    "created": 1691053200.0,
+    "facts": [
+      "nextjs_app_router_server_vs_client",
+      "react_lifecycle_state_pitfalls"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "In Next.js App Router, when must a component have 'use client' at the top?"
+      },
+      {
+        "role": "assistant",
+        "text": "You only need `'use client'` when the component uses:\n1. React state and lifecycle hooks (`useState`, `useEffect`, `useReducer`).\n2. Browser APIs (`window`, `localStorage`, `navigator`).\n3. DOM event listeners (`onClick`, `onChange`, `onSubmit`).\n4. Custom hooks that depend on client features.\nEverything else (fetching data from DB, reading cookies, rendering static markdown) should remain a Server Component for minimal JavaScript bundle size."
+      }
+    ]
+  }
+]

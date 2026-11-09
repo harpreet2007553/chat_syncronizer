@@ -347,6 +347,11 @@ def eval(
         "--ks",
         help="Comma-separated cutoffs for k (e.g. 1,3,5,10).",
     ),
+    split: str = typer.Option(
+        "all",
+        "--split",
+        help="Query split to evaluate: dev, test, or all (default: all).",
+    ),
 ) -> None:
     """Evaluate retrieval pipelines against benchmark queries."""
     queries_path = Path(queries)
@@ -391,6 +396,7 @@ def eval(
             queries_path=queries_path,
             ks=k_values,
             out_dir=target_out_dir,
+            split=split,
         )
     except ValueError as err:
         typer.echo(f"Invalid evaluation input or queries: {err}", err=True)

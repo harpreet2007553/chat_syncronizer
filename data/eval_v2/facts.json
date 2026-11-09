@@ -1,0 +1,355 @@
+{
+  "c01": [
+    "pandas_groupby_keyerror"
+  ],
+  "c02": [
+    "pytorch_cuda_out_of_memory",
+    "gpu_out_of_memory_management"
+  ],
+  "c03": [
+    "docker_qdrant_storage"
+  ],
+  "c04": [
+    "reciprocal_rank_fusion_k_constant",
+    "rag_chat_original_retrieval",
+    "rag_chat_retrieval_architecture"
+  ],
+  "c05": [
+    "paneer_butter_masala_recipe"
+  ],
+  "c06": [
+    "delhi_jaipur_itinerary"
+  ],
+  "c07": [
+    "resume_ml_bullets",
+    "tech_career_negotiation_growth"
+  ],
+  "c08": [
+    "fastapi_cors_chrome_extension",
+    "fastapi_production_patterns"
+  ],
+  "c09": [
+    "chunking_chat_transcripts",
+    "rag_chat_original_retrieval",
+    "rag_chat_retrieval_architecture"
+  ],
+  "c10": [
+    "binary_search_bounds",
+    "algorithmic_interview_patterns"
+  ],
+  "c11": [
+    "git_rebase_vs_merge",
+    "git_history_manipulation"
+  ],
+  "c12": [
+    "uv_python_virtualenv_setup",
+    "python_packaging_ecosystem"
+  ],
+  "c13": [
+    "guitar_beginner_chords",
+    "guitar_fretboard_techniques"
+  ],
+  "c14": [
+    "embedding_model_bge_small_base",
+    "rag_chat_original_retrieval",
+    "rag_chat_retrieval_architecture"
+  ],
+  "c15": [
+    "poetry_lockfile_resolution",
+    "python_packaging_ecosystem"
+  ],
+  "c16": [
+    "conda_env_export_no_builds"
+  ],
+  "c17": [
+    "uv_cache_clean_prune",
+    "python_packaging_ecosystem"
+  ],
+  "c18": [
+    "pyproject_build_system_hatchling_flit",
+    "python_packaging_ecosystem"
+  ],
+  "c19": [
+    "pytorch_device_cuda_mps"
+  ],
+  "c20": [
+    "cuda_gradient_checkpointing_memory",
+    "gpu_out_of_memory_management"
+  ],
+  "c21": [
+    "pytorch_mixed_precision_fp16_bf16",
+    "gpu_out_of_memory_management"
+  ],
+  "c22": [
+    "pytorch_dataloader_workers_pin_memory"
+  ],
+  "c23": [
+    "qdrant_payload_filter_conditions"
+  ],
+  "c24": [
+    "hybrid_search_bm25_qdrant_fusion",
+    "rag_chat_retrieval_architecture"
+  ],
+  "c25": [
+    "cross_encoder_reranker_bge_base",
+    "rag_chat_retrieval_architecture"
+  ],
+  "c26": [
+    "pandas_merge_vs_join_columns"
+  ],
+  "c27": [
+    "polars_lazyframe_predicate_pushdown"
+  ],
+  "c28": [
+    "sqlite_fts5_bm25_ranking",
+    "sqlite_duckdb_tabular_analytics"
+  ],
+  "c29": [
+    "duckdb_partitioned_parquet_hive",
+    "sqlite_duckdb_tabular_analytics"
+  ],
+  "c30": [
+    "fastapi_background_tasks_vs_celery",
+    "fastapi_production_patterns"
+  ],
+  "c31": [
+    "pydantic_v2_field_model_validator"
+  ],
+  "c32": [
+    "django_orm_select_vs_prefetch_related"
+  ],
+  "c33": [
+    "fastapi_jwt_bearer_authentication"
+  ],
+  "c34": [
+    "git_cherry_pick_resolve_continue",
+    "git_history_manipulation"
+  ],
+  "c35": [
+    "git_stash_pop_vs_apply"
+  ],
+  "c36": [
+    "git_reflog_recover_branch",
+    "git_history_manipulation"
+  ],
+  "c37": [
+    "git_submodule_update_recursive"
+  ],
+  "c38": [
+    "react_useeffect_cleanup_unmount",
+    "react_lifecycle_state_pitfalls"
+  ],
+  "c39": [
+    "react_usestate_stale_closure_interval",
+    "react_lifecycle_state_pitfalls"
+  ],
+  "c40": [
+    "nextjs_app_router_server_vs_client",
+    "react_lifecycle_state_pitfalls"
+  ],
+  "c41": [
+    "tailwind_grid_responsive_columns"
+  ],
+  "c42": [
+    "dal_makhani_slow_cooker_recipe"
+  ],
+  "c43": [
+    "sourdough_bulk_fermentation_stretch_folds",
+    "cooking_fermentation_techniques"
+  ],
+  "c44": [
+    "crispy_baked_tofu_cornstarch"
+  ],
+  "c45": [
+    "pizza_dough_cold_fermentation_enzymes",
+    "cooking_fermentation_techniques"
+  ],
+  "c46": [
+    "manali_leh_acclimatization_itinerary"
+  ],
+  "c47": [
+    "tokyo_subway_72_hour_itinerary",
+    "japan_travel_transit_planning"
+  ],
+  "c48": [
+    "monsoon_trekking_packing_checklist"
+  ],
+  "c49": [
+    "vietnam_budget_hanoi_da_nang"
+  ],
+  "c50": [
+    "star_method_behavioral_interview",
+    "tech_career_negotiation_growth"
+  ],
+  "c51": [
+    "negotiate_software_engineer_equity_base",
+    "tech_career_negotiation_growth"
+  ],
+  "c52": [
+    "cover_letter_transition_ai_engineer"
+  ],
+  "c53": [
+    "system_design_interview_preparation_roadmap"
+  ],
+  "c54": [
+    "emergency_fund_hysa_liquidity"
+  ],
+  "c55": [
+    "index_fund_etf_voo_vs_vfiax"
+  ],
+  "c56": [
+    "backdoor_roth_ira_pro_rata_rule",
+    "retirement_accounts_tax_optimization"
+  ],
+  "c57": [
+    "credit_score_utilization_ratio"
+  ],
+  "c58": [
+    "term_vs_whole_life_insurance"
+  ],
+  "c59": [
+    "couch_to_5k_shin_splints_cadence"
+  ],
+  "c60": [
+    "bench_press_shoulder_scapular_retraction",
+    "strength_training_form_cues"
+  ],
+  "c61": [
+    "daily_protein_intake_muscle_hypertrophy"
+  ],
+  "c62": [
+    "intermittent_fasting_16_8_morning_workout"
+  ],
+  "c63": [
+    "tight_hip_flexor_stretches_sitting"
+  ],
+  "c64": [
+    "guitar_f_major_barre_chord_technique",
+    "guitar_fretboard_techniques"
+  ],
+  "c65": [
+    "minor_pentatonic_box_1_solo_phrasing",
+    "guitar_fretboard_techniques"
+  ],
+  "c66": [
+    "acoustic_guitar_travis_picking_pattern"
+  ],
+  "c67": [
+    "guitar_drop_d_tuning_benefits",
+    "guitar_fretboard_techniques"
+  ],
+  "c68": [
+    "bfs_vs_dfs_tree_graph_use_cases",
+    "algorithmic_interview_patterns"
+  ],
+  "c69": [
+    "two_pointer_two_sum_sorted_array",
+    "algorithmic_interview_patterns"
+  ],
+  "c70": [
+    "lru_cache_doubly_linked_list_hashmap",
+    "algorithmic_interview_patterns"
+  ],
+  "c71": [
+    "dynamic_programming_coin_change_minimum",
+    "algorithmic_interview_patterns"
+  ],
+  "c72": [
+    "kitchen_faucet_cartridge_replacement",
+    "plumbing_drain_faucet_fixes"
+  ],
+  "c73": [
+    "unclog_sink_baking_soda_vinegar",
+    "plumbing_drain_faucet_fixes"
+  ],
+  "c74": [
+    "patch_drywall_doorknob_hole_spackle"
+  ],
+  "c75": [
+    "snake_plant_watering_neglect_light"
+  ],
+  "c76": [
+    "succulent_stem_cutting_callous_propagation"
+  ],
+  "c77": [
+    "circuit_breaker_tripping_space_heater"
+  ],
+  "c78": [
+    "pip_wheel_build_missing_python_h_headers"
+  ],
+  "c79": [
+    "hatchling_vs_flit_build_backend",
+    "python_packaging_ecosystem"
+  ],
+  "c80": [
+    "pytorch_ddp_torchrun_process_group"
+  ],
+  "c81": [
+    "vllm_paged_attention_continuous_batching"
+  ],
+  "c82": [
+    "rag_chunk_overlap_markdown_documentation"
+  ],
+  "c83": [
+    "qdrant_collection_snapshot_recovery"
+  ],
+  "c84": [
+    "pandas_categorical_dtype_memory_reduction"
+  ],
+  "c85": [
+    "duckdb_window_functions_running_total",
+    "sqlite_duckdb_tabular_analytics"
+  ],
+  "c86": [
+    "fastapi_timing_middleware_process_time",
+    "fastapi_production_patterns"
+  ],
+  "c87": [
+    "pydantic_settings_env_file_configuration"
+  ],
+  "c88": [
+    "git_worktree_hotfix_without_stashing"
+  ],
+  "c89": [
+    "git_reset_soft_squash_commits",
+    "git_history_manipulation"
+  ],
+  "c90": [
+    "creamy_tomato_basil_pasta_sauce"
+  ],
+  "c91": [
+    "french_press_cold_brew_ratio_steep_time"
+  ],
+  "c92": [
+    "kyoto_2_day_walking_itinerary",
+    "japan_travel_transit_planning"
+  ],
+  "c93": [
+    "one_bag_travel_europe_packing_system"
+  ],
+  "c94": [
+    "engineering_manager_1_on_1_questions"
+  ],
+  "c95": [
+    "promotion_packet_impact_statement_metrics",
+    "tech_career_negotiation_growth"
+  ],
+  "c96": [
+    "401k_employer_match_cliff_graded_vesting",
+    "retirement_accounts_tax_optimization"
+  ],
+  "c97": [
+    "hsa_triple_tax_advantage_stealth_ira",
+    "retirement_accounts_tax_optimization"
+  ],
+  "c98": [
+    "barbell_deadlift_back_rounding_armpit_cue",
+    "strength_training_form_cues"
+  ],
+  "c99": [
+    "zone_2_cardio_heart_rate_talk_test"
+  ],
+  "c100": [
+    "bathtub_caulking_silicone_sealant_removal"
+  ]
+}

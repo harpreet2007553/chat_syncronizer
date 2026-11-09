@@ -1,0 +1,270 @@
+[
+  {
+    "id": "c61",
+    "platform": "chatgpt",
+    "title": "Daily protein intake for muscle building",
+    "created": 1700125200.0,
+    "facts": [
+      "daily_protein_intake_muscle_hypertrophy"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how much protein per day for building muscle? is 1 gram per pound really necessary?"
+      },
+      {
+        "role": "assistant",
+        "text": "The scientific consensus (Schoenfeld & Aragon meta-analyses) shows that 1.6 to 2.2 grams of protein per kilogram of bodyweight (0.7 to 1.0 grams per pound) is the optimal range for muscle hypertrophy.\nBeyond 1.0g per pound, there are diminishing returns. If you weigh 75 kg (165 lbs), aiming for 130 to 160 grams of protein daily distributed across 3 to 4 meals is plenty."
+      }
+    ]
+  },
+  {
+    "id": "c62",
+    "platform": "claude",
+    "title": "Intermittent fasting 16:8 schedule",
+    "created": 1700557200.0,
+    "facts": [
+      "intermittent_fasting_16_8_morning_workout"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How should I structure a 16:8 intermittent fasting schedule without losing energy during morning workouts?"
+      },
+      {
+        "role": "assistant",
+        "text": "A common 16:8 schedule is fasting from 8:00 PM to 12:00 PM (noon) next day, eating between 12:00 PM and 8:00 PM.\nFor morning workouts:\n1. Drink black coffee or green tea with a pinch of sea salt (caffeine boosts performance without breaking your fast; electrolytes prevent dizziness).\n2. Stay hydrated with water.\n3. Schedule your biggest protein-rich meal at 12:00 PM right after your morning training."
+      }
+    ]
+  },
+  {
+    "id": "c63",
+    "platform": "chatgpt",
+    "title": "Stretching tight hip flexors from desk work",
+    "created": 1700989200.0,
+    "facts": [
+      "tight_hip_flexor_stretches_sitting"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "sitting at my desk 8 hours a day made my hip flexors super tight. what stretches help?"
+      },
+      {
+        "role": "assistant",
+        "text": "Three high-impact stretches for tight hip flexors:\n1. Kneeling lunge with posterior pelvic tilt: Kneel on one knee, tuck your tailbone under (squeeze glute), and gently shift weight forward until you feel a deep stretch in the front of the back hip.\n2. Couch stretch: Place rear knee and shin flat against a wall/couch while lunging forward.\n3. Pigeon pose or 90/90 stretch for glute and hip rotators.\nHold each side for 60-90 seconds while taking slow belly breaths."
+      }
+    ]
+  },
+  {
+    "id": "c64",
+    "platform": "claude",
+    "title": "Guitar barre chords F chord technique",
+    "created": 1701421200.0,
+    "facts": [
+      "guitar_f_major_barre_chord_technique",
+      "guitar_fretboard_techniques"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "I can't get the F barre chord to ring clearly on guitar. The G and B strings are always muted!"
+      },
+      {
+        "role": "assistant",
+        "text": "The F major barre chord is the biggest hurdle for beginner guitarists. Technical fixes:\n1. Roll your index finger slightly onto its bony outer edge (thumb side) rather than pressing flat with the soft fleshy underside.\n2. Position your index finger as close to the fret wire as possible.\n3. Keep your thumb centered low on the back of the neck, directly behind your middle finger\u2014never wrapping over the top.\n4. Use your right arm to pull the guitar body gently into your ribs, using leverage rather than just finger squeezing."
+      }
+    ]
+  },
+  {
+    "id": "c65",
+    "platform": "chatgpt",
+    "title": "Minor pentatonic box 1 blues solo phrasing",
+    "created": 1701853200.0,
+    "facts": [
+      "minor_pentatonic_box_1_solo_phrasing",
+      "guitar_fretboard_techniques"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "i learned the A minor pentatonic box 1 on guitar (frets 5 and 8). how do i make it sound like music instead of just running scales up and down?"
+      },
+      {
+        "role": "assistant",
+        "text": "Running scales up and down sounds like an exercise. To make it sound like real blues/rock solos:\n1. Phrasing and breathing: play a short 3-note idea, then pause for 2 beats like a singer taking a breath.\n2. Use articulation: string bending, vibrato, hammer-ons, and slides.\n3. Target chord tones: when the backing track plays an A minor chord, land on an A, C, or E note on the downbeat."
+      },
+      {
+        "role": "user",
+        "text": "which note should i bend in box 1?"
+      },
+      {
+        "role": "assistant",
+        "text": "The money bend in A minor pentatonic box 1 is the 7th fret on the G string (D note) bent up a whole step to E! Also bend the 8th fret on the B string (G note) bent a whole step to A."
+      },
+      {
+        "role": "user",
+        "text": "how do i do vibrato without throwing my finger off the string?"
+      },
+      {
+        "role": "assistant",
+        "text": "Rotate your forearm and wrist like turning a doorknob, rather than wiggling just your finger joint. Keep the finger anchored and pivot from the wrist."
+      },
+      {
+        "role": "user",
+        "text": "what is the 'blues note' added to pentatonic?"
+      },
+      {
+        "role": "assistant",
+        "text": "The flat 5th ($b5$). In A minor, that's the D# / Eb note at the 8th fret on the A string or the 8th fret on the G string. Passing through this note creates the classic grit of the Blues Scale."
+      },
+      {
+        "role": "user",
+        "text": "can i use the same box 1 shape for other keys?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes! The pattern is movable. Move your index finger to the 3rd fret for G minor, 7th fret for B minor, 10th fret for D minor, and 12th fret for E minor."
+      },
+      {
+        "role": "user",
+        "text": "what is a call and response pattern in soloing?"
+      },
+      {
+        "role": "assistant",
+        "text": "Play a short musical phrase (the 'call'), then answer it with a resolving phrase (the 'response'), like a conversation between two instruments."
+      },
+      {
+        "role": "user",
+        "text": "how to stop adjacent strings from ringing out during bends?"
+      },
+      {
+        "role": "assistant",
+        "text": "Mute with both hands: use the palm of your picking hand to rest against lower pitch strings, and let the index finger of your fretting hand gently touch adjacent strings."
+      },
+      {
+        "role": "user",
+        "text": "should i practice with a metronome or backing tracks?"
+      },
+      {
+        "role": "assistant",
+        "text": "Both! Metronome for clean timing and note subdivisions; YouTube 12-bar blues backing tracks for musical expression and groove."
+      },
+      {
+        "role": "user",
+        "text": "can i mix major and minor pentatonic?"
+      },
+      {
+        "role": "assistant",
+        "text": "Yes! In blues, sliding between A minor pentatonic (fret 5) and A major pentatonic (fret 2) creates the legendary B.B. King sound."
+      },
+      {
+        "role": "user",
+        "text": "this is so helpful, practicing bending and phrasing right now!"
+      },
+      {
+        "role": "assistant",
+        "text": "Keep rocking! Mastering phrasing and vibrato on box 1 is the foundation of lead guitar."
+      }
+    ]
+  },
+  {
+    "id": "c66",
+    "platform": "claude",
+    "title": "Acoustic guitar Travis picking pattern",
+    "created": 1702285200.0,
+    "facts": [
+      "acoustic_guitar_travis_picking_pattern"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How does basic Travis picking work on an acoustic guitar?"
+      },
+      {
+        "role": "assistant",
+        "text": "Travis picking is an alternating bass fingerpicking pattern:\n- Your thumb alternates back and forth between two bass strings on every beat (beats 1, 2, 3, 4) with a steady pulse.\n- For a C major chord: thumb plays string 5 on beat 1, string 4 on beat 2, string 5 on beat 3, string 4 on beat 4.\n- Your index and middle fingers pluck treble strings (strings 3, 2, 1) on the offbeats ('and' of each beat) in syncopation."
+      }
+    ]
+  },
+  {
+    "id": "c67",
+    "platform": "chatgpt",
+    "title": "Guitar Drop D tuning and power chords",
+    "created": 1702717200.0,
+    "facts": [
+      "guitar_drop_d_tuning_benefits",
+      "guitar_fretboard_techniques"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how do i tune my guitar to Drop D and why do rock bands use it?"
+      },
+      {
+        "role": "assistant",
+        "text": "To tune to Drop D: lower only the 6th string (low E) down a whole step to D. Strings 1 through 5 remain in standard tuning (D-A-D-G-B-E).\nWhy bands love it:\n1. One-finger power chords: you can bar across strings 6, 5, and 4 with just your index finger.\n2. Deeper, heavier bass resonance with an open low D note.\n3. Fast riffing transitions across the fretboard."
+      }
+    ]
+  },
+  {
+    "id": "c68",
+    "platform": "claude",
+    "title": "Breadth-first search vs depth-first search",
+    "created": 1703149200.0,
+    "facts": [
+      "bfs_vs_dfs_tree_graph_use_cases",
+      "algorithmic_interview_patterns"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "When should I choose Breadth-First Search (BFS) vs Depth-First Search (DFS) for tree and graph traversal?"
+      },
+      {
+        "role": "assistant",
+        "text": "- Use BFS (Queue, iterative) when:\n  - Finding the shortest path in unweighted graphs.\n  - Target node is likely near the root / shallow.\n  - Level-order tree traversal.\n\n- Use DFS (Stack or recursion) when:\n  - Exploring all possible paths (maze solving, backtracking, topological sort).\n  - Graph is very wide (BFS queue would consume too much memory).\n  - Checking cycle detection or connectivity."
+      }
+    ]
+  },
+  {
+    "id": "c69",
+    "platform": "chatgpt",
+    "title": "Two-pointer technique for sorted two sum",
+    "created": 1703581200.0,
+    "facts": [
+      "two_pointer_two_sum_sorted_array",
+      "algorithmic_interview_patterns"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how does the two-pointer technique solve Two Sum in a sorted array in O(n) time?"
+      },
+      {
+        "role": "assistant",
+        "text": "Place one pointer `left` at index 0 and `right` at the last index `len(nums) - 1`:\n```python\nwhile left < right:\n    current_sum = nums[left] + nums[right]\n    if current_sum == target:\n        return [left, right]\n    elif current_sum < target:\n        left += 1  # need a larger sum\n    else:\n        right -= 1 # need a smaller sum\n```\nBecause the array is sorted, moving `left` strictly increases the sum and moving `right` strictly decreases the sum, guaranteeing $O(N)$ time and $O(1)$ space."
+      }
+    ]
+  },
+  {
+    "id": "c70",
+    "platform": "claude",
+    "title": "LRU Cache with doubly linked list and hash map",
+    "created": 1704013200.0,
+    "facts": [
+      "lru_cache_doubly_linked_list_hashmap",
+      "algorithmic_interview_patterns"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "Why does an LRU Cache use both a Hash Map and a Doubly Linked List?"
+      },
+      {
+        "role": "assistant",
+        "text": "To achieve both $O(1)$ lookup and $O(1)$ node insertion/eviction:\n- Hash Map (`key -> Node`): Provides $O(1)$ average time lookups.\n- Doubly Linked List (`head <-> ... <-> tail`): Maintains usage order. When a node is accessed or added, it can be unlinked and moved to the head in $O(1)$ time because a doubly linked list holds pointers to both `prev` and `next`.\nEvicting the least recently used node from the tail is also $O(1)$."
+      }
+    ]
+  }
+]

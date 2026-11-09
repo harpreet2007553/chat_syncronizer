@@ -1,0 +1,197 @@
+[
+  {
+    "id": "c91",
+    "platform": "chatgpt",
+    "title": "French press cold brew coffee ratio",
+    "created": 1713085200.0,
+    "facts": [
+      "french_press_cold_brew_ratio_steep_time"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "what is the best coffee to water ratio for cold brew in a french press and how long to steep?"
+      },
+      {
+        "role": "assistant",
+        "text": "- Ratio: 1:8 (coffee to water by weight) for ready-to-drink, or 1:4 for a strong cold brew concentrate you dilute with milk or ice.\n- Example: 100 grams of coarse ground coffee to 800 grams cold filtered water.\n- Grind size: Extra coarse (like sea salt) to prevent cloudiness.\n- Steep time: 16 to 18 hours in the refrigerator (or 12-14 hours at room temp). Then press gently and strain through a paper filter."
+      }
+    ]
+  },
+  {
+    "id": "c92",
+    "platform": "claude",
+    "title": "Kyoto 2-day temple walking itinerary",
+    "created": 1713517200.0,
+    "facts": [
+      "kyoto_2_day_walking_itinerary",
+      "japan_travel_transit_planning"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "What is an efficient 2-day walking itinerary for Kyoto highlights?"
+      },
+      {
+        "role": "assistant",
+        "text": "- Day 1: Eastern Kyoto (Higashiyama):\n  - Early morning at Fushimi Inari Taisha (Torii gates path before 7:30 AM).\n  - Kiyomizu-dera temple overlooking the valley.\n  - Sannenzaka & Ninenzaka preserved historic stone streets.\n  - Yasaka Shrine and Gion geisha district in the evening.\n- Day 2: Western & Northern Kyoto:\n  - Arashiyama Bamboo Grove at sunrise, followed by Monkey Park.\n  - Kinkaku-ji (Golden Pavilion).\n  - Ryoan-ji Zen rock garden."
+      }
+    ]
+  },
+  {
+    "id": "c93",
+    "platform": "chatgpt",
+    "title": "One bag travel packing for Europe",
+    "created": 1713949200.0,
+    "facts": [
+      "one_bag_travel_europe_packing_system"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how to pack for 2 weeks in Europe in a single 35L carry-on backpack?"
+      },
+      {
+        "role": "assistant",
+        "text": "One-bag travel packing system:\n1. 5 days of clothing made from merino wool or quick-dry synthetics (wash in sink every 3-4 days; air dries overnight).\n2. Wear your bulkiest shoes and jacket on the plane.\n3. Compression packing cubes: pack 5 shirts, 1 extra pants, 1 shorts, 5 merino socks, 5 underwear.\n4. Solid toiletries (shampoo bar, deodorant) to breeze through airport liquid limits.\n5. Single 65W GaN multi-port charger for phone, laptop, and power bank."
+      }
+    ]
+  },
+  {
+    "id": "c94",
+    "platform": "claude",
+    "title": "Engineering manager 1-on-1 meeting questions",
+    "created": 1714381200.0,
+    "facts": [
+      "engineering_manager_1_on_1_questions"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "What are great questions an engineer can bring to a 1-on-1 with their engineering manager?"
+      },
+      {
+        "role": "assistant",
+        "text": "High-leverage questions to guide your growth:\n1. Priorities: 'What is the most critical outcome for our team this quarter, and how can my current project best support it?'\n2. Blind spots: 'Where did you see friction in my execution on the recent release?'\n3. Growth: 'Looking ahead to the next level/promotion, what skill gap should I focus on closing?'\n4. Unblocking: 'Here is an organizational bottleneck slowing down our deployments\u2014can you help sponsor this improvement?'"
+      }
+    ]
+  },
+  {
+    "id": "c95",
+    "platform": "chatgpt",
+    "title": "Promotion packet self-evaluation impact statement",
+    "created": 1714813200.0,
+    "facts": [
+      "promotion_packet_impact_statement_metrics",
+      "tech_career_negotiation_growth"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how do i write a high-impact self-evaluation statement for my senior promotion packet?"
+      },
+      {
+        "role": "assistant",
+        "text": "Use the Outcome + Metric + Scope formula:\n- Weak: 'I refactored the checkout pipeline and made it better.'\n- Strong: 'Architected and led the migration of the payment processing pipeline to an asynchronous event-driven system across 3 services, reducing P99 checkout latency from 1.8s to 240ms (-86%) and eliminating $12k/month in timeout error refunds.'\nHighlight leadership, mentorship of junior engineers, and cross-functional alignment."
+      }
+    ]
+  },
+  {
+    "id": "c96",
+    "platform": "claude",
+    "title": "401k employer match vesting cliff vs graded",
+    "created": 1715245200.0,
+    "facts": [
+      "401k_employer_match_cliff_graded_vesting",
+      "retirement_accounts_tax_optimization"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How do 401k employer match vesting schedules work if I leave my job after 2 years?"
+      },
+      {
+        "role": "assistant",
+        "text": "Your own contributions to your 401(k) are always 100% vested immediately\u2014you keep all of it.\nEmployer matching contributions follow a vesting schedule:\n- Cliff vesting: 0% vested for year 1 and 2, then 100% vested at year 3. If you leave at 2 years, you forfeit 100% of employer match.\n- Graded vesting: 20% per year (Year 1: 20%, Year 2: 40%, etc.). If you leave at 2 years, you keep 40% of employer match funds and forfeit 60%.\nCheck your plan summary document for your specific vesting type."
+      }
+    ]
+  },
+  {
+    "id": "c97",
+    "platform": "chatgpt",
+    "title": "HSA triple tax advantage stealth IRA",
+    "created": 1715677200.0,
+    "facts": [
+      "hsa_triple_tax_advantage_stealth_ira",
+      "retirement_accounts_tax_optimization"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "why is an HSA called triple tax-advantaged and how can it be used as a stealth retirement account?"
+      },
+      {
+        "role": "assistant",
+        "text": "An HSA (Health Savings Account) has three distinct tax advantages:\n1. Pre-tax contributions: Deducted from paycheck, avoiding federal, state, and FICA payroll taxes.\n2. Tax-free growth: Invested in index funds, gains and dividends grow 100% tax-free.\n3. Tax-free withdrawals: Zero tax on withdrawals for qualified medical expenses.\nStealth retirement hack: Pay medical expenses out-of-pocket today, save all itemized receipts digitally, and let your HSA investments compound for 25 years. You can reimburse yourself tax-free decades later at any time!"
+      }
+    ]
+  },
+  {
+    "id": "c98",
+    "platform": "claude",
+    "title": "Barbell deadlift back rounding cues",
+    "created": 1716109200.0,
+    "facts": [
+      "barbell_deadlift_back_rounding_armpit_cue",
+      "strength_training_form_cues"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "My lower back rounds when pulling heavy barbell deadlifts. What cues fix this?"
+      },
+      {
+        "role": "assistant",
+        "text": "Fix rounding by establishing tight spinal tension before the bar leaves the floor:\n1. 'Protect your armpits': Squeeze your lats like squeezing oranges in your armpits. This locks the thoracic spine and pulls slack out of the barbell with a crisp 'click'.\n2. 'Push the floor away': Think of leg-pressing the earth rather than pulling with your back.\n3. Wedge your hips: Keep hips between knee height and shoulder height\u2014don't drop into a low squat or shoot hips up early."
+      }
+    ]
+  },
+  {
+    "id": "c99",
+    "platform": "chatgpt",
+    "title": "Zone 2 cardio heart rate calculation",
+    "created": 1716541200.0,
+    "facts": [
+      "zone_2_cardio_heart_rate_talk_test"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "how do i calculate my Zone 2 cardio heart rate for aerobic endurance base building?"
+      },
+      {
+        "role": "assistant",
+        "text": "Two common methods:\n1. Maffetone 180 Formula: $180 - \\text{age}$. For a 30-year-old, $180 - 30 = 150\\text{ bpm}$. Keep heart rate between 140 and 150 bpm.\n2. Percent of Max Heart Rate: 60% to 70% of max heart rate ($220 - \\text{age}$). For age 30 (max ~190): Zone 2 is 114 to 133 bpm.\nThe golden test is the 'Talk Test': you should be able to speak in complete sentences without gasping, but feel working enough that someone on the phone knows you are exercising."
+      }
+    ]
+  },
+  {
+    "id": "c100",
+    "platform": "claude",
+    "title": "Bathtub silicone caulk removal and replacement",
+    "created": 1716973200.0,
+    "facts": [
+      "bathtub_caulking_silicone_sealant_removal"
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "text": "How do I remove moldy silicone caulk around my bathtub and re-apply a fresh bead?"
+      },
+      {
+        "role": "assistant",
+        "text": "1. Removal: Cut old silicone with a utility knife or caulk remover tool. Clean residue with mineral spirits or isopropyl alcohol and scrape clean. Let dry 100%!\n2. Tape: Place painter's tape 1/8-inch above and 1/8-inch below the joint for clean razor-sharp lines.\n3. Application: Cut 100% silicone tub & tile sealant tip at 45 degrees. Squeeze a steady, continuous bead.\n4. Smoothing: Smooth with a damp gloved finger or caulk smoothing tool. Immediately peel painter's tape while silicone is still wet.\n5. Wait 24 hours before showering."
+      }
+    ]
+  }
+]
