@@ -1,38 +1,99 @@
-from chatmem.chunking.per_message import messages, conversations_list
-from chatmem.schema import Chunk
+from collections import defaultdict
+from chatmem.chunking.per_message import conversations_list, messages
+from chatmem.schema import Chunk, Conversation, Message
 
-# We will now create chunks of QA pairs
 
-def qa_chunks(messages):
-    chunks = []
+def qa_chunks(
+    data: dict[str, Conversation] | list[Conversation] | list[Message] | None = None,
+) -> list[Chunk]:
+    """Create self-contained Q&A pair chunks from conversation turns.
+
+    Pairs each User question with its corresponding Assistant response.
+    """
+    if data is None:
+        data = conversations_list
+
+    chunks: list[Chunk] = []
     idx = 0
 
-    for i in range(0, len(messages) - 1, 2):
-
-        m1 = messages[i]
-        m2 = messages[i + 1]
-
-        if (
-            m1.conversation_id != m2.conversation_id
-            or m1.platform != m2.platform
-            or m1.title != m2.title
-        ):
-            continue
-
-        chunks.append(
-            Chunk(
-                chunk_id=f"chunk_{idx}",
-                conversation_id=m1.conversation_id,
-                title=m1.title,
-                platform=m1.platform,
-                text=f"{m1.text} {m2.text}",
-                message_ids=[m1.message_id, m2.message_id],
-                time=m1.timestamp,
+    # Normalize to list of conversations
+    if isinstance(data, dict):
+        convs = list(data.values())
+    elif isinstance(data, (list, tuple)) and data and isinstance(data[0], Conversation):
+        convs = list(data)
+    elif isinstance(data, (list, tuple)) and data and isinstance(data[0], Message):
+        # Group flat messages by (conversation_id, platform)
+        grouped = defaultdict(list)
+        for m in data:
+            grouped[(m.conversation_id, m.platform)].append(m)
+        convs = []
+        for (cid, platform), msgs in grouped.items():
+            title = msgs[0].title if getattr(msgs[0], "title", None) else "Untitled"
+            convs.append(
+                Conversation(
+                    conversation_id=cid,
+                    platform=platform,
+                    title=title,
+                    creation_time=msgs[0].timestamp,
+                    updation_time=msgs[-1].timestamp,
+                    messages=msgs,
+                )
             )
-        )
+    else:
+        convs = []
 
-        idx += 1
+    for conv in convs:
+        msgs = conv.messages
+        i = 0
+        while i < len(msgs):
+            # Find user turn
+            if msgs[i].role == "user":
+                # Pair with assistant turn if followed immediately
+                if i + 1 < len(msgs) and msgs[i + 1].role == "assistant":
+                    user_msg = msgs[i]
+                    asst_msg = msgs[i + 1]
+
+                    chunk = Chunk(
+                        chunk_id=f"chunk_qa_{idx}",
+                        conversation_id=conv.conversation_id,
+                        title=conv.title or "Untitled",
+                        platform=conv.platform,
+                        text=f"User: {user_msg.text}\n\nAssistant: {asst_msg.text}",
+                        message_ids=[user_msg.message_id, asst_msg.message_id],
+                        time=user_msg.timestamp,
+                    )
+                    chunks.append(chunk)
+                    idx += 1
+                    i += 2
+                    continue
+                else:
+                    # Lone user question without assistant reply
+                    user_msg = msgs[i]
+                    chunk = Chunk(
+                        chunk_id=f"chunk_qa_{idx}",
+                        conversation_id=conv.conversation_id,
+                        title=conv.title or "Untitled",
+                        platform=conv.platform,
+                        text=f"User: {user_msg.text}",
+                        message_ids=[user_msg.message_id],
+                        time=user_msg.timestamp,
+                    )
+                    chunks.append(chunk)
+                    idx += 1
+                    i += 1
+                    continue
+            i += 1
 
     return chunks
-QA_Chunks = qa_chunks(messages)
 
+
+QA_Chunks: list[Chunk] = qa_chunks(conversations_list)
+
+
+if __name__ == "__main__":
+    print(f"Generated {len(QA_Chunks)} QA chunks.")
+    if QA_Chunks:
+        sample = QA_Chunks[0]
+        print(f"Sample ID: {sample.chunk_id}")
+        print(f"Title: {sample.title}")
+        print(f"Text:\n{sample.text}")
