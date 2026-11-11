@@ -1,7 +1,6 @@
-import math
 import pytest
 
-from chatmem.retrieval.gate import GateDecision, apply_gate
+from chatmem.retrieval.gate import apply_gate
 from chatmem.retrieval.rerank import RerankedHit
 
 

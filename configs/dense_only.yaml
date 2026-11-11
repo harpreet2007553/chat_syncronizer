@@ -1,5 +1,5 @@
-name: "dense_only"
-strategy: "qa"
+name: dense_only
+strategy: qa
 use_bm25: false
 use_dense: true
 search_top_k: 30
@@ -12,5 +12,4 @@ rerank_model: "BAAI/bge-reranker-base"
 rerank_normalize: false
 gate_threshold: null
 min_results: 1
-final_top_k: 5
-
+final_top_k: 10

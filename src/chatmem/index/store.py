@@ -1,6 +1,4 @@
 import json
-import logging
-import math
 import os
 import re
 import sqlite3

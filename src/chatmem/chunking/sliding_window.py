@@ -1,6 +1,5 @@
 import logging
 from collections import defaultdict
-from datetime import datetime
 from typing import Sequence
 
 from chatmem.schema import Chunk, Conversation, Message

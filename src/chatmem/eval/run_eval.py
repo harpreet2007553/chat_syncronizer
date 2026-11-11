@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import csv
-import dataclasses
 import json
 import logging
 import math

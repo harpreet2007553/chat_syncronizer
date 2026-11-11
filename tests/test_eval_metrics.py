@@ -4,8 +4,6 @@ import pytest
 from chatmem.eval.metrics import (
     dedupe_conversations,
     gate_sweep,
-    hit_at_k,
-    mean,
     ndcg_at_k,
     recall_at_k,
     reciprocal_rank,

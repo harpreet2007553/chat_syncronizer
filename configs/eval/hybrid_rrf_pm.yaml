@@ -1,0 +1,11 @@
+name: hybrid_rrf_pm
+strategy: pm
+use_bm25: true
+use_dense: true
+search_top_k: 30
+rrf_k: 60
+bm25_weight: 1.0
+dense_weight: 1.0
+final_top_k: 10
+use_rerank: false
+

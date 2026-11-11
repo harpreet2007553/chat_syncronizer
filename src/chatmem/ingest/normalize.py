@@ -1,9 +1,8 @@
-import logging
 from pathlib import Path
 from typing import Sequence
 
-from chatmem.ingest.chatgpt import parse_chatgpt_conversation, parse_chatgpt_export
-from chatmem.ingest.claude import parse_claude_conversation, parse_claude_export
+from chatmem.ingest.chatgpt import parse_chatgpt_export
+from chatmem.ingest.claude import parse_claude_export
 from chatmem.schema import Conversation, Message
 from chatmem.utils.logging import get_logger
 
@@ -43,11 +42,14 @@ def load_all_exports(root_dir: str | Path) -> list[Conversation]:
             continue
 
         conv_file = platform_dir / "conversations.json"
-        if not conv_file.exists():
+        if not conv_file.exists() or conv_file.stat().st_size == 0:
             continue
 
-        convs = parser(conv_file)
-        all_conversations.extend(convs)
+        try:
+            convs = parser(conv_file)
+            all_conversations.extend(convs)
+        except Exception as err:
+            logger.error("Failed to parse %s with parser %s: %s", conv_file, platform, err)
 
     logger.info("Loaded a total of %d conversations from %s", len(all_conversations), path)
     return all_conversations

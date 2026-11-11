@@ -1,5 +1,5 @@
 from collections import defaultdict
-from chatmem.chunking.per_message import conversations_list, messages
+from chatmem.chunking.per_message import conversations_list
 from chatmem.schema import Chunk, Conversation, Message
 
 

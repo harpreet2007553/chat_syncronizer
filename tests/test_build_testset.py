@@ -5,16 +5,14 @@ import json
 from pathlib import Path
 from unittest.mock import MagicMock
 
-import pytest
 
 from chatmem.eval.build_testset import (
     assign_splits,
     build_dataset,
     validate_dataset,
 )
-from chatmem.eval.run_eval import EvalQuery, load_queries, run_sweep
+from chatmem.eval.run_eval import load_queries, run_sweep
 from chatmem.ingest.normalize import load_all_exports
-from chatmem.retrieval.pipeline import PipelineConfig
 
 
 # ---------------------------------------------------------------------------

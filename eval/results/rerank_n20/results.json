@@ -1,0 +1,1477 @@
+[
+  {
+    "config_name": "hybrid_rerank_n20",
+    "score_scale": "raw",
+    "rerank_model": "BAAI/bge-reranker-base",
+    "metrics": {
+      "recall@1": 0.7916666666666666,
+      "hit@1": 0.9375,
+      "ndcg@1": 0.9375,
+      "recall@3": 0.9192708333333334,
+      "hit@3": 0.96875,
+      "ndcg@3": 0.9375,
+      "recall@5": 0.9661458333333334,
+      "hit@5": 1.0,
+      "ndcg@5": 0.949403032370258,
+      "recall@10": 0.9817708333333334,
+      "hit@10": 1.0,
+      "ndcg@10": 0.9575970128040437,
+      "mrr": 0.9609375
+    },
+    "latency_mean_ms": 3668.5884,
+    "latency_p95_ms": 4178.2535,
+    "warnings": [],
+    "errors": [],
+    "query_results": [
+      {
+        "query_id": "q03",
+        "query_text": "how to run a vector database locally with docker and keep the data",
+        "answerable": true,
+        "relevant": [
+          "c03"
+        ],
+        "ranked_conv_ids": [
+          "c03",
+          "c23",
+          "c22",
+          "c24",
+          "c52",
+          "c87",
+          "c25",
+          "c80",
+          "c12"
+        ],
+        "top_score": 0.13722972571849823,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 2981.76,
+          "fusion": 0.23,
+          "fetch": 0.66,
+          "rerank": 7842.62,
+          "total": 10825.34
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q05",
+        "query_text": "my extension cannot call localhost because of CORS from the content script",
+        "answerable": true,
+        "relevant": [
+          "c08"
+        ],
+        "ranked_conv_ids": [
+          "c08",
+          "c03",
+          "c31",
+          "c87",
+          "c39",
+          "c78",
+          "c01",
+          "c33"
+        ],
+        "top_score": 0.6089929342269897,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 48.37,
+          "fusion": 0.15,
+          "fetch": 0.42,
+          "rerank": 3704.11,
+          "total": 3753.09
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q08",
+        "query_text": "set up python version and virtualenv with uv",
+        "answerable": true,
+        "relevant": [
+          "c12"
+        ],
+        "ranked_conv_ids": [
+          "c12",
+          "c28",
+          "c17",
+          "c15",
+          "c87",
+          "c79",
+          "c78",
+          "c18",
+          "c31"
+        ],
+        "top_score": 0.9942317605018616,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 49.53,
+          "fusion": 0.16,
+          "fetch": 0.4,
+          "rerank": 3853.54,
+          "total": 3903.67
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q11",
+        "query_text": "how do I deploy a kubernetes cluster on AWS",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c20",
+          "c07",
+          "c80",
+          "c16",
+          "c53",
+          "c03",
+          "c83",
+          "c52",
+          "c76"
+        ],
+        "top_score": 0.003018589224666357,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 42.99,
+          "fusion": 0.14,
+          "fetch": 0.47,
+          "rerank": 3186.53,
+          "total": 3230.22
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q12",
+        "query_text": "table grouping throws missing key exception",
+        "answerable": true,
+        "relevant": [
+          "c01"
+        ],
+        "ranked_conv_ids": [
+          "c01",
+          "c23",
+          "c15",
+          "c49",
+          "c24",
+          "c78",
+          "c28",
+          "c29",
+          "c53"
+        ],
+        "top_score": 0.0008411401067860425,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 39.71,
+          "fusion": 0.12,
+          "fetch": 0.27,
+          "rerank": 3532.22,
+          "total": 3572.33
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q15",
+        "query_text": "two-step transformer pass for candidate re-scoring",
+        "answerable": true,
+        "relevant": [
+          "c25"
+        ],
+        "ranked_conv_ids": [
+          "c25",
+          "c14",
+          "c20",
+          "c24",
+          "c56"
+        ],
+        "top_score": 0.18519340455532074,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 37.21,
+          "fusion": 0.11,
+          "fetch": 0.32,
+          "rerank": 2848.62,
+          "total": 2886.29
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q16",
+        "query_text": "delayed execution plan for analytical columnar format",
+        "answerable": true,
+        "relevant": [
+          "c27"
+        ],
+        "ranked_conv_ids": [
+          "c27",
+          "c94",
+          "c53",
+          "c86",
+          "c95",
+          "c81",
+          "c65",
+          "c24"
+        ],
+        "top_score": 0.00766608165577054,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 39.35,
+          "fusion": 0.14,
+          "fetch": 0.31,
+          "rerank": 2725.88,
+          "total": 2765.71
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q19",
+        "query_text": "retrieving uncommitted work after branch removal",
+        "answerable": true,
+        "relevant": [
+          "c36"
+        ],
+        "ranked_conv_ids": [
+          "c36",
+          "c34",
+          "c88",
+          "c11",
+          "c89",
+          "c25",
+          "c27",
+          "c38",
+          "c96",
+          "c31"
+        ],
+        "top_score": 0.5295793414115906,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 41.25,
+          "fusion": 0.09,
+          "fetch": 0.31,
+          "rerank": 2769.35,
+          "total": 2811.03
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q20",
+        "query_text": "storing previous timer reference in functional UI renders",
+        "answerable": true,
+        "relevant": [
+          "c39"
+        ],
+        "ranked_conv_ids": [
+          "c39",
+          "c40",
+          "c22",
+          "c31",
+          "c53",
+          "c81",
+          "c38",
+          "c71",
+          "c20"
+        ],
+        "top_score": 0.0026988086756318808,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 38.7,
+          "fusion": 0.12,
+          "fetch": 0.25,
+          "rerank": 2682.84,
+          "total": 2721.93
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q21",
+        "query_text": "slow cooked whole black lentils with dairy",
+        "answerable": true,
+        "relevant": [
+          "c42"
+        ],
+        "ranked_conv_ids": [
+          "c42",
+          "c43",
+          "c44",
+          "c90",
+          "c18",
+          "c05"
+        ],
+        "top_score": 0.03688032925128937,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 56.81,
+          "fusion": 0.13,
+          "fetch": 0.25,
+          "rerank": 3271.51,
+          "total": 3328.73
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q23",
+        "query_text": "high altitude mountain pass elevation acclimatization",
+        "answerable": true,
+        "relevant": [
+          "c46"
+        ],
+        "ranked_conv_ids": [
+          "c46",
+          "c10",
+          "c94",
+          "c01",
+          "c53",
+          "c25",
+          "c48",
+          "c47",
+          "c37",
+          "c56"
+        ],
+        "top_score": 0.04011237621307373,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 44.5,
+          "fusion": 0.17,
+          "fetch": 0.41,
+          "rerank": 3418.3,
+          "total": 3463.41
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q24",
+        "query_text": "evaluating equity compensation against liquid pay",
+        "answerable": true,
+        "relevant": [
+          "c51"
+        ],
+        "ranked_conv_ids": [
+          "c51",
+          "c24",
+          "c71",
+          "c50",
+          "c56",
+          "c14",
+          "c57",
+          "c95",
+          "c96",
+          "c97"
+        ],
+        "top_score": 0.001794104347936809,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 64.06,
+          "fusion": 0.08,
+          "fetch": 0.3,
+          "rerank": 3246.25,
+          "total": 3310.73
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q27",
+        "query_text": "conda env export --no-builds",
+        "answerable": true,
+        "relevant": [
+          "c16"
+        ],
+        "ranked_conv_ids": [
+          "c16",
+          "c87",
+          "c02",
+          "c18",
+          "c07",
+          "c31",
+          "c36",
+          "c15"
+        ],
+        "top_score": 0.9993450045585632,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 64.95,
+          "fusion": 0.14,
+          "fetch": 0.38,
+          "rerank": 3417.56,
+          "total": 3483.05
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q28",
+        "query_text": "uv cache clean prune",
+        "answerable": true,
+        "relevant": [
+          "c17"
+        ],
+        "ranked_conv_ids": [
+          "c17",
+          "c16",
+          "c12",
+          "c01",
+          "c71",
+          "c100",
+          "c74",
+          "c56"
+        ],
+        "top_score": 0.9926235675811768,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 40.99,
+          "fusion": 0.13,
+          "fetch": 0.38,
+          "rerank": 2745.94,
+          "total": 2787.46
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q29",
+        "query_text": "torch.backends.mps.is_available()",
+        "answerable": true,
+        "relevant": [
+          "c19"
+        ],
+        "ranked_conv_ids": [
+          "c19",
+          "c80",
+          "c22",
+          "c21",
+          "c31",
+          "c79"
+        ],
+        "top_score": 0.9722093343734741,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 42.7,
+          "fusion": 0.17,
+          "fetch": 0.28,
+          "rerank": 3821.87,
+          "total": 3865.07
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q30",
+        "query_text": "torch.autocast bfloat16 GradScaler",
+        "answerable": true,
+        "relevant": [
+          "c21"
+        ],
+        "ranked_conv_ids": [
+          "c21",
+          "c80",
+          "c22",
+          "c19",
+          "c18",
+          "c53",
+          "c08"
+        ],
+        "top_score": 0.99604731798172,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 74.37,
+          "fusion": 0.13,
+          "fetch": 0.36,
+          "rerank": 3208.85,
+          "total": 3283.74
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q31",
+        "query_text": "DataLoader persistent_workers pin_memory",
+        "answerable": true,
+        "relevant": [
+          "c22"
+        ],
+        "ranked_conv_ids": [
+          "c22"
+        ],
+        "top_score": 0.8837207555770874,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 38.14,
+          "fusion": 0.08,
+          "fetch": 0.38,
+          "rerank": 3129.15,
+          "total": 3167.78
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q32",
+        "query_text": "qdrant_client models.Filter MatchValue",
+        "answerable": true,
+        "relevant": [
+          "c23"
+        ],
+        "ranked_conv_ids": [
+          "c23",
+          "c24",
+          "c31",
+          "c52",
+          "c25"
+        ],
+        "top_score": 0.9958441853523254,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 40.96,
+          "fusion": 0.12,
+          "fetch": 0.26,
+          "rerank": 3793.58,
+          "total": 3834.96
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q34",
+        "query_text": "read_parquet hive_partitioning=true duckdb",
+        "answerable": true,
+        "relevant": [
+          "c29"
+        ],
+        "ranked_conv_ids": [
+          "c29",
+          "c85",
+          "c53",
+          "c01",
+          "c22",
+          "c27"
+        ],
+        "top_score": 0.9996058344841003,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 46.96,
+          "fusion": 0.13,
+          "fetch": 0.4,
+          "rerank": 3275.65,
+          "total": 3323.19
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q42",
+        "query_text": "how do SQLite FTS5 and DuckDB handle fast analytical and search queries",
+        "answerable": true,
+        "relevant": [
+          "c28",
+          "c29",
+          "c85"
+        ],
+        "ranked_conv_ids": [
+          "c29",
+          "c28",
+          "c85",
+          "c24",
+          "c14",
+          "c25",
+          "c53",
+          "c27",
+          "c32"
+        ],
+        "top_score": 0.5812168717384338,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 52.93,
+          "fusion": 0.15,
+          "fetch": 0.3,
+          "rerank": 2860.55,
+          "total": 2913.96
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q43",
+        "query_text": "building production FastAPI services with background jobs and custom middleware",
+        "answerable": true,
+        "relevant": [
+          "c08",
+          "c30",
+          "c86"
+        ],
+        "ranked_conv_ids": [
+          "c30",
+          "c86",
+          "c08",
+          "c33",
+          "c15",
+          "c94",
+          "c52",
+          "c31",
+          "c53"
+        ],
+        "top_score": 0.03909941017627716,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 41.21,
+          "fusion": 0.1,
+          "fetch": 0.29,
+          "rerank": 3959.6,
+          "total": 4001.25
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q44",
+        "query_text": "best practices for rewriting and recovering git history without losing work",
+        "answerable": true,
+        "relevant": [
+          "c11",
+          "c34",
+          "c36",
+          "c89"
+        ],
+        "ranked_conv_ids": [
+          "c36",
+          "c89",
+          "c11",
+          "c45",
+          "c37",
+          "c34",
+          "c88",
+          "c35",
+          "c15",
+          "c14"
+        ],
+        "top_score": 0.28333356976509094,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 61.39,
+          "fusion": 0.1,
+          "fetch": 0.32,
+          "rerank": 3023.38,
+          "total": 3085.21
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q45",
+        "query_text": "avoiding common state and unmount lifecycle bugs in React components",
+        "answerable": true,
+        "relevant": [
+          "c38",
+          "c39",
+          "c40"
+        ],
+        "ranked_conv_ids": [
+          "c40",
+          "c38",
+          "c39",
+          "c97",
+          "c34",
+          "c19",
+          "c53",
+          "c03"
+        ],
+        "top_score": 0.18884941935539246,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 41.32,
+          "fusion": 0.12,
+          "fetch": 0.28,
+          "rerank": 2902.04,
+          "total": 2943.79
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q46",
+        "query_text": "how does fermentation time affect flavor and texture in sourdough and pizza dough",
+        "answerable": true,
+        "relevant": [
+          "c43",
+          "c45"
+        ],
+        "ranked_conv_ids": [
+          "c43",
+          "c45",
+          "c44",
+          "c90"
+        ],
+        "top_score": 0.6069658398628235,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 77.85,
+          "fusion": 0.11,
+          "fetch": 0.31,
+          "rerank": 3196.92,
+          "total": 3275.22
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q48",
+        "query_text": "career progression strategies for software engineers from interview to promotion",
+        "answerable": true,
+        "relevant": [
+          "c07",
+          "c50",
+          "c51",
+          "c95"
+        ],
+        "ranked_conv_ids": [
+          "c45",
+          "c51",
+          "c94",
+          "c50",
+          "c20",
+          "c53",
+          "c52",
+          "c95"
+        ],
+        "top_score": 0.03944401815533638,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 43.71,
+          "fusion": 0.13,
+          "fetch": 0.33,
+          "rerank": 3756.44,
+          "total": 3800.64
+        },
+        "rank_first_relevant": 2,
+        "error": null
+      },
+      {
+        "query_id": "q49",
+        "query_text": "maximizing tax advantaged retirement and health savings accounts",
+        "answerable": true,
+        "relevant": [
+          "c56",
+          "c96",
+          "c97"
+        ],
+        "ranked_conv_ids": [
+          "c97",
+          "c54",
+          "c56",
+          "c55"
+        ],
+        "top_score": 0.9878250956535339,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 42.33,
+          "fusion": 0.11,
+          "fetch": 0.38,
+          "rerank": 3700.58,
+          "total": 3743.43
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q51",
+        "query_text": "foundational guitar chord shapes and lead soloing techniques for beginners",
+        "answerable": true,
+        "relevant": [
+          "c13",
+          "c64",
+          "c65",
+          "c67"
+        ],
+        "ranked_conv_ids": [
+          "c64",
+          "c65",
+          "c13",
+          "c67",
+          "c66",
+          "c41"
+        ],
+        "top_score": 0.727507472038269,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 48.03,
+          "fusion": 0.1,
+          "fetch": 0.27,
+          "rerank": 3009.48,
+          "total": 3057.94
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q55",
+        "query_text": "that chat where I asked about lockfiles in python",
+        "answerable": true,
+        "relevant": [
+          "c15"
+        ],
+        "ranked_conv_ids": [
+          "c15",
+          "c12",
+          "c71",
+          "c23",
+          "c09",
+          "c77",
+          "c31"
+        ],
+        "top_score": 0.3666613698005676,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 57.59,
+          "fusion": 0.13,
+          "fetch": 0.34,
+          "rerank": 3882.28,
+          "total": 3940.38
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q56",
+        "query_text": "that conversation about mac vs nvidia gpu device strings",
+        "answerable": true,
+        "relevant": [
+          "c19"
+        ],
+        "ranked_conv_ids": [
+          "c25",
+          "c22",
+          "c14",
+          "c19",
+          "c21",
+          "c15",
+          "c80"
+        ],
+        "top_score": 0.0030919474083930254,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 40.0,
+          "fusion": 0.12,
+          "fetch": 0.32,
+          "rerank": 3361.85,
+          "total": 3402.3
+        },
+        "rank_first_relevant": 4,
+        "error": null
+      },
+      {
+        "query_id": "q57",
+        "query_text": "that chat about slow data loading and worker processes",
+        "answerable": true,
+        "relevant": [
+          "c22"
+        ],
+        "ranked_conv_ids": [
+          "c22",
+          "c53",
+          "c30",
+          "c09",
+          "c08"
+        ],
+        "top_score": 0.07363206893205643,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 36.66,
+          "fusion": 0.14,
+          "fetch": 0.28,
+          "rerank": 3614.24,
+          "total": 3651.38
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q58",
+        "query_text": "that discussion where I asked how to filter points in qdrant",
+        "answerable": true,
+        "relevant": [
+          "c23"
+        ],
+        "ranked_conv_ids": [
+          "c23",
+          "c03",
+          "c24",
+          "c09",
+          "c83",
+          "c27",
+          "c25",
+          "c94"
+        ],
+        "top_score": 0.6912937760353088,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 47.34,
+          "fusion": 0.23,
+          "fetch": 0.44,
+          "rerank": 4045.96,
+          "total": 4094.0
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q63",
+        "query_text": "that conversation about backdoor roth and paying taxes on it",
+        "answerable": true,
+        "relevant": [
+          "c56"
+        ],
+        "ranked_conv_ids": [
+          "c56",
+          "c97",
+          "c65"
+        ],
+        "top_score": 0.13274694979190826,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 43.64,
+          "fusion": 0.14,
+          "fetch": 0.42,
+          "rerank": 3563.75,
+          "total": 3607.99
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q65",
+        "query_text": "that discussion about playing lead solos with the pentatonic scale",
+        "answerable": true,
+        "relevant": [
+          "c65"
+        ],
+        "ranked_conv_ids": [
+          "c65",
+          "c64",
+          "c31",
+          "c67"
+        ],
+        "top_score": 0.0026358135510236025,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 46.62,
+          "fusion": 0.16,
+          "fetch": 0.46,
+          "rerank": 4084.17,
+          "total": 4131.45
+        },
+        "rank_first_relevant": 1,
+        "error": null
+      },
+      {
+        "query_id": "q67",
+        "query_text": "how to get scuba diving certification PADI open water",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c33",
+          "c24",
+          "c18",
+          "c46",
+          "c91",
+          "c76",
+          "c42",
+          "c100",
+          "c41"
+        ],
+        "top_score": 4.501393414102495e-05,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 41.17,
+          "fusion": 0.13,
+          "fetch": 0.38,
+          "rerank": 4042.56,
+          "total": 4084.28
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q69",
+        "query_text": "chess opening theory Sicilian defense Najdorf variation moves",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c71",
+          "c65",
+          "c27",
+          "c28",
+          "c10",
+          "c24",
+          "c23",
+          "c25"
+        ],
+        "top_score": 0.0004649670154321939,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 45.24,
+          "fusion": 0.12,
+          "fetch": 0.55,
+          "rerank": 4416.19,
+          "total": 4462.14
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q70",
+        "query_text": "diagnosing automatic car transmission slipping clutch fluid",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c53",
+          "c31",
+          "c03",
+          "c43",
+          "c55",
+          "c100",
+          "c73",
+          "c12"
+        ],
+        "top_score": 0.0003528544621076435,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 48.78,
+          "fusion": 0.08,
+          "fetch": 0.42,
+          "rerank": 3171.92,
+          "total": 3221.23
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q74",
+        "query_text": "learning Mandarin Chinese pinyin tones pronunciation guide",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c65",
+          "c47",
+          "c25",
+          "c13",
+          "c53"
+        ],
+        "top_score": 0.005416190251708031,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 44.74,
+          "fusion": 0.08,
+          "fetch": 0.38,
+          "rerank": 3064.18,
+          "total": 3109.42
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q75",
+        "query_text": "pet ferret dietary requirements high protein kibble taurine",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c62",
+          "c43",
+          "c61",
+          "c56",
+          "c95",
+          "c53",
+          "c54",
+          "c15",
+          "c77"
+        ],
+        "top_score": 0.00024329246662091464,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 48.44,
+          "fusion": 0.11,
+          "fetch": 0.36,
+          "rerank": 2895.38,
+          "total": 2944.33
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q78",
+        "query_text": "cryptocurrency wash sale rule tax loss harvesting bitcoin",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c71",
+          "c56"
+        ],
+        "top_score": 0.00010322144953534007,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 39.99,
+          "fusion": 0.11,
+          "fetch": 0.42,
+          "rerank": 3686.76,
+          "total": 3727.31
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q79",
+        "query_text": "indoor juniper bonsai tree pruning wiring trunk taper",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c76",
+          "c17",
+          "c68",
+          "c15",
+          "c74",
+          "c53",
+          "c88",
+          "c58",
+          "c43"
+        ],
+        "top_score": 0.00010944282257696614,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 44.51,
+          "fusion": 0.11,
+          "fetch": 0.45,
+          "rerank": 3278.62,
+          "total": 3323.75
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q80",
+        "query_text": "marathon taper week carb loading hydration strategy",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c43",
+          "c59",
+          "c62",
+          "c20",
+          "c41",
+          "c53",
+          "c33",
+          "c22"
+        ],
+        "top_score": 0.0012958310544490814,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 46.91,
+          "fusion": 0.11,
+          "fetch": 0.46,
+          "rerank": 3772.35,
+          "total": 3819.86
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q81",
+        "query_text": "cleaning antique cast iron skillet lye bath electrolysis rust",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c100",
+          "c37",
+          "c31",
+          "c72",
+          "c73",
+          "c74",
+          "c18",
+          "c45",
+          "c88",
+          "c43"
+        ],
+        "top_score": 0.00027143809711560607,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 44.02,
+          "fusion": 0.07,
+          "fetch": 0.33,
+          "rerank": 4162.32,
+          "total": 4206.77
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q85",
+        "query_text": "deepspeed zero stage 3 offload optimizer parameter partitioning nvme",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c34",
+          "c49",
+          "c14",
+          "c53",
+          "c80",
+          "c29",
+          "c25",
+          "c81",
+          "c22"
+        ],
+        "top_score": 0.0036099364515393972,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 46.7,
+          "fusion": 0.25,
+          "fetch": 0.41,
+          "rerank": 3880.83,
+          "total": 3928.24
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q86",
+        "query_text": "weaviate vector index hnsw parameters efConstruction maxConnections",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c52",
+          "c65",
+          "c04",
+          "c24",
+          "c25",
+          "c49",
+          "c69",
+          "c01",
+          "c22"
+        ],
+        "top_score": 0.003507011104375124,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 96.21,
+          "fusion": 0.15,
+          "fetch": 0.45,
+          "rerank": 4046.55,
+          "total": 4143.4
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q88",
+        "query_text": "graphql federation Apollo router subgraph schema composition",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c53",
+          "c23",
+          "c40",
+          "c31",
+          "c68",
+          "c95",
+          "c24"
+        ],
+        "top_score": 0.0009348775492981076,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 44.72,
+          "fusion": 0.14,
+          "fetch": 0.48,
+          "rerank": 4064.78,
+          "total": 4110.17
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q89",
+        "query_text": "git bisect run automated test script syntax exit code 125",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c36",
+          "c34",
+          "c08",
+          "c45",
+          "c37",
+          "c07",
+          "c88",
+          "c89",
+          "c09",
+          "c87"
+        ],
+        "top_score": 0.005411679390817881,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 42.86,
+          "fusion": 0.13,
+          "fetch": 0.38,
+          "rerank": 3672.16,
+          "total": 3715.56
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q92",
+        "query_text": "iceland ring road 10 day campervan itinerary river crossing f-roads",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c48",
+          "c53",
+          "c46",
+          "c92",
+          "c47",
+          "c06",
+          "c64",
+          "c16"
+        ],
+        "top_score": 0.00021257781190797687,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 46.99,
+          "fusion": 0.18,
+          "fetch": 0.5,
+          "rerank": 3436.8,
+          "total": 3484.5
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q94",
+        "query_text": "mega backdoor roth after-tax in-plan conversion via fidelity 401k",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c56",
+          "c95",
+          "c96"
+        ],
+        "top_score": 0.13532966375350952,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 44.97,
+          "fusion": 0.13,
+          "fetch": 0.56,
+          "rerank": 3449.96,
+          "total": 3495.65
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q95",
+        "query_text": "crossfit murph workout weighted vest pacing strategy pullups",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c98",
+          "c63",
+          "c59",
+          "c53",
+          "c60",
+          "c04",
+          "c49",
+          "c27",
+          "c65",
+          "c62"
+        ],
+        "top_score": 0.0015015617245808244,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 38.44,
+          "fusion": 0.07,
+          "fetch": 0.37,
+          "rerank": 3905.88,
+          "total": 3944.8
+        },
+        "rank_first_relevant": null,
+        "error": null
+      },
+      {
+        "query_id": "q97",
+        "query_text": "red black tree left rotation color flip balancing proof",
+        "answerable": false,
+        "relevant": [],
+        "ranked_conv_ids": [
+          "c65",
+          "c68",
+          "c58",
+          "c98",
+          "c15",
+          "c71",
+          "c88",
+          "c26"
+        ],
+        "top_score": 0.00018430137424729764,
+        "score_scale": "raw",
+        "injected": true,
+        "timings_ms": {
+          "search": 37.24,
+          "fusion": 0.08,
+          "fetch": 0.33,
+          "rerank": 3703.65,
+          "total": 3741.34
+        },
+        "rank_first_relevant": null,
+        "error": null
+      }
+    ]
+  }
+]

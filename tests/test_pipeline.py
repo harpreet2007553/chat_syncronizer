@@ -1,5 +1,4 @@
 import sqlite3
-from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
@@ -8,7 +7,6 @@ from chatmem.retrieval.gate import GateDecision
 from chatmem.retrieval.pipeline import (
     PipelineConfig,
     Retriever,
-    build_retriever,
 )
 from chatmem.retrieval.rerank import RerankedHit
 

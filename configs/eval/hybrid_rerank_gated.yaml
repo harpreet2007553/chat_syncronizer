@@ -1,0 +1,16 @@
+name: hybrid_rerank_gated
+strategy: qa
+use_bm25: true
+use_dense: true
+search_top_k: 30
+rrf_k: 60
+bm25_weight: 1.0
+dense_weight: 1.0
+use_rerank: true
+rerank_candidates: 30
+rerank_model: "BAAI/bge-reranker-base"
+rerank_normalize: false
+gate_threshold: 0.010
+min_results: 1
+final_top_k: 10
+

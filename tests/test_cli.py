@@ -1,7 +1,6 @@
 import json
 import subprocess
 import sys
-from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
@@ -525,7 +524,7 @@ def test_build_retriever_default_db_path(monkeypatch):
     monkeypatch.setattr("chatmem.retrieval.pipeline.get_qdrant_client", lambda: MagicMock())
 
     cfg = PipelineConfig(name="test")
-    retriever = build_retriever(cfg)
+    _retriever = build_retriever(cfg)
     assert len(captured_db_path) == 1
     assert captured_db_path[0] == DEFAULT_DB_PATH
 

@@ -1,5 +1,5 @@
 import pytest
-from chatmem.retrieval.fusion import FusedHit, reciprocal_rank_fusion
+from chatmem.retrieval.fusion import reciprocal_rank_fusion
 
 
 def test_worked_example():

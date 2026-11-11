@@ -1,8 +1,7 @@
-import math
 import numpy as np
 import pytest
 
-from chatmem.retrieval.rerank import RerankedHit, rerank
+from chatmem.retrieval.rerank import rerank
 
 
 class FakeCrossEncoder:
@@ -182,7 +181,6 @@ def test_invalid_query_and_top_n_raise_value_error():
 
 def test_import_does_not_load_model(monkeypatch):
     """Importing the module does not invoke model loading."""
-    import sys
 
     called = False
 

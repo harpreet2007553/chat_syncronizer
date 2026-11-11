@@ -40,15 +40,31 @@ def _sigmoid(x: float) -> float:
 @functools.lru_cache(maxsize=4)
 def get_cross_encoder(
     model_name: str = "BAAI/bge-reranker-base",
-    max_length: int = 512,
+    max_length: int = 256,
 ) -> CrossEncoder:
     """Load and cache a CrossEncoder model instance lazily.
 
     Auto-detects CUDA if available, falling back to CPU.
+    Tries loading from local cache first to avoid slow network timeouts.
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
     logger.debug("Loading CrossEncoder model '%s' on %s (max_length=%d)", model_name, device, max_length)
-    return CrossEncoder(model_name, max_length=max_length, device=device)
+    try:
+        return CrossEncoder(model_name, max_length=max_length, device=device, local_files_only=True)
+    except Exception:
+        return CrossEncoder(model_name, max_length=max_length, device=device)
+
+
+def warmup_reranker(
+    model_name: str = "BAAI/bge-reranker-base",
+    max_length: int = 256,
+) -> None:
+    """Warm up the cross-encoder to eliminate first-query cold-start overhead."""
+    model = get_cross_encoder(model_name=model_name, max_length=max_length)
+    try:
+        model.predict([("warmup query", "warmup text")], batch_size=1)
+    except Exception as e:
+        logger.debug("Warmup call skipped or failed: %s", e)
 
 
 def rerank(
@@ -56,8 +72,8 @@ def rerank(
     candidates: Sequence[tuple[str, str]],
     top_n: int | None = None,
     model_name: str = "BAAI/bge-reranker-base",
-    batch_size: int = 16,
-    max_length: int = 512,
+    batch_size: int = 32,
+    max_length: int = 256,
     normalize: bool = False,
 ) -> list[RerankedHit]:
     """Re-score a list of candidate chunks against a query using a local CrossEncoder.

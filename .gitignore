@@ -41,6 +41,7 @@ env/
 # Data privacy - NEVER commit raw or processed personal chats
 data/raw/
 data/processed/
+data/private/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
@@ -49,6 +50,10 @@ data/processed/
 *.sqlite3
 *.db
 qdrant_storage/
+qdrant_storage*/
+data/qdrant/
+data/indices/
+data/indexes/
 pyghidra_mcp_projects/
 
 # IDE & Editor configs

@@ -5,10 +5,8 @@ Pure Python, no network, no LLM calls.
 from __future__ import annotations
 
 import json
-import math
 import random
 import re
-import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -446,7 +444,7 @@ def validate_dataset(dataset_dir: Path) -> tuple[dict[str, Any], list[str], list
         "min_messages": min(msg_lens) if msg_lens else 0,
         "max_messages": max(msg_lens) if msg_lens else 0,
         "mean_messages": (sum(msg_lens) / len(msg_lens)) if msg_lens else 0.0,
-        "long_convs_20plus": sum(1 for l in msg_lens if l >= 20),
+        "long_convs_20plus": sum(1 for count in msg_lens if count >= 20),
         "type_counts": dict(type_counts),
         "type_split_counts": {f"{t}:{s}": c for (t, s), c in type_split_counts.items()},
     }

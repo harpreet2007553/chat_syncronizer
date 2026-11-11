@@ -5,4 +5,3 @@ use_dense: true
 search_top_k: 30
 final_top_k: 10
 use_rerank: false
-

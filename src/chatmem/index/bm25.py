@@ -1,4 +1,3 @@
-import logging
 import math
 import re
 from collections import Counter
@@ -162,7 +161,7 @@ if __name__ == "__main__":
     ]
 
     for q in test_queries:
-        print(f"\n==========================================")
+        print("\n==========================================")
         print(f"BM25 Query: '{q}'")
         results = bm25_index.search(q, top_k=2)
         if not results:

@@ -1,5 +1,5 @@
-name: "bm25_only"
-strategy: "qa"
+name: bm25_only
+strategy: qa
 use_bm25: true
 use_dense: false
 search_top_k: 30
@@ -12,5 +12,4 @@ rerank_model: "BAAI/bge-reranker-base"
 rerank_normalize: false
 gate_threshold: null
 min_results: 1
-final_top_k: 5
-
+final_top_k: 10
