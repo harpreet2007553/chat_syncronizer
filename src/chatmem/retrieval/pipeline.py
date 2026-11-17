@@ -30,6 +30,16 @@ STRATEGY_COLLECTIONS: dict[str, str] = {
 # 1. Pipeline Configuration
 # ============================================================================
 
+class QdrantConfig(BaseModel):
+    """Configuration for embedded local or remote Qdrant vector database."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    mode: Literal["local", "server"] = "local"
+    path: str = "data/qdrant_local"
+    url: str | None = None
+
+
 class PipelineConfig(BaseModel):
     """Configuration for retrieval experiments and execution pipelines."""
 
@@ -48,13 +58,17 @@ class PipelineConfig(BaseModel):
     rerank_model: str = "BAAI/bge-reranker-base"
     rerank_normalize: bool = False
     gate_threshold: float | None = None
+    dense_gate_threshold: float | None = None
     min_results: int = Field(default=1, ge=1)
     final_top_k: int = Field(default=5, ge=1)
+    qdrant: QdrantConfig = Field(default_factory=QdrantConfig)
 
     @model_validator(mode="after")
     def validate_pipeline_settings(self) -> PipelineConfig:
         if not self.use_bm25 and not self.use_dense:
             raise ValueError("At least one of use_bm25 or use_dense must be True.")
+        if self.dense_gate_threshold is not None and not self.use_dense:
+            raise ValueError("dense_gate_threshold requires use_dense=True.")
         if self.gate_threshold is not None and not self.use_rerank:
             raise ValueError(
                 "gate_threshold cannot be set when use_rerank is False (gate requires cross-encoder scores)."
@@ -333,10 +347,28 @@ class Retriever:
         # Step f (no rerank): No reranker branch
         # --------------------------------------------------------------------
         else:
-            final_fused = kept_fused_hits[: self.config.final_top_k]
-            injected = True
-            reason = "no_gate"
-            top_score = final_fused[0].score if final_fused else None
+            if self.config.dense_gate_threshold is not None:
+                from chatmem.retrieval.gate import apply_dense_cosine_gate
+                dense_hits = results_by_source.get("dense", [])
+                gate_decision = apply_dense_cosine_gate(
+                    dense_hits,
+                    threshold=self.config.dense_gate_threshold,
+                )
+                if not gate_decision.passed:
+                    final_fused = []
+                    injected = False
+                    reason = gate_decision.reason
+                    top_score = gate_decision.top_score
+                else:
+                    final_fused = kept_fused_hits[: self.config.final_top_k]
+                    injected = True
+                    reason = "ok"
+                    top_score = gate_decision.top_score
+            else:
+                final_fused = kept_fused_hits[: self.config.final_top_k]
+                injected = True
+                reason = "no_gate"
+                top_score = final_fused[0].score if final_fused else None
 
             for h in final_fused:
                 rec = records[h.chunk_id]
@@ -391,7 +423,10 @@ def build_retriever(
         db_path = DEFAULT_DB_PATH
 
     conn = connect(db_path)
-    client = get_qdrant_client()
+    try:
+        client = get_qdrant_client(config.qdrant)
+    except TypeError:
+        client = get_qdrant_client()
 
     return Retriever(config=config, conn=conn, client=client)
 

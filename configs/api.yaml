@@ -1,0 +1,23 @@
+# Configuration for chatmem local API service
+api:
+  host: "127.0.0.1"
+  port: 8000
+  default_mode: "fast"
+  auth_token_path: "~/.chatmem/token"
+  allowed_cors_origins: []  # Do not use *; add chrome-extension://<id> after installation
+  max_results: 10
+  max_injected_chars: 4000
+  max_message_chars: 30000
+  max_request_bytes: 1000000
+  allow_all_interfaces: false
+
+  # Retrieval mode gating thresholds
+  # NOTE: 0.70 is an UNCALIBRATED placeholder default; calibrate on your private eval set.
+  fast_gate_threshold: 0.70
+  precise_gate_threshold: 0.010
+  precise_rerank_candidates: 20
+
+qdrant:
+  mode: "local"
+  path: "data/qdrant_local"
+

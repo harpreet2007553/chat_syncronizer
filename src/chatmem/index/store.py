@@ -1,15 +1,18 @@
+from __future__ import annotations
+
 import json
-import os
 import re
 import sqlite3
 from datetime import datetime
 from pathlib import Path
-from typing import Sequence
+from typing import Any, Sequence
 
 from qdrant_client import QdrantClient
 from qdrant_client.models import (
     Distance,
+    FieldCondition,
     Filter,
+    MatchValue,
     PointStruct,
     ScoredPoint,
     VectorParams,
@@ -29,12 +32,12 @@ DEFAULT_LOCAL_QDRANT_URL = "http://localhost:6333"
 # 1. Connection & Core Query Helpers
 # ============================================================================
 
-def connect(db_path: str | Path) -> sqlite3.Connection:
+def connect(db_path: str | Path, check_same_thread: bool = False) -> sqlite3.Connection:
     """Connect to SQLite database and configure row_factory."""
     path_str = str(db_path)
     if path_str != ":memory:":
         Path(path_str).parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(path_str)
+    conn = sqlite3.connect(path_str, check_same_thread=check_same_thread)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON;")
     return conn
@@ -388,19 +391,65 @@ class SQLiteMetadataStore:
                 time=datetime.fromisoformat(row["time"]),
             )
 
+    def delete_chunks_by_conversation(self, conversation_id: str, strategy: str | None = None) -> int:
+        """Delete chunks for a specific conversation_id, optionally filtered by strategy."""
+        with self._get_connection() as conn:
+            if strategy:
+                cursor = conn.execute(
+                    "DELETE FROM chunks WHERE conversation_id = ? AND strategy = ?;",
+                    (conversation_id, strategy),
+                )
+            else:
+                cursor = conn.execute(
+                    "DELETE FROM chunks WHERE conversation_id = ?;",
+                    (conversation_id,),
+                )
+            deleted = cursor.rowcount
+        logger.info("Deleted %d chunks for conversation %s from SQLite", deleted, conversation_id)
+        return deleted
+
+    def delete_conversation(self, conversation_id: str) -> None:
+        """Delete conversation, its messages, and all its chunks from SQLite."""
+        with self._get_connection() as conn:
+            conn.execute("DELETE FROM chunks WHERE conversation_id = ?;", (conversation_id,))
+            conn.execute("DELETE FROM messages WHERE conversation_id = ?;", (conversation_id,))
+            conn.execute("DELETE FROM conversations WHERE conversation_id = ?;", (conversation_id,))
+        logger.info("Deleted conversation %s and associated data from SQLite", conversation_id)
+
 
 # ============================================================================
 # 3. Local Qdrant Store (Vector Database Layer)
 # ============================================================================
 
 class QdrantStore:
-    """Manages collections, vectors, and vector searches in local Qdrant."""
+    """Manages collections, vectors, and vector searches in local or remote Qdrant."""
 
-    def __init__(self, url: str | None = None):
-        target_url = url or os.getenv("QDRANT_URL") or DEFAULT_LOCAL_QDRANT_URL
-        self.client = QdrantClient(url=target_url)
-        self.url = target_url
-        logger.info("Initialized QdrantStore connected to %s", self.url)
+    def __init__(
+        self,
+        url: str | None = None,
+        client: QdrantClient | None = None,
+        config: Any | None = None,
+        path: str | Path | None = None,
+        mode: str | None = None,
+    ):
+        if client is not None:
+            self.client = client
+        else:
+            from chatmem.index.dense import get_qdrant_client
+            self.client = get_qdrant_client(config=config, mode=mode, path=path, url=url)
+        self.url = url or getattr(self.client, "_url", None) or "local"
+        logger.info("Initialized QdrantStore (client=%s)", type(self.client).__name__)
+
+    def close(self) -> None:
+        """Close the underlying Qdrant client."""
+        if hasattr(self.client, "close"):
+            self.client.close()
+
+    def __enter__(self) -> QdrantStore:
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        self.close()
 
     def ensure_collection(
         self,
@@ -452,6 +501,24 @@ class QdrantStore:
         )
         return response.points
 
+    def delete_by_conversation_id(self, collection_name: str, conversation_id: str) -> None:
+        """Delete all points belonging to a conversation from the collection."""
+        if not self.client.collection_exists(collection_name):
+            return
+        self.client.delete(
+            collection_name=collection_name,
+            points_selector=Filter(
+                must=[
+                    FieldCondition(
+                        key="conversation_id",
+                        match=MatchValue(value=conversation_id),
+                    )
+                ]
+            ),
+            wait=True,
+        )
+        logger.info("Deleted conversation %s points from Qdrant collection '%s'", conversation_id, collection_name)
+
     def list_collections(self) -> list[str]:
         """Return list of collection names."""
         return [c.name for c in self.client.get_collections().collections]
@@ -467,5 +534,11 @@ def get_metadata_store(db_path: str | Path | None = None) -> SQLiteMetadataStore
     return SQLiteMetadataStore(db_path=db_path or DEFAULT_DB_PATH)
 
 
-def get_qdrant_store(url: str | None = None) -> QdrantStore:
-    return QdrantStore(url=url)
+def get_qdrant_store(
+    url: str | None = None,
+    client: QdrantClient | None = None,
+    config: Any | None = None,
+    path: str | Path | None = None,
+    mode: str | None = None,
+) -> QdrantStore:
+    return QdrantStore(url=url, client=client, config=config, path=path, mode=mode)

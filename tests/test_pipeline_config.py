@@ -115,3 +115,33 @@ def test_to_chunk_maps_every_field_correctly():
     assert chunk.message_ids == ["m1", "m2", "m3"]
     assert chunk.ranks == {"bm25": 1, "dense": 3}
 
+
+def test_qdrant_config_defaults_and_custom(tmp_path):
+    """Test QdrantConfig defaults and parsing."""
+    # Defaults
+    cfg = PipelineConfig(name="test_default")
+    assert cfg.qdrant.mode == "local"
+    assert cfg.qdrant.path == "data/qdrant_local"
+    assert cfg.qdrant.url is None
+
+    # Custom YAML with local path
+    local_yaml = tmp_path / "local.yaml"
+    local_yaml.write_text("name: local_test\nqdrant:\n  mode: local\n  path: data/custom_qdrant\n", encoding="utf-8")
+    cfg_local = PipelineConfig.from_yaml(local_yaml)
+    assert cfg_local.qdrant.mode == "local"
+    assert cfg_local.qdrant.path == "data/custom_qdrant"
+
+    # Custom YAML with server
+    server_yaml = tmp_path / "server.yaml"
+    server_yaml.write_text("name: server_test\nqdrant:\n  mode: server\n  url: http://localhost:6333\n", encoding="utf-8")
+    cfg_server = PipelineConfig.from_yaml(server_yaml)
+    assert cfg_server.qdrant.mode == "server"
+    assert cfg_server.qdrant.url == "http://localhost:6333"
+
+    # Forbid extra keys in qdrant
+    bad_qdrant = tmp_path / "bad_qdrant.yaml"
+    bad_qdrant.write_text("name: bad\nqdrant:\n  mode: local\n  unknown_key: true\n", encoding="utf-8")
+    with pytest.raises(ValidationError):
+        PipelineConfig.from_yaml(bad_qdrant)
+
+

@@ -52,6 +52,8 @@ data/private/
 qdrant_storage/
 qdrant_storage*/
 data/qdrant/
+data/qdrant*/
+data/qdrant_local/
 data/indices/
 data/indexes/
 pyghidra_mcp_projects/

@@ -185,9 +185,9 @@ def index(
         if skip_dense:
             vectors_upserted[strat] = "skipped"
         else:
+            dense_idx = None
             try:
-                from chatmem.index.dense import DenseIndex
-                from chatmem.index.store import DEFAULT_LOCAL_QDRANT_URL
+                from chatmem.index.dense import DEFAULT_SERVER_QDRANT_URL, DenseIndex
                 from chatmem.retrieval.pipeline import STRATEGY_COLLECTIONS
 
                 collection = STRATEGY_COLLECTIONS[strat]
@@ -196,7 +196,13 @@ def index(
                 vectors_upserted[strat] = upserted_count
             except Exception as e:
                 err_str = str(e).lower()
-                qdrant_url = os.getenv("QDRANT_URL") or DEFAULT_LOCAL_QDRANT_URL
+                qdrant_url = os.getenv("QDRANT_URL") or DEFAULT_SERVER_QDRANT_URL
+                if any(k in err_str for k in ("locked", "already accessed")):
+                    typer.echo(
+                        f"Qdrant local storage is locked by another process: {e}",
+                        err=True,
+                    )
+                    raise typer.Exit(code=1)
                 if any(k in err_str for k in ("connection", "connect", "unreachable", "refused", "timeout", "socket")):
                     typer.echo(
                         f"Qdrant is not reachable at {qdrant_url}. Start it (docker) or re-run with --skip-dense.",
@@ -206,6 +212,9 @@ def index(
                 logger.error("Failed to upsert vectors into Qdrant for strategy '%s': %s", strat, e)
                 vectors_upserted[strat] = "failed"
                 failed_strategies.append(strat)
+            finally:
+                if dense_idx is not None and hasattr(dense_idx, "close"):
+                    dense_idx.close()
 
     elapsed = time.perf_counter() - start_time
     skipped_str = f"skipped={skipped_conversations}" if skipped_conversations > 0 else "skipped=unknown"
@@ -420,25 +429,97 @@ def eval(
 
 
 # ============================================================================
-# 4. Serve Command (Stub)
+# 4. Serve Command
 # ============================================================================
 
 @app.command()
 def serve(
-    host: str = typer.Option("127.0.0.1", "--host", help="Host address to bind to."),
-    port: int = typer.Option(8000, "--port", help="Port number to bind to."),
+    config: Optional[Path] = typer.Option(
+        None,
+        "--config",
+        "-c",
+        help="Path to YAML configuration file (defaults to configs/api.yaml if present).",
+    ),
+    host: Optional[str] = typer.Option(
+        None,
+        "--host",
+        "-h",
+        help="Host address to bind to (overrides config).",
+    ),
+    port: Optional[int] = typer.Option(
+        None,
+        "--port",
+        "-p",
+        help="Port number to bind to (overrides config).",
+    ),
 ) -> None:
-    """Start local API server for memory retrieval (stub)."""
+    """Start local API server for memory retrieval."""
+    import uvicorn
+    import yaml
+    from chatmem.api.main import create_app
+    from chatmem.api.models import ApiConfig
+
+    cfg_path = config or (Path("configs/api.yaml") if Path("configs/api.yaml").exists() else None)
+    api_cfg = ApiConfig()
+    if cfg_path and Path(cfg_path).exists():
+        with open(cfg_path, "r", encoding="utf-8") as f:
+            raw = yaml.safe_load(f) or {}
+        api_cfg = ApiConfig(**raw.get("api", {}))
+
+    if host is not None:
+        api_cfg.host = host
+    if port is not None:
+        api_cfg.port = port
+
+    if (api_cfg.host == "0.0.0.0" or api_cfg.host == "::") and not api_cfg.allow_all_interfaces:
+        typer.echo(
+            "Error: Refusing to bind to all interfaces (0.0.0.0). "
+            "Chatmem stores private personal conversational history on localhost only. "
+            "Set allow_all_interfaces: true in config if this is explicitly intended.",
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    token_path = Path(api_cfg.auth_token_path).expanduser().resolve()
+    typer.echo("=" * 60)
+    typer.echo(" chatmem local API service")
+    typer.echo("=" * 60)
+    typer.echo(f" Host:            http://{api_cfg.host}:{api_cfg.port}")
+    typer.echo(f" Default Mode:    {api_cfg.default_mode}")
+    typer.echo(f" Auth Token File: {token_path}")
+    typer.echo(" Documentation:   docs/api.md")
+    typer.echo("=" * 60)
+
     try:
-        from chatmem.api.main import app as fastapi_app  # type: ignore
+        fastapi_app = create_app(config=api_cfg, config_path=cfg_path)
+    except Exception as e:
+        err_str = str(e)
+        if "lock" in err_str.lower():
+            typer.echo(
+                f"Error: Storage directory is locked by another process ({err_str}). "
+                "Embedded Qdrant allows only one active process at a time.",
+                err=True,
+            )
+            raise typer.Exit(code=1)
+        typer.echo(f"Error initializing chatmem service: {e}", err=True)
+        raise typer.Exit(code=1)
 
-        if fastapi_app is None or not hasattr(fastapi_app, "routes"):
-            raise ImportError("FastAPI app is not defined")
-        import uvicorn
-
-        uvicorn.run(fastapi_app, host=host, port=port)
-    except (ImportError, AttributeError):
-        typer.echo("api not implemented yet")
+    try:
+        uvicorn.run(
+            fastapi_app,
+            host=api_cfg.host,
+            port=api_cfg.port,
+            log_level="info",
+        )
+    except Exception as e:
+        err_str = str(e)
+        if "lock" in err_str.lower():
+            typer.echo(
+                f"Error: Storage directory is locked by another process ({err_str}).",
+                err=True,
+            )
+            raise typer.Exit(code=1)
+        typer.echo(f"Server exited with error: {e}", err=True)
         raise typer.Exit(code=1)
 
 

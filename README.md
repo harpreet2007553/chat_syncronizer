@@ -113,6 +113,26 @@ Never tune on the test set blindly: keep a held-out portion of queries for final
 - **Honesty about results:** never hard-code or fabricate metrics. Every number in docs must come from a run in `eval/results/`.
 - **Scope discipline:** do not start the extension or add new platforms before the retrieval core and eval harness work.
 
+## Quickstart (No Docker Required)
+
+`chatmem` runs 100% locally with zero external services or Docker containers required. By default, dense vector indexing uses embedded local Qdrant stored on disk in `data/qdrant_local/`.
+
+```bash
+# 1. Sync environment
+uv sync
+
+# 2. Index sample conversations (SQLite metadata + embedded Qdrant vectors)
+uv run chatmem index -i data/sample/
+
+# 3. Search past conversations
+uv run chatmem search "How do I fix KeyError in pandas?"
+
+# 4. Run test suite
+uv run pytest
+```
+
+> **Note on single-process storage lock**: Embedded Qdrant (`mode: local`) opens an exclusive lock on its storage directory (`data/qdrant_local`). Only one process or client connection can access the storage folder at a time. If you require concurrent multi-process reads/writes, set `qdrant.mode: server` in your configuration and connect to a shared Qdrant server instance (`url: http://localhost:6333`).
+
 ## Common commands
 
 ```bash

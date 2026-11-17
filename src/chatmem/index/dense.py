@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import os
+from pathlib import Path
+from typing import Any, Sequence
 import uuid
 from datetime import datetime
-from typing import Sequence
 
 from qdrant_client import QdrantClient
 from qdrant_client.models import (
@@ -22,22 +25,95 @@ logger = get_logger(__name__)
 DEFAULT_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 DEFAULT_VECTOR_SIZE = 384
 DEFAULT_COLLECTION_NAME = "chunks_qa"
-DEFAULT_LOCAL_QDRANT_URL = "http://localhost:6333"
+DEFAULT_LOCAL_QDRANT_PATH = "data/qdrant_local"
+DEFAULT_SERVER_QDRANT_URL = "http://localhost:6333"
 
 _GLOBAL_EMBED_MODEL: SentenceTransformer | None = None
 
 
-def get_qdrant_client(url: str | None = None) -> QdrantClient:
-    """Connect to local Qdrant instance (default: http://localhost:6333)."""
-    target_url = url or os.getenv("QDRANT_URL") or DEFAULT_LOCAL_QDRANT_URL
-    return QdrantClient(url=target_url)
+def get_qdrant_client(
+    config: Any | None = None,
+    mode: str | None = None,
+    path: str | Path | None = None,
+    url: str | None = None,
+) -> QdrantClient:
+    """Factory to build QdrantClient in embedded local mode or server mode.
+
+    Single client factory used everywhere in the codebase.
+    """
+    target_mode = mode
+    target_path = path
+    target_url = url
+
+    if config is not None:
+        if isinstance(config, str):
+            if config.startswith(("http://", "https://")):
+                target_url = config
+                target_mode = "server"
+            else:
+                target_path = config
+                target_mode = "local"
+        elif hasattr(config, "mode"):
+            target_mode = config.mode
+            target_path = config.path
+            target_url = config.url
+        elif isinstance(config, dict):
+            target_mode = config.get("mode", "local")
+            target_path = config.get("path", DEFAULT_LOCAL_QDRANT_PATH)
+            target_url = config.get("url")
+
+    # Environment variables fallback
+    if target_mode is None:
+        target_mode = os.getenv("QDRANT_MODE")
+
+    if target_url is None:
+        target_url = os.getenv("QDRANT_URL")
+
+    if target_path is None:
+        target_path = os.getenv("QDRANT_PATH", DEFAULT_LOCAL_QDRANT_PATH)
+
+    if target_mode is None:
+        if target_url is not None and target_url != DEFAULT_SERVER_QDRANT_URL:
+            target_mode = "server"
+        else:
+            target_mode = "local"
+
+    if target_mode == "server":
+        final_url = target_url or DEFAULT_SERVER_QDRANT_URL
+        logger.info("Connecting to Qdrant server at %s", final_url)
+        return QdrantClient(url=final_url)
+
+    # Local embedded mode
+    local_p = str(target_path)
+    if local_p == ":memory:":
+        logger.info("Initializing in-memory embedded Qdrant client")
+        return QdrantClient(":memory:")
+
+    local_path = Path(local_p)
+    local_path.mkdir(parents=True, exist_ok=True)
+    logger.info("Opening local embedded Qdrant storage at %s", local_path)
+
+    try:
+        return QdrantClient(path=str(local_path))
+    except RuntimeError as err:
+        err_msg = str(err)
+        if "already accessed by another instance" in err_msg or "locked" in err_msg.lower():
+            raise RuntimeError(
+                f"Qdrant local storage path '{local_path}' is locked by another process. "
+                "Embedded Qdrant allows only one open connection per storage directory at a time. "
+                "Ensure other processes or active Retrievers are closed, or configure Qdrant server mode."
+            ) from err
+        raise
 
 
 def _get_embed_model(model_name: str = DEFAULT_MODEL_NAME) -> SentenceTransformer:
     global _GLOBAL_EMBED_MODEL
     if _GLOBAL_EMBED_MODEL is None:
         logger.info("Loading embedding model '%s' for dense search...", model_name)
-        _GLOBAL_EMBED_MODEL = SentenceTransformer(model_name)
+        try:
+            _GLOBAL_EMBED_MODEL = SentenceTransformer(model_name, local_files_only=True)
+        except Exception:
+            _GLOBAL_EMBED_MODEL = SentenceTransformer(model_name)
     return _GLOBAL_EMBED_MODEL
 
 
@@ -88,19 +164,47 @@ class DenseIndex:
         model_name: str = DEFAULT_MODEL_NAME,
         collection_name: str = DEFAULT_COLLECTION_NAME,
         store: QdrantStore | None = None,
+        config: Any | None = None,
+        client: QdrantClient | None = None,
+        path: str | Path | None = None,
+        url: str | None = None,
+        mode: str | None = None,
     ):
         self.model_name = model_name
         self.collection_name = collection_name
-        self.store = store or get_qdrant_store()
+        if store is not None:
+            self.store = store
+        else:
+            self.store = get_qdrant_store(
+                client=client,
+                config=config,
+                path=path,
+                url=url,
+                mode=mode,
+            )
         self._model: SentenceTransformer | None = None
         self._vector_dim: int | None = None
+
+    def close(self) -> None:
+        """Close the underlying storage connection."""
+        if self.store is not None:
+            self.store.close()
+
+    def __enter__(self) -> DenseIndex:
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        self.close()
 
     @property
     def model(self) -> SentenceTransformer:
         """Lazy-load the SentenceTransformer embedding model."""
         if self._model is None:
             self._model = _get_embed_model(self.model_name)
-            self._vector_dim = self._model.get_sentence_embedding_dimension()
+            if hasattr(self._model, "get_embedding_dimension"):
+                self._vector_dim = self._model.get_embedding_dimension()
+            else:
+                self._vector_dim = self._model.get_sentence_embedding_dimension()
         return self._model
 
     @property
@@ -211,3 +315,15 @@ class DenseIndex:
             results.append((chunk, float(sp.score)))
 
         return results
+
+    def upsert_chunks(self, chunks: Sequence[Chunk], batch_size: int = 32) -> int:
+        """Incrementally upsert new or updated chunks into the vector index."""
+        return self.index_chunks(chunks, batch_size=batch_size)
+
+    def delete_conversation(self, conversation_id: str) -> None:
+        """Delete all indexed chunk points belonging to a conversation."""
+        self.store.delete_by_conversation_id(self.collection_name, conversation_id)
+
+    def count_points(self) -> int:
+        """Count total indexed points in the collection."""
+        return self.store.count_points(self.collection_name)

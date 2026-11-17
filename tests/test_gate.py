@@ -1,6 +1,6 @@
 import pytest
 
-from chatmem.retrieval.gate import apply_gate
+from chatmem.retrieval.gate import apply_dense_cosine_gate, apply_gate
 from chatmem.retrieval.rerank import RerankedHit
 
 
@@ -165,4 +165,60 @@ def test_input_list_is_not_mutated():
     assert original_hits == [h1, h2]
     assert original_hits[0].chunk_id == "c1"
     assert original_hits[1].chunk_id == "c2"
+
+
+def test_dense_cosine_gate_passes_above_threshold():
+    """Dense cosine gate passes when top score exceeds threshold."""
+    scores = [0.65, 0.78, 0.45]
+    decision = apply_dense_cosine_gate(scores, threshold=0.70)
+    assert decision.passed is True
+    assert decision.reason == "ok"
+    assert decision.top_score == 0.78
+
+
+def test_dense_cosine_gate_exact_threshold_edge_case():
+    """Dense cosine gate passes when top score is exactly equal to threshold."""
+    scores = [0.70, 0.69, 0.50]
+    decision = apply_dense_cosine_gate(scores, threshold=0.70)
+    assert decision.passed is True
+    assert decision.reason == "ok"
+    assert decision.top_score == 0.70
+
+
+def test_dense_cosine_gate_rejects_below_threshold():
+    """Dense cosine gate rejects with below_threshold when all candidates fail threshold."""
+    scores = [0.699, 0.55, 0.40]
+    decision = apply_dense_cosine_gate(scores, threshold=0.70)
+    assert decision.passed is False
+    assert decision.reason == "below_threshold"
+    assert decision.top_score == 0.699
+
+
+def test_dense_cosine_gate_empty_candidates():
+    """Dense cosine gate handles empty candidate lists."""
+    decision = apply_dense_cosine_gate([], threshold=0.70)
+    assert decision.passed is False
+    assert decision.reason == "no_candidates"
+    assert decision.top_score is None
+
+
+def test_dense_cosine_gate_tuple_inputs_and_nan():
+    """Dense cosine gate extracts scores from (chunk_id, score) tuples and ignores NaNs."""
+    candidates = [
+        ("c1", 0.55),
+        ("c2", float("nan")),
+        ("c3", 0.82),
+        ("c4", float("inf")),
+    ]
+    decision = apply_dense_cosine_gate(candidates, threshold=0.70)
+    assert decision.passed is True
+    assert decision.reason == "ok"
+    assert decision.top_score == 0.82
+
+
+def test_dense_cosine_gate_nan_threshold_raises():
+    """Dense cosine gate raises ValueError if threshold is NaN."""
+    with pytest.raises(ValueError, match="threshold cannot be NaN"):
+        apply_dense_cosine_gate([0.8], threshold=float("nan"))
+
 

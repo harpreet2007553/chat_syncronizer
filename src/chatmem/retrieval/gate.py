@@ -130,3 +130,77 @@ def apply_gate(
     )
     return decision
 
+
+def apply_dense_cosine_gate(
+    scores: Sequence[float | tuple[object, float] | object],
+    threshold: float,
+) -> GateDecision:
+    """Decide whether retrieved candidates pass the dense cosine similarity relevance threshold.
+
+    Uses the top dense cosine similarity score among the candidates.
+    If the top score >= threshold, the gate passes ('ok').
+    If top score < threshold, the gate rejects ('below_threshold').
+    If no candidates exist or all scores are NaN/invalid, rejects ('no_candidates').
+
+    Args:
+        scores: Sequence of candidate cosine scores, tuples of (chunk_id, score),
+            or objects with .score / .cosine_score attributes.
+        threshold: Minimum required dense cosine similarity score (e.g. 0.70 placeholder).
+
+    Returns:
+        GateDecision containing passed status, empty hits list (RRF ranks determine hits),
+        reason code ('ok', 'below_threshold', or 'no_candidates'), and top_score.
+
+    Raises:
+        ValueError: If threshold is NaN.
+    """
+    if math.isnan(threshold):
+        raise ValueError("threshold cannot be NaN.")
+
+    if not scores:
+        return GateDecision(
+            passed=False,
+            hits=[],
+            reason="no_candidates",
+            top_score=None,
+        )
+
+    valid_scores: list[float] = []
+    for item in scores:
+        s: float | None = None
+        if isinstance(item, (int, float)):
+            s = float(item)
+        elif isinstance(item, (tuple, list)) and len(item) >= 2 and isinstance(item[1], (int, float)):
+            s = float(item[1])
+        elif hasattr(item, "cosine_score") and isinstance(item.cosine_score, (int, float)):
+            s = float(item.cosine_score)
+        elif hasattr(item, "score") and isinstance(item.score, (int, float)):
+            s = float(item.score)
+
+        if s is not None and not (math.isnan(s) or math.isinf(s)):
+            valid_scores.append(s)
+
+    if not valid_scores:
+        return GateDecision(
+            passed=False,
+            hits=[],
+            reason="no_candidates",
+            top_score=None,
+        )
+
+    top_score = max(valid_scores)
+    if top_score >= threshold:
+        return GateDecision(
+            passed=True,
+            hits=[],
+            reason="ok",
+            top_score=top_score,
+        )
+    return GateDecision(
+        passed=False,
+        hits=[],
+        reason="below_threshold",
+        top_score=top_score,
+    )
+
+
